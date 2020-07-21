@@ -1,32 +1,34 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <router-view v-on:getPhoneNumber="authenticate" :user="user" />
   </div>
 </template>
 
+<script>
+export default {
+  name: 'App',
+  data: function() {
+    return {
+      user: null,
+    }
+  },
+  methods: {
+    authenticate: function(phoneNumber) {
+      // 서버랑 통신. 밑에는 임시 함수
+      this.user = {
+        isAuthenticated: true, // 이거 필요한가?
+        phoneNumber: phoneNumber, // 아 번호도 다시 달라고 하기! 서버에서 한 번 검증을 받아야 하니까
+      }
+      console.log(this.user.isAuthenticated, this.user.phoneNumber)
+    }
+  }
+}
+</script>
+
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
 }
 </style>
