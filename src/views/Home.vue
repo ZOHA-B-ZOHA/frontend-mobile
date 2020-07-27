@@ -1,19 +1,22 @@
 <template>
-  <div class="home">
-    <div>조합이좋아</div>
-    <div v-if="user && user.isAuthenticated">내 번호는 {{ user.phoneNumber }}</div>
-    <img alt="sample cup image" src="../assets/sample_cup.png" width="280" />
-    <div v-if="user && user.isAuthenticated">
-      <router-link to="/earn">적립하기</router-link> |
-      <router-link to="/about">내정보확인?</router-link>
-    </div>
-    <div v-else>
-      <label for="">~~하려면 휴대폰 번호를 입력하세요!</label>
+  <div id="app">
+    <img alt="조합이좋아 로고" src="../assets/logo.png" width="120" />
+    <!-- 로고 이미지 자체에 마진이 있네... 잘라 써야 하나 -->
+    <section id="gaugeBar">
+      <img alt="샘플 컵 이미지" src="../assets/sample_cup.png" width="240" />
+      <!-- 나중에 svg로 바꾸면 그냥 부모 section에 딱 맞게 하기 -->
+    </section>
+    <nav v-if="user && user.isAuthenticated">
+      <router-link to="/earn">적립하기</router-link>
+      <router-link to="/about">마이페이지</router-link>
+    </nav>
+    <section v-else>
       <form @submit.prevent="handleSubmit">
-        <input type="text" name="phoneNumber" placeholder="01012345678" pattern="01\d\d{3,4}\d{4}" />
-        <button type="submit">확인?</button>
+        <label for="phoneNumber" class="label">전화번호 입력</label>
+        <input id="phoneNumber" type="text" name="phoneNumber" placeholder="01012345678" pattern="01\d\d{3,4}\d{4}" />
+        <button type="submit">확인</button>
       </form>
-    </div>
+    </section>
   </div>
 </template>
 
@@ -33,3 +36,18 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+#gaugeBar {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+nav a:last-child {
+  margin-bottom: 35px;
+}
+form button {
+  margin-bottom: 35px;
+}
+</style>

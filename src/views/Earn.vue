@@ -1,12 +1,30 @@
 <template>
-  <div class="about">
-    <h1>적립하기</h1>
-    <p>수량(라벨을 다른 데 달아야 하나?)</p>
+  <div id="app">
+    <header>
+      <router-link to="/">
+        <img alt="뒤로 가기" src="../assets/arrow.png" width="24" />
+      </router-link>
+      <div>적립하기</div>
+    </header>
     <form @submit.prevent="handleSubmit">
-      <button @click="subtractOne">−</button>
-      <input type="number" v-model="quantity" />
-      <button @click="addOne">+</button>
-      <br />
+      <section>
+        <label for="branch" class="label">구매 지점</label>
+        <input id="branch" list="branchList" name="" />
+        <datalist id="branchList">
+          <option value="도서관점" />
+          <option value="137동점" />
+          <option value="자하연점" />
+          <option value="동원관점" />
+        </datalist>
+      </section>
+      <section>
+        <label for="purchaseQuantity" class="label">구매 수량</label>
+        <div id="container">
+          <button @click="subtractOne">−</button>
+          <input id="purchaseQuantity" type="number" min="1" v-model="quantity" />
+          <button @click="addOne">+</button>
+        </div>
+      </section>
       <button type="submit">적립하기</button>
     </form>
   </div>
@@ -38,3 +56,25 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+#container {
+  width: 315px;
+  display: flex;
+  justify-content: space-between;
+}
+#container button {
+  width: 50px;
+  font-size: 24px;
+}
+#container input {
+  width: 200px;
+}
+form {
+  flex: 1;
+}
+form button {
+  margin-top: auto;
+  margin-bottom: 35px;
+}
+</style>
