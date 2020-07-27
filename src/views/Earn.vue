@@ -25,7 +25,7 @@
           <button @click="addOne">+</button>
         </div>
       </section>
-      <button type="submit">적립하기</button>
+      <router-link to="/verificate">적립하기</router-link>
     </form>
   </div>
 </template>
@@ -74,6 +74,10 @@ form {
   flex: 1;
 }
 form button {
+  margin-top: auto;
+  margin-bottom: 35px;
+}
+form a {
   margin-top: auto;
   margin-bottom: 35px;
 }
