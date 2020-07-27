@@ -13,14 +13,19 @@
     <section>
       <div class="label">적립 횟수? 구매 수량?</div>
       <div class="content">
-        <div>1차: 4회</div>
-        <div>2차: 3회</div>
+        <div>1차: {{ user.purchaseQuantity.firstRound }}회</div>
+        <div>2차: {{ user.purchaseQuantity.secondRound }}회</div>
       </div>
     </section>
     <section>
       <div class="label">나의 쿠폰</div>
       <div class="content">
-        <!-- v-for 뭐 이런 거 써야 함. 아니 무조건 4개긴 한데...흠 -->
+        <div v-for="reward in user.rewards" v-bind:key="reward.round" style="border: 1px #E26C67 dashed">
+        <!-- coupon이라고 하는 게 낫나..?? 그리고 round를 키로 쓰는 건 지금 임시방편임 -->
+          <div>{{ reward.round }}</div>
+          <div>{{ reward.type }}</div>
+          <div>{{ reward.status }}</div>
+        </div>
       </div>
     </section>
   </div>

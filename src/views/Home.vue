@@ -6,7 +6,7 @@
       <img alt="샘플 컵 이미지" src="../assets/sample_cup.png" width="240" />
       <!-- 나중에 svg로 바꾸면 그냥 부모 section에 딱 맞게 하기 -->
     </section>
-    <nav v-if="user && user.isAuthenticated">
+    <nav v-if="user">
       <router-link to="/earn">적립하기</router-link>
       <router-link to="/about">마이페이지</router-link>
     </nav>

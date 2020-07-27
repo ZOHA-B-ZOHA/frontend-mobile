@@ -1,51 +1,63 @@
 <template>
-  <router-view v-on:getPhoneNumber="authenticate" :user="user" />
+  <router-view v-on:getPhoneNumber="authenticate" :user="currentUser" />
 </template>
 
 <script>
-const axios = require('axios');
+import axios from 'axios';
+import fakeData from '../fakeData';
+const { main, authenticate } = fakeData;
 
 export default {
   name: 'App',
   data: function() {
     return {
-      user: null,
+      currentUser: null,
       achievement: 0,
       top10: [],
+      justEarned: false,
     }
   },
   created: function() {
-    axios.get('')
-    .then(function(response) {
-      console.log(response.data)
-      this.achievement
+    // this를 쓰려면,
+    // axios 같을 걸 쓸 때는 화살표 함수를 써야 함
+    // https://michaelnthiessen.com/this-is-undefined/
+    // https://stackoverflow.com/questions/53657696/using-axios-in-vuejs-this-undefined
+    // axios.get('')
+    axios.get(`${process.env.VUE_APP_TEST_URL}/`)
+    .then((response) => {
+      // not yet implemented
+      console.log(response)
     })
-    .catch(function(error) {
+    .catch((error) => {
+      // so use fake data now
       console.log(error)
+      const data = main.response.data;
+      this.achievement = data.achievement;
+      this.justEarned = data.justEarned;
+
+      // 이건 다른 데서 구현하는 게 나으려나
+      if (this.justEarned) {
+        console.log('반짝이 보여 줘야 함!');
+        this.justEarned = false;
+      }
     });
   },
   methods: {
     authenticate: function(phoneNumber) {
-      axios.post('', { phoneNumber })
-      .then(function(response) {
+      axios.post(`${process.env.VUE_APP_TEST_URL}/athenticate`, phoneNumber)
+      .then((response) => {
+        // not yet implemented
         console.log(response)
-        this.user = {
-          phoneNumber: response.data.phoneNumber,
-
-          rewards: response.data.rewards, // 객체. 토큰이 아니라 리워드나 쿠폰이라고 부르기!
-        }
-        this.top10 = response.data.top10 // list
-        // [{ phoneNumber, quantity(구매수량) }, ...]
-        // 많이 산 순서대로 정렬해서 줬으면 좋겠음
       })
-      .catch(function(error) {
+      .catch((error) => {
+        // so use fake data now
         console.log(error)
+        const data = authenticate.response.data;
+        this.achievement = data.achievement;
+        this.justEarned = data.justEarned;
+        this.top10 = data.top10; // fakeData에 추가해야 함
+        this.currentUser = data.currentUser;
       });
-
-      this.user = {
-        isAuthenticated: true, // 이거 필요한가?
-        phoneNumber: phoneNumber, // 아 번호도 다시 달라고 하기! 서버에서 한 번 검증을 받아야 하니까
-      }
     }
   }
 }
