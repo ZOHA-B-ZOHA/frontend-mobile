@@ -9,13 +9,12 @@
     <form @submit.prevent="handleSubmit">
       <section>
         <label for="branch" class="label">구매 지점</label>
-        <input id="branch" list="branchList" name="" />
-        <datalist id="branchList">
-          <option value="도서관점" />
-          <option value="137동점" />
-          <option value="자하연점" />
-          <option value="동원관점" />
-        </datalist>
+        <select id="branch" name="branch">
+          <option value="도서관점">도서관점</option>
+          <option value="137동점">137동점</option>
+          <option value="자하연점">자하연점</option>
+          <option value="동원관점">동원관점</option>
+        </select>
       </section>
       <section>
         <label for="purchaseQuantity" class="label">구매 수량</label>
@@ -76,5 +75,21 @@ form {
 form button {
   margin-top: auto;
   margin-bottom: 35px;
+}
+select {
+  /* border-radius: 10px; */
+  width: 315px;
+  height: 50px;
+  border: none;
+  padding: 0px 10px; /* 여긴 아직 디자인이 안 나와서 내가 알아서 함 */
+  /* box-sizing: border-box; makes padding inclusive */
+  color: #E26C67;
+  background-color: white;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  margin-bottom: 25px;
+  /* font-size: 16px; */
+}
+option {
+  width: 200px;
 }
 </style>
