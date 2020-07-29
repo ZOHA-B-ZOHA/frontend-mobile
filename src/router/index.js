@@ -28,7 +28,7 @@ Vue.use(VueRouter)
     props: true,
   },
   {
-    path: '/verificate',
+    path: '/verify',
     name: 'Verification',
     component: () => import(/* webpackChunkName: "about" */ '../views/Verification.vue'),
     props: true,

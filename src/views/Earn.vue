@@ -25,7 +25,7 @@
           <button @click="addOne">+</button>
         </div>
       </section>
-      <router-link to="/verificate">적립하기</router-link>
+      <router-link to="/verify">적립하기</router-link>
     </form>
   </div>
 </template>
