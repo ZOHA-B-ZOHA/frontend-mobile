@@ -27,6 +27,8 @@ export default {
     const canvas = document.getElementById('scanner'); // 또는 $ref나 $el을 사용할 수도 있다고 하네
     const ctx = canvas.getContext('2d');
     this.ctx = ctx;
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = '#ffffff';
 
     navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
     .then((stream) => {
@@ -53,11 +55,19 @@ export default {
       const result = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: "dontInvert" });
 
       if (result) {
-        console.log(result);
-        const { x, y } = result.location.topLeftCorner;
-        const width = result.location.bottomRightCorner.x = x;
-        const height = result.location.bottomRightCorner.y = y;
-        ctx.strokeRect(x, y, width, height);
+        // 디자인 시안대로 꺾쇠 표시 넣는 건 일단 나중에,,,,
+        const pos = result.location;
+        ctx.beginPath();
+        ctx.moveTo(pos.topLeftCorner.x, pos.topLeftCorner.y);
+        ctx.lineTo(pos.bottomLeftCorner.x, pos.bottomLeftCorner.y);
+        ctx.stroke();
+        ctx.lineTo(pos.bottomRightCorner.x, pos.bottomRightCorner.y);
+        ctx.stroke();
+        ctx.lineTo(pos.topRightCorner.x, pos.topRightCorner.y);
+        ctx.stroke();
+        ctx.lineTo(pos.topLeftCorner.x, pos.topLeftCorner.y);
+        ctx.stroke();
+
         document.getElementById('result').innerText = result.data;
         // 실제로는 바로 적립하도록 넘어가야 함!
       } else {
