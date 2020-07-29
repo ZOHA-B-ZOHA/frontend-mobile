@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <canvas id="scanner" width="300" height="300">이 브라우저는 Javascript Canvas API를 지원하지 않습니다.</canvas>
-    <div id="result">result</div>
+    <div id="result">QR코드를 인식시켜 주세요.</div>
+    <!-- 뭔가 부가적인 설명이 더 필요할 것 같긴 하다 -->
   </div>
 </template>
 
@@ -47,6 +48,22 @@ export default {
         // 그냥 핸드폰 카메라의 가운데만 보이게 자르면 될까
         ctx.drawImage(video, 0, 0, ctx.canvas.width, ctx.canvas.height, 0, 0, ctx.canvas.width, ctx.canvas.height);
       }
+
+      const imageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+      const result = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: "dontInvert" });
+
+      if (result) {
+        console.log(result);
+        const { x, y } = result.location.topLeftCorner;
+        const width = result.location.bottomRightCorner.x = x;
+        const height = result.location.bottomRightCorner.y = y;
+        ctx.strokeRect(x, y, width, height);
+        document.getElementById('result').innerText = result.data;
+        // 실제로는 바로 적립하도록 넘어가야 함!
+      } else {
+        document.getElementById('result').innerText = 'QR코드를 인식시켜 주세요.';
+      }
+
       // https://stackoverflow.com/questions/8771919/rangeerror-with-requestanimationframe
       // 함수에 인자를 집어넣기 위해 함수를 실행시키면 안 됨. 그래서 인자도 컴포넌트의 data로 넘김.
       // requestAnimationFrame(this.scan(ctx, video));
