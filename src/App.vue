@@ -1,13 +1,20 @@
 <template>
-  <router-view v-on:getPhoneNumber="authenticate" :user="currentUser" />
+  <div id="app">
+    <Header :user="currentUser" />
+    <router-view v-on:getPhoneNumber="authenticate" :user="currentUser" />
+  </div>
 </template>
 
 <script>
+import Header from './components/Header';
 import axios from 'axios';
 import { api_main, api_authenticate } from '../fakeData';
 
 export default {
   name: 'App',
+  components: {
+    Header,
+  },
   data: function() {
     return {
       currentUser: null,
@@ -81,29 +88,6 @@ body {
   align-items: center;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-header {
-  width: 100%;
-  height: 60px;
-  margin-bottom: 24px;
-  text-align: left;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-header a {
-  width: 25px;
-  height: 25px;
-  background: none;
-  margin-left: 18px;
-  margin-bottom: 0px;
-  line-height: 0px;
-  /* cursor:  */
-  filter: none;
-}
-header div {
-  font-size: 24px;
-  color: white;
 }
 nav, section {
   display: flex;

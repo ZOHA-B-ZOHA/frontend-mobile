@@ -1,11 +1,5 @@
 <template>
-  <div id="app">
-    <header>
-      <router-link to="/">
-        <img alt="뒤로 가기" src="../assets/arrow.png" width="24" />
-      </router-link>
-      <div>적립하기</div>
-    </header>
+  <main>
     <form @submit.prevent="handleSubmit">
       <section>
         <label for="branch" class="label">구매 지점</label>
@@ -26,7 +20,7 @@
       </section>
       <router-link to="/verify">적립하기</router-link>
     </form>
-  </div>
+  </main>
 </template>
 
 <script>

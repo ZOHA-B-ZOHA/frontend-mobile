@@ -1,18 +1,5 @@
 <template>
-  <div id="app">
-    <header>
-      <img alt="조합조하 로고" src="../assets/logo.png" width="120" />
-      <!-- 로고 이미지 자체에 마진이 있네... 잘라 써야 하나 -->
-      <button class="ranking" v-bind:class="{ hidden: !user }" @click="toggleRanking">
-        랭킹
-        <div class="leaderBoard hidden">
-          <div v-for="ranking in rankings" v-bind:key="ranking.phoneNumber">
-            <div v-if="ranking.phoneNumber === user.phoneNumber">{{ ranking.purchaseQuantity }}(나)</div>
-            <div v-else>{{ ranking.purchaseQuantity }}</div>
-          </div>
-        </div>
-      </button>
-    </header>
+  <main>
     <section id="gaugeBar">
       <img alt="샘플 컵 이미지" src="../assets/sample_cup.png" width="240" />
       <!-- 나중에 svg로 바꾸면 그냥 부모 section에 딱 맞게 하기 -->
@@ -28,7 +15,7 @@
         <button type="submit">확인</button>
       </form>
     </section>
-  </div>
+  </main>
 </template>
 
 <script>

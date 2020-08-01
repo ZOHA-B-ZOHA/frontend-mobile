@@ -1,9 +1,9 @@
 <template>
-  <div id="app">
+  <main>
     <canvas id="scanner" width="300" height="300">이 브라우저는 Javascript Canvas API를 지원하지 않습니다.</canvas>
     <div id="result">QR코드를 인식시켜 주세요.</div>
     <!-- 뭔가 부가적인 설명이 더 필요할 것 같긴 하다 -->
-  </div>
+  </main>
 </template>
 
 <script>
