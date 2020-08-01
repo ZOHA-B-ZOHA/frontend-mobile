@@ -2,7 +2,6 @@
   <main>
     <section id="gaugeBar">
       <img alt="샘플 컵 이미지" src="../assets/sample_cup.png" width="240" />
-      <!-- 나중에 svg로 바꾸면 그냥 부모 section에 딱 맞게 하기 -->
     </section>
     <nav v-if="user">
       <router-link to="/earn">적립하기</router-link>
@@ -19,9 +18,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-import { api_rankings } from '../../fakeData';
-
 export default {
   name: 'Home',
   props: {
@@ -33,25 +29,8 @@ export default {
     };
   },
   methods: {
-    toggleRanking: function(e) {
-      const leaderBoard = e.target.childNodes[1]; // 순서로 찾는 건 좀 불안정하긴 한데,, 의미상으로는 이게 지금 좀 더 이해하기 쉬움
-      console.log(leaderBoard)
-      if (!this.rankings) this.getRankings();
-      leaderBoard.classList.toggle('hidden');
-    },
     handleSubmit: function(e) {
       this.$emit('getPhoneNumber', e.target.phoneNumber.value) // e.target.elements.phoneNumber.value
-    },
-    getRankings: function() { // 랭킹 버튼을 눌렀을 때
-      axios.post(`${process.env.VUE_APP_URL}/rankings`, { phoneNumber: this.user.phoneNumber })
-      .then((response) => {
-        console.log(response);
-        this.rankings = response.data.rankings;
-      })
-      .catch((error) => {
-        console.log(error);
-        this.rankings = api_rankings.response.data.rankings;
-      });
     },
   },
 };
@@ -65,8 +44,6 @@ export default {
   align-items: center;
 }
 nav {
-  /* height: fit-content; */
-  /* height: 160px; */
   display: flex;
   flex-direction: column;
   align-items: center;
