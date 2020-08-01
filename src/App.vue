@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     authenticate: function(phoneNumber) {
-      axios.post(`${process.env.VUE_APP_URL}/athenticate`, { phoneNumber })
+      axios.post(`${process.env.VUE_APP_URL}/authenticate`, { phoneNumber })
       .then((response) => {
         // not yet implemented
         console.log(response)
