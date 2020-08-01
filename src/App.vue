@@ -12,7 +12,6 @@ export default {
     return {
       currentUser: null,
       achievement: 0,
-      top10: [],
       justEarned: false,
     }
   },

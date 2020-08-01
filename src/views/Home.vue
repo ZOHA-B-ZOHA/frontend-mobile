@@ -3,9 +3,14 @@
     <header>
       <img alt="조합조하 로고" src="../assets/logo.png" width="120" />
       <!-- 로고 이미지 자체에 마진이 있네... 잘라 써야 하나 -->
-      <button class="ranking" v-bind:class="{ visible: user }" @click="toggleRanking">
+      <button class="ranking" v-bind:class="{ hidden: !user }" @click="toggleRanking">
         랭킹
-        <div class="leaderBoard">짜잔</div>
+        <div class="leaderBoard hidden">
+          <div v-for="ranking in rankings" v-bind:key="ranking.phoneNumber">
+            <div v-if="ranking.phoneNumber === user.phoneNumber">{{ ranking.purchaseQuantity }}(나)</div>
+            <div v-else>{{ ranking.purchaseQuantity }}</div>
+          </div>
+        </div>
       </button>
     </header>
     <section id="gaugeBar">
@@ -37,14 +42,15 @@ export default {
   },
   data: function() {
     return {
-      rankings: [],
+      rankings: null,
     };
   },
   methods: {
     toggleRanking: function(e) {
       const leaderBoard = e.target.childNodes[1]; // 순서로 찾는 건 좀 불안정하긴 한데,, 의미상으로는 이게 지금 좀 더 이해하기 쉬움
-      console.log(leaderBoard.style)
-      leaderBoard.classList.toggle('visible');
+      console.log(leaderBoard)
+      if (!this.rankings) this.getRankings();
+      leaderBoard.classList.toggle('hidden');
     },
     handleSubmit: function(e) {
       this.$emit('getPhoneNumber', e.target.phoneNumber.value) // e.target.elements.phoneNumber.value
@@ -80,14 +86,12 @@ header::before { /* 꼼수... 도대체 이건 어떻게 해결하는 게 정석
   border-radius: 50%;
   padding: 0px;
   margin: 10px 12px 0px 0px;
+}
+.hidden {
   visibility: hidden;
 }
-.visible {
-  visibility: visible;
-}
 .leaderBoard {
-  /* leaderBoard를 id로 설정하면 visible로 먹인 클래스가 적용되지 않는다,, */
-  /* visibility: hidden; */
+  color: lime;
 }
 #gaugeBar {
   flex: 1;
