@@ -12,7 +12,6 @@ export default {
     return {
       currentUser: null,
       achievement: 0,
-      top10: [],
       justEarned: false,
     }
   },
@@ -31,7 +30,7 @@ export default {
   },
   methods: {
     authenticate: function(phoneNumber) {
-      axios.post(`${process.env.VUE_APP_URL}/athenticate`, { phoneNumber })
+      axios.post(`${process.env.VUE_APP_URL}/authenticate`, { phoneNumber })
       .then((response) => {
         // not yet implemented
         console.log(response)
@@ -105,12 +104,6 @@ header a {
 header div {
   font-size: 24px;
   color: white;
-}
-header::after { /* 꼼수... 도대체 이건 어떻게 해결하는 게 정석일까 */
-  content: "invisible";
-  width: 43px;
-  height:25px;
-  visibility: hidden;
 }
 nav, section {
   display: flex;
