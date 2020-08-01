@@ -74,22 +74,24 @@ export default {
 }
 body {
   margin: 0px;
-  display: flex;
-  height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  background: linear-gradient(180deg, #FFB88C 0%, #DE6262 99.7%);
 }
 #app {
-  flex: 1;
+  height: 100vh;
+  text-align: center;
+  background: linear-gradient(180deg, #FFB88C 0%, #DE6262 99.7%);
   display: flex;
   flex-direction: column;
   align-items: center;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-nav, section {
+main {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+section {
   display: flex;
   flex-direction: column;
   align-items: center;

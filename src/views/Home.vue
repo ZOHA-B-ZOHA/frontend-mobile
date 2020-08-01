@@ -58,32 +58,17 @@ export default {
 </script>
 
 <style scoped>
-header::before { /* 꼼수... 도대체 이건 어떻게 해결하는 게 정석일까 */
-  content: "invisible";
-  width: 50px;
-  height:50px;
-  visibility: hidden;
-}
-.ranking {
-  /* v-bind를 쓰려고 id 대신 class를 쓰기는 했는데,, */
-  width: 50px;
-  height: 50px;
-  /* 이미지는 css background로 넣기.
-  근데 누를 수 있는 건 명확하게 누를 수 있다고 표시를 해 주는 게 더 좋을 듯 */
-  border-radius: 50%;
-  padding: 0px;
-  margin: 10px 12px 0px 0px;
-}
-.hidden {
-  visibility: hidden;
-}
-.leaderBoard {
-  color: lime;
-}
 #gaugeBar {
   flex: 1;
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+nav {
+  /* height: fit-content; */
+  /* height: 160px; */
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 nav a:last-child {
