@@ -4,8 +4,7 @@
 
 <script>
 import axios from 'axios';
-import fakeData from '../fakeData';
-const { main, authenticate } = fakeData;
+import { api_main, api_authenticate } from '../fakeData';
 
 export default {
   name: 'App',
@@ -18,44 +17,32 @@ export default {
     }
   },
   created: function() {
-    // this를 쓰려면,
-    // axios 같을 걸 쓸 때는 화살표 함수를 써야 함
-    // https://michaelnthiessen.com/this-is-undefined/
-    // https://stackoverflow.com/questions/53657696/using-axios-in-vuejs-this-undefined
-    // axios.get('')
-    axios.get(`${process.env.VUE_APP_TEST_URL}/`)
+    axios.get(`${process.env.VUE_APP_URL}/`)
     .then((response) => {
       // not yet implemented
       console.log(response)
+      this.achievement = response.data.achievement;
     })
     .catch((error) => {
       // so use fake data now
       console.log(error)
-      const data = main.response.data;
-      this.achievement = data.achievement;
-      this.justEarned = data.justEarned;
-
-      // 이건 다른 데서 구현하는 게 나으려나
-      if (this.justEarned) {
-        console.log('반짝이 보여 줘야 함!');
-        this.justEarned = false;
-      }
+      this.achievement = api_main.response.data.achievement;
     });
   },
   methods: {
     authenticate: function(phoneNumber) {
-      axios.post(`${process.env.VUE_APP_TEST_URL}/athenticate`, phoneNumber)
+      axios.post(`${process.env.VUE_APP_URL}/athenticate`, { phoneNumber })
       .then((response) => {
         // not yet implemented
         console.log(response)
+        this.achievement = response.data.achievement;
+        this.currentUser = response.data.currentUser;
       })
       .catch((error) => {
         // so use fake data now
         console.log(error)
-        const data = authenticate.response.data;
+        const data = api_authenticate.response.data;
         this.achievement = data.achievement;
-        this.justEarned = data.justEarned;
-        this.top10 = data.top10; // fakeData에 추가해야 함
         this.currentUser = data.currentUser;
       });
     }

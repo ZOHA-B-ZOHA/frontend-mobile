@@ -20,7 +20,7 @@
     <section>
       <div class="label">나의 쿠폰</div>
       <div class="content">
-        <div v-for="reward in user.rewards" v-bind:key="reward.round" style="border: 1px #E26C67 dashed">
+        <div v-for="reward in rewards" v-bind:key="reward.id" :id="reward.id" @click="redeem" style="border: 1px #E26C67 dashed">
         <!-- coupon이라고 하는 게 낫나..?? 그리고 round를 키로 쓰는 건 지금 임시방편임 -->
           <div>{{ reward.round }}</div>
           <div>{{ reward.type }}</div>
@@ -33,21 +33,43 @@
 
 <script>
 const axios = require('axios');
+import { api_rewards, api_redeem } from '../../fakeData';
 
 export default {
   name: 'About',
   props: {
     user: Object
   },
+  data: function() {
+    return {
+      rewards: [],
+    };
+  },
+  created: function() {
+    axios.post(`${process.env.VUE_APP_URL}/rewards`, { phoneNumber: this.user.phoneNumber })
+    .then((response) => {
+      console.log(response);
+      this.rewards = response.data.rewards;
+    })
+    .catch((error) => {
+      console.log(error);
+      this.rewards = api_rewards.response.data.rewards;
+    })
+  },
   methods: {
     // 이걸 상위 컴포넌트에서 해야 하나?
-    useToken: function() {
-      axios.post('', {})
-      .then(function(response) {
-        console.log(response)
+    redeem: function(e) {
+      axios.post(`${process.env.VUE_APP_URL}/redeem`, {
+        phoneNumber: this.user.phoneNumber,
+        tokenId: e.target.id,
       })
-      .catch(function(error) {
+      .then((response) => {
+        console.log(response)
+        this.rewards = response.data.rewards;
+      })
+      .catch((error) => {
         console.log(error)
+        this.rewards = api_redeem.response.data.rewards;
       });
     }
   },

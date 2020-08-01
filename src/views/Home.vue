@@ -21,20 +21,36 @@
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
+import axios from 'axios';
+import { api_rankings } from '../../fakeData';
 
 export default {
   name: 'Home',
+  props: {
+    user: Object,
+  },
+  data: function() {
+    return {
+      rankings: [],
+    };
+  },
   methods: {
     handleSubmit: function(e) {
       this.$emit('getPhoneNumber', e.target.phoneNumber.value) // e.target.elements.phoneNumber.value
-    }
+    },
+    getRankings: function() { // 랭킹 버튼을 눌렀을 때
+      axios.post(`${process.env.VUE_APP_URL}/rankings`, { phoneNumber: this.user.phoneNumber })
+      .then((response) => {
+        console.log(response);
+        this.rankings = response.data.rankings;
+      })
+      .catch((error) => {
+        console.log(error);
+        this.rankings = api_rankings.response.data.rankings;
+      });
+    },
   },
-  props: {
-    user: Object,
-  }
-}
+};
 </script>
 
 <style scoped>
