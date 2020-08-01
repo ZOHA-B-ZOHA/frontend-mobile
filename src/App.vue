@@ -106,12 +106,6 @@ header div {
   font-size: 24px;
   color: white;
 }
-header::after { /* 꼼수... 도대체 이건 어떻게 해결하는 게 정석일까 */
-  content: "invisible";
-  width: 43px;
-  height:25px;
-  visibility: hidden;
-}
 nav, section {
   display: flex;
   flex-direction: column;
