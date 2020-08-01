@@ -1,7 +1,18 @@
 <template>
   <div id="app">
-    <img alt="조합이좋아 로고" src="../assets/logo.png" width="120" />
-    <!-- 로고 이미지 자체에 마진이 있네... 잘라 써야 하나 -->
+    <header>
+      <img alt="조합조하 로고" src="../assets/logo.png" width="120" />
+      <!-- 로고 이미지 자체에 마진이 있네... 잘라 써야 하나 -->
+      <button class="ranking" v-bind:class="{ hidden: !user }" @click="toggleRanking">
+        랭킹
+        <div class="leaderBoard hidden">
+          <div v-for="ranking in rankings" v-bind:key="ranking.phoneNumber">
+            <div v-if="ranking.phoneNumber === user.phoneNumber">{{ ranking.purchaseQuantity }}(나)</div>
+            <div v-else>{{ ranking.purchaseQuantity }}</div>
+          </div>
+        </div>
+      </button>
+    </header>
     <section id="gaugeBar">
       <img alt="샘플 컵 이미지" src="../assets/sample_cup.png" width="240" />
       <!-- 나중에 svg로 바꾸면 그냥 부모 section에 딱 맞게 하기 -->
@@ -31,10 +42,16 @@ export default {
   },
   data: function() {
     return {
-      rankings: [],
+      rankings: null,
     };
   },
   methods: {
+    toggleRanking: function(e) {
+      const leaderBoard = e.target.childNodes[1]; // 순서로 찾는 건 좀 불안정하긴 한데,, 의미상으로는 이게 지금 좀 더 이해하기 쉬움
+      console.log(leaderBoard)
+      if (!this.rankings) this.getRankings();
+      leaderBoard.classList.toggle('hidden');
+    },
     handleSubmit: function(e) {
       this.$emit('getPhoneNumber', e.target.phoneNumber.value) // e.target.elements.phoneNumber.value
     },
@@ -54,6 +71,28 @@ export default {
 </script>
 
 <style scoped>
+header::before { /* 꼼수... 도대체 이건 어떻게 해결하는 게 정석일까 */
+  content: "invisible";
+  width: 50px;
+  height:50px;
+  visibility: hidden;
+}
+.ranking {
+  /* v-bind를 쓰려고 id 대신 class를 쓰기는 했는데,, */
+  width: 50px;
+  height: 50px;
+  /* 이미지는 css background로 넣기.
+  근데 누를 수 있는 건 명확하게 누를 수 있다고 표시를 해 주는 게 더 좋을 듯 */
+  border-radius: 50%;
+  padding: 0px;
+  margin: 10px 12px 0px 0px;
+}
+.hidden {
+  visibility: hidden;
+}
+.leaderBoard {
+  color: lime;
+}
 #gaugeBar {
   flex: 1;
   display: flex;
