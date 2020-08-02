@@ -25,7 +25,10 @@ export default {
     switch (this.type) {
       case 'beforeVerification':
         this.path = '/verify';
-        this.bodyText = '픽업 코너에서 구매하신 물품(??)을 받으면서 QR코드를 스캔해 주세요.';
+        this.bodyText =
+          `구매 지점: ${this.query.branch}\n
+          구매 수량: ${this.query.quantity}\n
+          픽업 코너에서 구매하신 물품(??)을 받으면서 QR코드를 스캔해 주세요.`;
         this.buttonText = 'QR코드 스캔하기';
         break;
       case 'firstPurchase':
