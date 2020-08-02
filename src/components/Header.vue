@@ -30,6 +30,11 @@ export default {
   props: {
     user: Object,
   },
+  data: function() {
+    return {
+      rankings: null,
+    };
+  },
   methods: {
     toggleRanking: function(e) {
       const leaderBoard = e.target.childNodes[1]; // 순서로 찾는 건 좀 불안정하긴 한데,, 의미상으로는 이게 지금 좀 더 이해하기 쉬움
