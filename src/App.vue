@@ -1,13 +1,20 @@
 <template>
-  <router-view v-on:getPhoneNumber="authenticate" :user="currentUser" />
+  <div id="app">
+    <Header :user="currentUser" />
+    <router-view v-on:getPhoneNumber="authenticate" :user="currentUser" />
+  </div>
 </template>
 
 <script>
+import Header from './components/Header';
 import axios from 'axios';
 import { api_main, api_authenticate } from '../fakeData';
 
 export default {
   name: 'App',
+  components: {
+    Header,
+  },
   data: function() {
     return {
       currentUser: null,
@@ -67,45 +74,24 @@ export default {
 }
 body {
   margin: 0px;
-  display: flex;
-  height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  background: linear-gradient(180deg, #FFB88C 0%, #DE6262 99.7%);
 }
 #app {
-  flex: 1;
+  height: 100vh;
+  text-align: center;
+  background: linear-gradient(180deg, #FFB88C 0%, #DE6262 99.7%);
   display: flex;
   flex-direction: column;
   align-items: center;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-header {
+main {
+  flex: 1;
   width: 100%;
-  height: 60px;
-  margin-bottom: 24px;
-  text-align: left;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
 }
-header a {
-  width: 25px;
-  height: 25px;
-  background: none;
-  margin-left: 18px;
-  margin-bottom: 0px;
-  line-height: 0px;
-  /* cursor:  */
-  filter: none;
-}
-header div {
-  font-size: 24px;
-  color: white;
-}
-nav, section {
+section {
   display: flex;
   flex-direction: column;
   align-items: center;

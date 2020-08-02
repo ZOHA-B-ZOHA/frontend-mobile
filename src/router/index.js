@@ -26,7 +26,13 @@ Vue.use(VueRouter)
     name: 'Earn',
     component: () => import(/* webpackChunkName: "about" */ '../views/Earn.vue'),
     props: true,
-  }
+  },
+  {
+    path: '/verify',
+    name: 'Verification',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Verification.vue'),
+    props: true,
+  },
 ]
 
 const router = new VueRouter({

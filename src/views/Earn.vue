@@ -1,15 +1,12 @@
 <template>
-  <div id="app">
-    <header>
-      <router-link to="/">
-        <img alt="뒤로 가기" src="../assets/arrow.png" width="24" />
-      </router-link>
-      <div>적립하기</div>
-    </header>
-    <form @submit.prevent="handleSubmit">
+  <main>
+    <!-- <form action="/verify"> -->
+    <!-- submit 버튼 안 써도 접근성을 유지할 수 있나....? 잘 모르겠다 ㅠㅠ -->
+    <!-- 근데 이상하게 action을 써서 넘어가면 유저 정보가 안 넘어간다.... -->
+    <form @submit.prevent>
       <section>
         <label for="branch" class="label">구매 지점</label>
-        <select id="branch" name="branch">
+        <select id="branch" name="branch" v-model="branch">
           <option value="도서관점">도서관점</option>
           <option value="137동점">137동점</option>
           <option value="자하연점">자하연점</option>
@@ -17,24 +14,36 @@
         </select>
       </section>
       <section>
-        <label for="purchaseQuantity" class="label">구매 수량</label>
+        <label for="quantity" class="label">구매 수량</label>
         <div id="container">
           <button @click="subtractOne">−</button>
-          <input id="purchaseQuantity" type="number" min="1" v-model="quantity" />
+          <input id="quantity" name="quantity" type="number" min="1" v-model="quantity" />
           <button @click="addOne">+</button>
         </div>
       </section>
-      <button type="submit">적립하기</button>
+      <!-- <router-link :to="{ path: '/verify', query: { branch, quantity }}">적립하기</router-link> -->
+      <button type="submit" @click="isModalVisible = true">적립하기</button>
     </form>
-  </div>
+    <Modal v-if="isModalVisible" type="beforeVerification" :query="{ branch, quantity }" />
+  </main>
 </template>
 
 <script>
+import Modal from '../components/Modal';
+
 export default {
   name: "Earn",
+  components: {
+    Modal,
+  },
+  props: {
+    user: Object,
+  },
   data: function() {
     return {
+      branch: '도서관점',
       quantity: 1,
+      isModalVisible: false,
     }
   },
   methods: {
@@ -46,13 +55,7 @@ export default {
       e.preventDefault()
       if (this.quantity > 1) this.quantity--
     },
-    handleSubmit: function() {
-      console.log('이 부분은 아직 구현이 안 되어 있습니다~~!!')
-    }
   },
-  props: {
-    user: Object
-  }
 }
 </script>
 
@@ -78,7 +81,7 @@ header::after { /* 꼼수... 도대체 이건 어떻게 해결하는 게 정석�
 form {
   flex: 1;
 }
-form button {
+form button, a {
   margin-top: auto;
   margin-bottom: 35px;
 }

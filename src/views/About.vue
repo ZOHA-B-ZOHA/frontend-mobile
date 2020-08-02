@@ -1,11 +1,5 @@
 <template>
-  <div id="app">
-    <header>
-      <router-link to="/">
-        <img alt="뒤로 가기" src="../assets/arrow.png" width="24" />
-      </router-link>
-      <div>내 정보</div>
-    </header>
+  <main>
     <section>
       <div class="label">전화번호</div>
       <div class="content">{{ user.phoneNumber }}</div>
@@ -28,7 +22,7 @@
         </div>
       </div>
     </section>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -77,12 +71,6 @@ export default {
 </script>
 
 <style scoped>
-header::after { /* 꼼수... 도대체 이건 어떻게 해결하는 게 정석일까 */
-  content: "invisible";
-  width: 43px;
-  height:25px;
-  visibility: hidden;
-}
 .content {
   width: 315px;
   border: none;
