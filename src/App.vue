@@ -1,66 +1,134 @@
 <template>
   <div id="app">
-    <MainPage v-if="page === 'main'" />
-    <MyPage v-else-if="page === 'my'" />
-    <div id="nav-bar" v-if="isLoggedIn"> <!-- 사실 로그인은 아니고 PhoneNumner=null 이런 걸로? -->
-      <button v-on:click="handlePage" value="main">메인</button>
-      <button v-on:click="handlePage" value="my">마이페이지</button>
-    </div>
-    <div v-else>
-      <label>전화번호 입력</label>
-      <input />
-      <button v-on:click="submit">완료?</button>
-    </div>
+    <Header :user="currentUser" />
+    <router-view v-on:getPhoneNumber="authenticate" :user="currentUser" />
   </div>
 </template>
 
 <script>
-import MainPage from './components/MainPage.vue'
-import MyPage from './components/MyPage.vue'
+import Header from './components/Header';
+import axios from 'axios';
+import { api_main, api_authenticate } from '../fakeData';
 
 export default {
   name: 'App',
   components: {
-    MainPage,
-    MyPage
+    Header,
   },
   data: function() {
     return {
-      isLoggedIn: false,
-      page: 'main'
+      currentUser: null,
+      achievement: 0,
+      justEarned: false,
     }
   },
+  created: function() {
+    axios.get(`${process.env.VUE_APP_URL}/`)
+    .then((response) => {
+      // not yet implemented
+      console.log(response)
+      this.achievement = response.data.achievement;
+    })
+    .catch((error) => {
+      // so use fake data now
+      console.log(error)
+      this.achievement = api_main.response.data.achievement;
+    });
+  },
   methods: {
-    submit: function() {
-      this.isLoggedIn = true
-    },
-    handlePage: function(e) { // 이름 다른 걸로 바꾸기..!!!!!!!!!!!!
-      this.page = e.target.value
-      // const page = e.target.value
-      // if (page === 'main') { // mainPage 이런 식으로 Page를 붙여야 하나..??
-      //   this.page = 'main'
-      // } else if (page === 'my') {
-      //   this.page = 'my'
-      // } else {
-      //   console.error('invalid value')
-      // }
+    authenticate: function(phoneNumber) {
+      axios.post(`${process.env.VUE_APP_URL}/authenticate`, { phoneNumber })
+      .then((response) => {
+        // not yet implemented
+        console.log(response)
+        this.achievement = response.data.achievement;
+        this.currentUser = response.data.currentUser;
+      })
+      .catch((error) => {
+        // so use fake data now
+        console.log(error)
+        const data = api_authenticate.response.data;
+        this.achievement = data.achievement;
+        this.currentUser = data.currentUser;
+      });
     }
   }
 }
 </script>
 
 <style>
+@font-face {
+  font-family: NanumSquareRound;
+  /* src: url(./assets/NanumSquareRoundR.ttf) format("ttf"); */
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+  font-weight: normal;
+}
+@font-face {
+  font-family: NanumSquareRound;
+  src: url(./assets/NanumSquareRoundB.ttf) format("ttf");
+  font-weight: bold;
+}
+* {
+  font-family: NanumSquareRound;
+  /* font-weight: bold; */
+}
+body {
+  margin: 0px;
+}
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  height: 100vh;
+  text-align: center;
+  background: linear-gradient(180deg, #FFB88C 0%, #DE6262 99.7%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+main {
+  flex: 1;
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
-#nav-bar {
-  height: 100px;
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.label {
+  width: 315px;
+  text-align: left;
+  color: white;
+  font-size: 16px;
+  line-height: 36px;
+}
+input {
+  width: 315px;
+  height: 50px;
+  border: none;
+  padding: 0px 10px; /* 여긴 아직 디자인이 안 나와서 내가 알아서 함 */
+  box-sizing: border-box; /* makes padding inclusive */
+  color: #E26C67;
+  background-color: white;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  margin-bottom: 25px;
+}
+a, button {
+  width: 315px;
+  height: 50px;
+  border: none;
+  color: #E26C67;
+  background-color: white;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  text-decoration: none;
+  margin-bottom: 25px;
+  line-height: 50px; /* to center the text in a tag vertically */
+  font-size: 16px;
 }
 </style>

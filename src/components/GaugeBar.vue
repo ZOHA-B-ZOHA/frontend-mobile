@@ -88,6 +88,6 @@
 
 <script>
 export default {
-  name: 'MainPage'
+  name: 'GaugeBar'
 }
 </script>
