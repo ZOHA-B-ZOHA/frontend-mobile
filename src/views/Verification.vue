@@ -3,6 +3,7 @@
     <canvas id="scanner" width="300" height="300">이 브라우저는 Javascript Canvas API를 지원하지 않습니다.</canvas>
     <div id="result">QR코드를 인식시켜 주세요.</div>
     <!-- 뭔가 부가적인 설명이 더 필요할 것 같긴 하다 -->
+    <Modal v-if="isModalVisible" :type="modalType" />
   </main>
 </template>
 
@@ -10,9 +11,13 @@
 import jsQR from 'jsqr';
 import axios from 'axios';
 import { api_verify } from '../../fakeData';
+import Modal from '../components/Modal';
 
 export default {
   name: 'Verification',
+  components: {
+    Modal,
+  },
   props: {
     user: Object,
   },
@@ -20,6 +25,8 @@ export default {
     return {
       ctx: null,
       video: null,
+      isModalVisible: false,
+      modalType: '',
     };
   },
   mounted: function() {
@@ -89,12 +96,18 @@ export default {
           switch (api_verify.response.data.purchaseCount) { // 실제로는 Number()를 씌워 줘야 하나?
             case 1:
               console.log(1)
+              this.modalType = 'firstPurchase';
+              this.isModalVisible = true;
               break;
             case 2:
               console.log(2)
+              this.modalType = 'secondPurchase';
+              this.isModalVisible = true;
               break;
             case 3:
               console.log(3)
+              this.modalType = 'thirdPurchase';
+              this.isModalVisible = true;
               break;
             default:
               console.log('default')

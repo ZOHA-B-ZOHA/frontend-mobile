@@ -21,15 +21,21 @@
           <button @click="addOne">+</button>
         </div>
       </section>
-      <router-link :to="{ path: '/verify', query: { branch, quantity }}">적립하기</router-link>
-      <!-- <button type="submit">적립하기</button> -->
+      <!-- <router-link :to="{ path: '/verify', query: { branch, quantity }}">적립하기</router-link> -->
+      <button type="submit" @click="isModalVisible = true">적립하기</button>
     </form>
+    <Modal v-if="isModalVisible" type="beforeVerification" :query="{ branch, quantity }" />
   </main>
 </template>
 
 <script>
+import Modal from '../components/Modal';
+
 export default {
   name: "Earn",
+  components: {
+    Modal,
+  },
   props: {
     user: Object,
   },
@@ -37,6 +43,7 @@ export default {
     return {
       branch: '도서관점',
       quantity: 1,
+      isModalVisible: false,
     }
   },
   methods: {
