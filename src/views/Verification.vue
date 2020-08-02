@@ -8,7 +8,7 @@
 
 <script>
 import jsQR from 'jsqr';
-console.log(jsQR)
+import axios from 'axios';
 
 export default {
   name: 'Verification',
@@ -70,6 +70,21 @@ export default {
 
         document.getElementById('result').innerText = result.data;
         // 실제로는 바로 적립하도록 넘어가야 함!
+        axios.post(`${process.env.VUE_APP_URL}/verify`, {
+          phoneNumber: this.user.phoneNumber, // console.log(121212, this.$route.query);
+          branch: this.$route.query.branch,
+          purchaseQuantity: this.$route.query.quantity,
+          verificationCode: 'zohabzohafighting', // result.data
+        }, { headers: {  } })
+        .then((response) => {
+          // 이 부분 마저 구현하기
+          // 이 이후에 redirect하면서 팝업이랑 반짝이 띄워 줘야 함. 업데이트된 게이지바도 반영하고
+          // 앗 CORS 문제가 뜨네
+          console.log(12345, response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       } else {
         document.getElementById('result').innerText = 'QR코드를 인식시켜 주세요.';
       }
