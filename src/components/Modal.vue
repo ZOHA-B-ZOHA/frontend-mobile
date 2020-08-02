@@ -25,7 +25,7 @@ export default {
     switch (this.type) {
       case 'beforeVerification':
         this.path = '/verify';
-        this.bodyText = '구매하신 물품(??)을 픽업 코너에서 받으면서 QR코드를 스캔해 주세요.';
+        this.bodyText = '픽업 코너에서 구매하신 물품(??)을 받으면서 QR코드를 스캔해 주세요.';
         this.buttonText = 'QR코드 스캔하기';
         break;
       case 'firstPurchase':
@@ -39,9 +39,9 @@ export default {
         this.buttonText = '확인';
         break;
       case 'thirdPurchase':
-        this.path = '/mypage';
+        this.path = '/about';
         this.bodyText = '목표치 다 채우면 무료 쿠폰~\n그리고 1등쿠폰도 노려보세요';
-        this.buttonText = '확인';
+        this.buttonText = '쿠폰 보러 가기';
         break;
       default:
         break;
@@ -65,5 +65,17 @@ export default {
 #modal {
   background-color: white;
   color: #B42828;
+  /* margin: 0px 20px; */
+  width: 275px;
+  padding: 20px;
+  word-break: keep-all;
+}
+a {
+  display: inline-block;
+  width: 235px;
+  margin-top: 19px; /* p태그의 마진이 16px이라,, 35px 맞추려고 */
+  margin-bottom: 16px;
+  background-color: #E26C67;
+  color: white;
 }
 </style>
