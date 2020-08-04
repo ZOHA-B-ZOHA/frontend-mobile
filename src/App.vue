@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header :user="currentUser" />
-    <router-view :user="currentUser" v-on:getPhoneNumber="authenticate" v-on:updatePurchaseQuantity="updateCurrentUser" />
+    <router-view :user="currentUser" :achievement="achievement" v-on:getPhoneNumber="authenticate" v-on:updatePurchaseQuantity="updateCurrentUser" />
   </div>
 </template>
 
@@ -27,7 +27,7 @@ export default {
     .then((response) => {
       // not yet implemented
       console.log(response)
-      this.achievement = response.data.achievement;
+      this.achievement = Number(response.data.achievement);
     })
     .catch((error) => {
       // so use fake data now
@@ -126,7 +126,7 @@ a, button {
   width: 315px;
   height: 50px;
   border: none;
-  color: #E26C67;
+  color: #B42828;
   background-color: white;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   text-decoration: none;

@@ -1,8 +1,6 @@
 <template>
   <main>
-    <section id="gaugeBar">
-      <img alt="샘플 컵 이미지" src="../assets/sample_cup.png" width="240" />
-    </section>
+    <GaugeBar :achievement="achievement" />
     <nav v-if="user">
       <router-link to="/earn">적립하기</router-link>
       <router-link to="/about">마이페이지</router-link>
@@ -18,10 +16,16 @@
 </template>
 
 <script>
+import GaugeBar from '../components/GaugeBar';
+
 export default {
   name: 'Home',
+  components: {
+    GaugeBar,
+  },
   props: {
     user: Object,
+    achievement: Number,
   },
   data: function() {
     return {
@@ -37,12 +41,6 @@ export default {
 </script>
 
 <style scoped>
-#gaugeBar {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 nav {
   display: flex;
   flex-direction: column;
