@@ -2,7 +2,8 @@
   <div id="background">
     <div id="modal">
       <p>{{ bodyText }}</p>
-      <router-link :to="{ path, query }">{{ buttonText }}</router-link>
+      <button v-if="query && query.useButton" @click="handleClick">{{ buttonText }}</button>
+      <router-link v-else :to="{ path, query }">{{ buttonText }}</router-link>
     </div>
   </div>
 </template>
@@ -46,8 +47,23 @@ export default {
         this.bodyText = '목표치 다 채우면 무료 쿠폰~\n그리고 1등쿠폰도 노려보세요';
         this.buttonText = '쿠폰 보러 가기';
         break;
+      case 'fourthOrMorePurchase':
+        this.path = '/';
+        this.bodyText = '목표치를 다 채우기 위해 계속 노력해 주세요';
+        this.buttonText = '확인';
+        break;
+      case 'beforeRedeem':
+        this.path = '';
+        this.bodyText = '정말 사용하시겠습니까?';
+        this.buttonText = '네';
+        break;
       default:
         break;
+    }
+  },
+  methods: {
+    handleClick: function() {
+      this.$emit('handleClick', this.query.rewardType);
     }
   }
 }
@@ -73,7 +89,7 @@ export default {
   padding: 20px;
   word-break: keep-all;
 }
-a {
+a, button {
   display: inline-block;
   width: 235px;
   margin-top: 19px; /* p태그의 마진이 16px이라,, 35px 맞추려고 */
