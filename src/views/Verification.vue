@@ -85,10 +85,24 @@ export default {
           verificationCode: 'zohabzohafighting', // result.data
         }, { headers: {  } })
         .then((response) => {
-          // 이 부분 마저 구현하기
           // 이 이후에 redirect하면서 팝업이랑 반짝이 띄워 줘야 함. 업데이트된 게이지바도 반영하고
-          // 앗 CORS 문제가 뜨네
-          console.log(12345, response.data);
+          this.$emit('updatePurchaseQuantity', response.data.purchaseQuantity);
+          const purchaseCount = response.data.purchaseCount;
+          if (purchaseCount === 1) {
+            this.modalType = 'firstPurchase';
+            this.isModalVisible = true;
+          } else if (purchaseCount === 2) {
+            this.modalType = 'secondPurchase';
+            this.isModalVisible = true;
+          } else if (purchaseCount === 3) {
+            this.modalType = 'thirdPurchase';
+            this.isModalVisible = true;
+          } else if (purchaseCount >= 4) {
+            this.modalType = 'fourthOrMorePurchase';
+            this.isModalVisible = true;
+          } else {
+            console.log('error');
+          }
         })
         .catch((error) => {
           console.log(error);
