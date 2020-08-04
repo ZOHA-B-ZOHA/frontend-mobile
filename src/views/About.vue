@@ -13,13 +13,11 @@
     </section>
     <section>
       <div class="label">나의 쿠폰</div>
-      <div class="content">
-        <div v-for="reward in rewards" v-bind:key="reward.id" :id="reward.id" @click="redeem" style="border: 1px #E26C67 dashed">
-        <!-- coupon이라고 하는 게 낫나..?? 그리고 round를 키로 쓰는 건 지금 임시방편임 -->
-          <div>{{ reward.round }}</div>
-          <div>{{ reward.type }}</div>
-          <div>{{ reward.status }}</div>
-        </div>
+      <div class="content rewardContainer">
+        <Reward type="firstRoundPlus" :status="rewards.firstRoundPlus" v-on:triggerRedeem="redeem" />
+        <Reward type="firstRoundFree" :status="rewards.firstRoundFree" v-on:triggerRedeem="redeem" />
+        <Reward type="secondRoundPlus" :status="rewards.secondRoundPlus" v-on:triggerRedeem="redeem" />
+        <Reward type="secondRoundFree" :status="rewards.secondRoundFree" v-on:triggerRedeem="redeem" />
       </div>
     </section>
   </main>
@@ -28,15 +26,19 @@
 <script>
 const axios = require('axios');
 import { api_rewards, api_redeem } from '../../fakeData';
+import Reward from '../components/Reward';
 
 export default {
   name: 'About',
+  components: {
+    Reward,
+  },
   props: {
     user: Object
   },
   data: function() {
     return {
-      rewards: [],
+      rewards: {},
     };
   },
   created: function() {
@@ -52,10 +54,10 @@ export default {
   },
   methods: {
     // 이걸 상위 컴포넌트에서 해야 하나?
-    redeem: function(e) {
+    redeem: function(rewardType, phoneNumber=this.user.phoneNumber) {
       axios.post(`${process.env.VUE_APP_URL}/redeem`, {
-        phoneNumber: this.user.phoneNumber,
-        tokenId: e.target.id,
+        rewardType,
+        phoneNumber,
       })
       .then((response) => {
         console.log(response)
@@ -65,7 +67,7 @@ export default {
         console.log(error)
         this.rewards = api_redeem.response.data.rewards;
       });
-    }
+    },
   },
 }
 </script>
@@ -81,5 +83,10 @@ export default {
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   margin-bottom: 25px;
   text-align: left;
+}
+.rewardContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
 }
 </style>
