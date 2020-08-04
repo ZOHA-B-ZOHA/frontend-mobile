@@ -93,26 +93,23 @@ export default {
         .catch((error) => {
           console.log(error);
           // fake data
-          switch (api_verify.response.data.purchaseCount) { // 실제로는 Number()를 씌워 줘야 하나?
-            case 1:
-              console.log(1)
-              this.modalType = 'firstPurchase';
-              this.isModalVisible = true;
-              break;
-            case 2:
-              console.log(2)
-              this.modalType = 'secondPurchase';
-              this.isModalVisible = true;
-              break;
-            case 3:
-              console.log(3)
-              this.modalType = 'thirdPurchase';
-              this.isModalVisible = true;
-              break;
-            default:
-              console.log('default')
-              break;
+          const purchaseCount = api_verify.response.data.purchaseCount;
+          if (purchaseCount === 1) {
+            this.modalType = 'firstPurchase';
+            this.isModalVisible = true;
+          } else if (purchaseCount === 2) {
+            this.modalType = 'secondPurchase';
+            this.isModalVisible = true;
+          } else if (purchaseCount === 3) {
+            this.modalType = 'thirdPurchase';
+            this.isModalVisible = true;
+          } else if (purchaseCount >= 4) {
+            this.modalType = 'fourthOrMorePurchase';
+            this.isModalVisible = true;
+          } else {
+            console.log('error');
           }
+          // 유저의 구매 수량도 업데이트하기
         });
       } else {
         document.getElementById('result').innerText = 'QR코드를 인식시켜 주세요.';

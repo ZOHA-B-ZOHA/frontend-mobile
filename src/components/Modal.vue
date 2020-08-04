@@ -49,6 +49,8 @@ export default {
         break;
       case 'fourthOrMorePurchase':
         this.path = '/';
+        this.bodyText = '목표치를 다 채우기 위해 계속 노력해 주세요';
+        this.buttonText = '확인';
         break;
       case 'beforeRedeem':
         this.path = '';
