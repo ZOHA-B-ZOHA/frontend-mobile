@@ -14,24 +14,27 @@
     <section>
       <div class="label">나의 쿠폰</div>
       <div class="content rewardContainer">
-        <Reward type="firstRoundPlus" :status="rewards.firstRoundPlus" v-on:triggerRedeem="redeem" />
-        <Reward type="firstRoundFree" :status="rewards.firstRoundFree" v-on:triggerRedeem="redeem" />
-        <Reward type="secondRoundPlus" :status="rewards.secondRoundPlus" v-on:triggerRedeem="redeem" />
-        <Reward type="secondRoundFree" :status="rewards.secondRoundFree" v-on:triggerRedeem="redeem" />
+        <Reward type="firstRoundPlus" :status="rewards.firstRoundPlus" v-on:triggerModal="showModal" />
+        <Reward type="firstRoundFree" :status="rewards.firstRoundFree" v-on:triggerModal="showModal" />
+        <Reward type="secondRoundPlus" :status="rewards.secondRoundPlus" v-on:triggerModal="showModal" />
+        <Reward type="secondRoundFree" :status="rewards.secondRoundFree" v-on:triggerModal="showModal" />
       </div>
     </section>
+    <Modal v-if="isModalVisible" type="beforeRedeem" :query="modalQuery" v-on:handleClick="redeem" />
   </main>
 </template>
 
 <script>
-const axios = require('axios');
+// const axios = require('axios');
 import { api_rewards, api_redeem } from '../../fakeData';
 import Reward from '../components/Reward';
+import Modal from '../components/Modal';
 
 export default {
   name: 'About',
   components: {
     Reward,
+    Modal,
   },
   props: {
     user: Object
@@ -39,34 +42,46 @@ export default {
   data: function() {
     return {
       rewards: {},
+      isModalVisible: false,
+      modalQuery: Object,
     };
   },
   created: function() {
-    axios.post(`${process.env.VUE_APP_URL}/rewards`, { phoneNumber: this.user.phoneNumber })
-    .then((response) => {
-      console.log(response);
-      this.rewards = response.data.rewards;
-    })
-    .catch((error) => {
-      console.log(error);
-      this.rewards = api_rewards.response.data.rewards;
-    })
+    // axios.post(`${process.env.VUE_APP_URL}/rewards`, { phoneNumber: this.user.phoneNumber })
+    // .then((response) => {
+    //   console.log(response);
+    //   this.rewards = response.data.rewards;
+    // })
+    // .catch((error) => {
+    //   console.log(error);
+    //   this.rewards = api_rewards.response.data.rewards;
+    // })
+    this.rewards = api_rewards.response.data.rewards;
   },
   methods: {
-    // 이걸 상위 컴포넌트에서 해야 하나?
-    redeem: function(rewardType, phoneNumber=this.user.phoneNumber) {
-      axios.post(`${process.env.VUE_APP_URL}/redeem`, {
+    showModal: function(rewardType) { // rewardType
+      this.modalQuery = {
+        useButton: true,
         rewardType,
-        phoneNumber,
-      })
-      .then((response) => {
-        console.log(response)
-        this.rewards = response.data.rewards;
-      })
-      .catch((error) => {
-        console.log(error)
-        this.rewards = api_redeem.response.data.rewards;
-      });
+      };
+      this.isModalVisible = true;
+    },
+    redeem: function(rewardType/*, phoneNumber=this.user.phoneNumber*/) {
+      // axios.post(`${process.env.VUE_APP_URL}/redeem`, {
+      //   rewardType,
+      //   phoneNumber,
+      // })
+      // .then((response) => {
+      //   console.log(response)
+      //   this.rewards = response.data.rewards;
+      // })
+      // .catch((error) => {
+      //   console.log(error)
+      //   this.rewards = api_redeem.response.data.rewards;
+      // });
+      console.log(rewardType)
+      this.rewards = api_redeem.response.data.rewards;
+      this.isModalVisible = false;
     },
   },
 }

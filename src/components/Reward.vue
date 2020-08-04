@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img :alt="imgAlt" :src="imgSrc"  width="120" @click="triggerRedeem" />
+    <img :alt="imgAlt" :src="imgSrc"  width="120" @click="triggerModal" />
   </div>
 </template>
 
@@ -18,59 +18,66 @@ export default {
     };
   },
   created: function() {
-    if (this.type === 'firstRoundPlus' || this.type === 'secondRoundPlus') {
-      switch (this.status) {
-        case 'unavailable':
-          this.imgAlt = '아직 사용할 수 없는 원 플러스 원 쿠폰';
-          this.imgSrc = require('../assets/images/plus_unavailable.png');
-          break;
-        case 'unused':
-          this.imgAlt = '사용할 수 있는 원 플러스 원 쿠폰';
-          this.imgSrc = require('../assets/images/plus_unused.png');
-          break;
-        case 'used':
-          this.imgAlt = '이미 사용한 원 플러스 원 쿠폰';
-          this.imgSrc = require('../assets/images/plus_used.png');
-          break;
-        case 'expired':
-          this.imgAlt = '사용 기한이 지난 원 플러스 원 쿠폰';
-          this.imgSrc = require('../assets/images/plus_expired.png');
-          break;
-        default:
-          // this.imgAlt = '';
-          // this.imgSrc = '';
-          break;
-      }
-    } else if (this.type === 'firstRoundFree' || this.type === 'secondRoundFree') {
-      switch (this.status) {
-        case 'unavailable':
-          this.imgAlt = '아직 사용할 수 없는 무료 쿠폰';
-          this.imgSrc = require('../assets/images/free_unavailable.png');
-          break;
-        case 'unused':
-          this.imgAlt = '사용할 수 있는 무료 쿠폰';
-          this.imgSrc = require('../assets/images/free_unused.png');
-          break;
-        case 'used':
-          this.imgAlt = '이미 사용한 무료 쿠폰';
-          this.imgSrc = require('../assets/images/free_unused.png');
-          break;
-        case 'expired':
-          this.imgAlt = '사용 기한이 지난 무료 쿠폰';
-          this.imgSrc = require('../assets/images/free_expired.png');
-          break;
-        default:
-          // this.imgAlt = '';
-          // this.imgSrc = '';
-          break;
-      }
-    }
+    this.setImg();
+  },
+  watch: {
+    status: function() {
+      this.setImg();
+    },
   },
   methods: {
-    triggerRedeem: function() {
+    triggerModal: function() {
       console.log(22222, this.status);
-      // 상위 컴포넌트에서 redeem 시키고, 그 상위 컴포넌트에서 또 자기 상위 컴포넌트에 updateCurrentUser() 트리거하기
-      if (this.status === 'unused') this.$emit('triggerRedeem', this.type);
+      if (this.status === 'unused') this.$emit('triggerModal', this.type);
+    },
+    setImg: function() {
+      if (this.type === 'firstRoundPlus' || this.type === 'secondRoundPlus') {
+        switch (this.status) {
+          case 'unavailable':
+            this.imgAlt = '아직 사용할 수 없는 원 플러스 원 쿠폰';
+            this.imgSrc = require('../assets/images/plus_unavailable.png');
+            break;
+          case 'unused':
+            this.imgAlt = '사용할 수 있는 원 플러스 원 쿠폰';
+            this.imgSrc = require('../assets/images/plus_unused.png');
+            break;
+          case 'used':
+            this.imgAlt = '이미 사용한 원 플러스 원 쿠폰';
+            this.imgSrc = require('../assets/images/plus_used.png');
+            break;
+          case 'expired':
+            this.imgAlt = '사용 기한이 지난 원 플러스 원 쿠폰';
+            this.imgSrc = require('../assets/images/plus_expired.png');
+            break;
+          default:
+            // this.imgAlt = '';
+            // this.imgSrc = '';
+            break;
+        }
+      } else if (this.type === 'firstRoundFree' || this.type === 'secondRoundFree') {
+        switch (this.status) {
+          case 'unavailable':
+            this.imgAlt = '아직 사용할 수 없는 무료 쿠폰';
+            this.imgSrc = require('../assets/images/free_unavailable.png');
+            break;
+          case 'unused':
+            this.imgAlt = '사용할 수 있는 무료 쿠폰';
+            this.imgSrc = require('../assets/images/free_unused.png');
+            break;
+          case 'used':
+            this.imgAlt = '이미 사용한 무료 쿠폰';
+            this.imgSrc = require('../assets/images/free_unused.png');
+            break;
+          case 'expired':
+            this.imgAlt = '사용 기한이 지난 무료 쿠폰';
+            this.imgSrc = require('../assets/images/free_expired.png');
+            break;
+          default:
+            // this.imgAlt = '';
+            // this.imgSrc = '';
+            break;
+        }
+      }
     }
   }
 }
