@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header :user="currentUser" />
-    <router-view v-on:getPhoneNumber="authenticate" :user="currentUser" />
+    <router-view :user="currentUser" v-on:getPhoneNumber="authenticate" v-on:updatePurchaseQuantity="updateCurrentUser" />
   </div>
 </template>
 
@@ -51,7 +51,10 @@ export default {
         this.achievement = data.achievement;
         this.currentUser = data.currentUser;
       });
-    }
+    },
+    updateCurrentUser: function(purchaseQuantity) {
+      this.currentUser.purchaseQuantity = purchaseQuantity;
+    },
   }
 }
 </script>

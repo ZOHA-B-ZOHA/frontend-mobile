@@ -93,6 +93,10 @@ export default {
         .catch((error) => {
           console.log(error);
           // fake data
+
+          // 유저의 구매 수량 업데이트
+          this.$emit('updatePurchaseQuantity', api_verify.response.data.purchaseQuantity);
+
           const purchaseCount = api_verify.response.data.purchaseCount;
           if (purchaseCount === 1) {
             this.modalType = 'firstPurchase';
@@ -109,7 +113,6 @@ export default {
           } else {
             console.log('error');
           }
-          // 유저의 구매 수량도 업데이트하기
         });
       } else {
         document.getElementById('result').innerText = 'QR코드를 인식시켜 주세요.';
