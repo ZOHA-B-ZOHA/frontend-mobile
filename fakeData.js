@@ -48,6 +48,14 @@ const api_rankings = {
           phoneNumber: '01022221111',
           purchaseQuantity: 4,
         },
+        {
+          phoneNumber: '01022221112',
+          purchaseQuantity: 4,
+        },
+        {
+          phoneNumber: '01022221110',
+          purchaseQuantity: 3,
+        },
       ],
     },
   },
@@ -67,6 +75,11 @@ const api_verify = {
       achievement: 0.52,
       justEarned: true,
       purchaseCount: 3,
+      purchaseQuantity: {
+        firstRound: 3,
+        secondRound: 12,
+      },
+      complete: false,
     },
   },
 };
@@ -79,26 +92,12 @@ const api_rewards = {
   },
   response: {
     data: {
-      rewards: [
-        {
-          id: 1,
-          round: 'first',
-          type: 'bogo',
-          status: 'expired'
-        },
-        {
-          id: 2,
-          round: 'first',
-          type: 'free',
-          status: 'used'
-        },
-        {
-          id: 3,
-          round: 'second',
-          type: 'bogo',
-          status: 'unused'
-        },
-      ],
+      rewards: {
+        firstRoundPlus: 'used', // null|'unavailable'|'unused'|'used'|'expired'
+        firstRoundFree: 'expired',
+        secondRoundPlus: 'unused',
+        secondRoundFree: null,
+      },
     },
   },
 };
@@ -106,35 +105,18 @@ const api_rewards = {
 const api_redeem = {
   request: {
     data: {
-      // round: 'second',
-      // type: 'bogo',
-      // status: 'unused',
       phoneNumber: '1234567890',
-      tokenId: 3
+      rewardType: 'secondRoundPlus',
     },
   },
   response: {
     data: {
-      rewards: [
-        {
-          id: 1,
-          round: 'first',
-          type: 'bogo',
-          status: 'expired'
-        },
-        {
-          id: 2,
-          round: 'first',
-          type: 'free',
-          status: 'used'
-        },
-        {
-          id: 3,
-          round: 'second',
-          type: 'bogo',
-          status: 'used'
-        },
-      ],
+      rewards: {
+        firstRoundPlus: 'used', // null|'unavailable'|'unused'|'used'|'expired'
+        firstRoundFree: 'expired',
+        secondRoundPlus: 'used',
+        secondRoundFree: null,
+      },
     },
   },
 };
