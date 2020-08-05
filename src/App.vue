@@ -115,7 +115,7 @@ input {
   border: none;
   padding: 0px 10px; /* 여긴 아직 디자인이 안 나와서 내가 알아서 함 */
   box-sizing: border-box; /* makes padding inclusive */
-  color: #E26C67;
+  color: #B42828;
   background-color: white;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   margin-bottom: 25px;
@@ -124,8 +124,8 @@ a, button {
   width: 315px;
   height: 50px;
   border: none;
-  color: #B42828;
-  background-color: white;
+  color: white;
+  background-color: #B42828; /* #E26C67; */
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   text-decoration: none;
   margin-bottom: 25px;
