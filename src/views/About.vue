@@ -5,10 +5,10 @@
       <div class="content">{{ user.phoneNumber }}</div>
     </section>
     <section>
-      <div class="label">적립 횟수? 구매 수량?</div>
+      <div class="label">구매 횟수</div>
       <div class="content">
-        <div>1차: {{ user.purchaseQuantity.firstRound }}회</div>
-        <div>2차: {{ user.purchaseQuantity.secondRound }}회</div>
+        <div>1차: {{ user.purchaseCount.firstRound }}회</div>
+        <div>2차: {{ user.purchaseCount.secondRound }}회</div>
       </div>
     </section>
     <section>
@@ -103,5 +103,9 @@ export default {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
+  padding: 0px;
+  align-items: center;
+  align-content: center;
+  padding-top: 20px;
 }
 </style>
