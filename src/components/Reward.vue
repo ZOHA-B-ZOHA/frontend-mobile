@@ -27,16 +27,11 @@ export default {
   },
   methods: {
     triggerModal: function() {
-      console.log(22222, this.status);
       if (this.status === 'unused') this.$emit('triggerModal', this.type);
     },
     setImg: function() {
       if (this.type === 'firstRoundPlus' || this.type === 'secondRoundPlus') {
         switch (this.status) {
-          case 'unavailable':
-            this.imgAlt = '아직 사용할 수 없는 원 플러스 원 쿠폰';
-            this.imgSrc = require('../assets/images/plus_unavailable.png');
-            break;
           case 'unused':
             this.imgAlt = '사용할 수 있는 원 플러스 원 쿠폰';
             this.imgSrc = require('../assets/images/plus_unused.png');
@@ -50,16 +45,10 @@ export default {
             this.imgSrc = require('../assets/images/plus_expired.png');
             break;
           default:
-            // this.imgAlt = '';
-            // this.imgSrc = '';
             break;
         }
       } else if (this.type === 'firstRoundFree' || this.type === 'secondRoundFree') {
         switch (this.status) {
-          case 'unavailable':
-            this.imgAlt = '아직 사용할 수 없는 무료 쿠폰';
-            this.imgSrc = require('../assets/images/free_unavailable.png');
-            break;
           case 'unused':
             this.imgAlt = '사용할 수 있는 무료 쿠폰';
             this.imgSrc = require('../assets/images/free_unused.png');
@@ -73,8 +62,6 @@ export default {
             this.imgSrc = require('../assets/images/free_expired.png');
             break;
           default:
-            // this.imgAlt = '';
-            // this.imgSrc = '';
             break;
         }
       }
@@ -82,22 +69,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.unavailable {
-  pointer-events: none;
-}
-.unused {
-  cursor: pointer;
-}
-.used {
-  pointer-events: none;
-  color: blue;
-}
-.expired {
-  pointer-events: none;
-}
-.null {
-  pointer-events: none;
-}
-</style>
