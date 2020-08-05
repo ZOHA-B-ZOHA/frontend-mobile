@@ -124,8 +124,8 @@ a, button {
   width: 315px;
   height: 50px;
   border: none;
-  color: white;
-  background-color: #B42828; /* #E26C67; */
+  color: #B42828; /* #E26C67; */;
+  background-color: white;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   text-decoration: none;
   margin-bottom: 25px;
