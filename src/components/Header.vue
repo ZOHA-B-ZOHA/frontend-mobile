@@ -11,10 +11,13 @@
     <button v-if="$route.name === 'Home'" class="ranking" v-bind:class="{ hidden: !user }" @click="toggleRanking">
       랭킹
       <div class="leaderBoard hidden">
-        <div v-for="ranking in rankings" v-bind:key="ranking.phoneNumber">
+        <!-- <div v-for="ranking in rankings" v-bind:key="ranking.phoneNumber">
           <div v-if="ranking.phoneNumber === user.phoneNumber">{{ ranking.purchaseQuantity }}(나)</div>
           <div v-else>{{ ranking.purchaseQuantity }}</div>
-        </div>
+        </div> -->
+        <div v-if="rankings">{{ rankings.first.quantity }}, {{ rankings.first.userPhoneNumbers.length }}</div>
+        <div v-if="rankings">{{ rankings.second.quantity }}, {{ rankings.second.userPhoneNumbers.length }}</div>
+        <div v-if="rankings">{{ rankings.third.quantity }}, {{ rankings.third.userPhoneNumbers.length }}</div>
       </div>
     </button>
     <div v-else class="fake"></div>
