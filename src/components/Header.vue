@@ -3,8 +3,8 @@
     <router-link to="/" v-if="$route.name === 'Earn' || $route.name === 'Verification' || $route.name === 'About'">
       <img alt="뒤로 가기" src="../assets/arrow.png" width="24" />
     </router-link>
-    <div v-else class="fake"></div>
-    <img v-if="$route.name === 'Home'" alt="조합조하 로고" src="../assets/logo.png" width="120" />
+    <div v-else class="fake left"></div>
+    <img v-if="$route.name === 'Home'" alt="조합조하 로고" src="../assets/logo.png" width="100" />
     <div v-else-if="$route.name === 'Earn'">적립하기</div>
     <div v-else-if="$route.name === 'About'">내 정보</div>
     <div v-else-if="$route.name === 'Verification'">QR코드 인증하기</div>
@@ -20,7 +20,7 @@
         <div v-if="rankings">{{ rankings.third.quantity }}, {{ rankings.third.userPhoneNumbers.length }}</div>
       </div>
     </button>
-    <div v-else class="fake"></div>
+    <div v-else class="fake right"></div>
   </header>
 </template>
 
@@ -84,7 +84,9 @@ a {
   filter: none;
 }
 img {
-  margin-top: 13px;
+  margin-top: 12px;
+}
+a img {
   margin-left: 18px;
 }
 header div {
@@ -101,8 +103,9 @@ button {
   근데 누를 수 있는 건 명확하게 누를 수 있다고 표시를 해 주는 게 더 좋을 듯 */
   border-radius: 50%;
   padding: 0px;
-  /* margin: 10px 12px 0px 0px; */
-  margin-bottom: 0px;
+  margin: 10px 12px 0px 0px;
+  /* margin-bottom: 0px;
+  margin-right: 12px; */
 }
 .hidden {
   visibility: hidden;
@@ -123,5 +126,8 @@ button {
   width: 50px;
   height:50px;
   visibility: hidden;
+}
+.left {
+  margin-left: 12px;
 }
 </style>
