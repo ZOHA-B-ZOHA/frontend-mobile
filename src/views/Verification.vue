@@ -82,7 +82,7 @@ export default {
         //   phoneNumber: this.user.phoneNumber, // console.log(121212, this.$route.query);
         //   branch: this.$route.query.branch,
         //   purchaseQuantity: this.$route.query.quantity,
-        //   verificationCode: 'zohabzohafighting', // result.data
+        //   verificationCode: result.data
         // }, { headers: {  } })
         // .then((response) => {
         //   console.log(response)
