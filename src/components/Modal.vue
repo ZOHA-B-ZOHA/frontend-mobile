@@ -29,27 +29,27 @@ export default {
         this.bodyText =
           `구매 지점: ${this.query.branch}\n
           구매 수량: ${this.query.quantity}\n
-          픽업 코너에서 구매하신 물품(??)을 받으면서 QR코드를 스캔해 주세요.`;
+          픽업 코너에서 구매하신 물품을 받으면서 QR코드를 스캔해 주세요.`;
         this.buttonText = 'QR코드 스캔하기';
         break;
       case 'firstPurchase':
         this.path = '/';
-        this.bodyText = '첫번째구매! 환영과 격려와 응원';
+        this.bodyText = '첫 구매시군요!\n이벤트에 참여해 주셔서 감사합니다.\n앞으로도 많은 참여 부탁드립니다!';
         this.buttonText = '확인';
         break;
       case 'secondPurchase':
         this.path = '/';
-        this.bodyText = '한 번만 더 하면 ?? 1+1쿠폰~';
+        this.bodyText = '두 번째 구매시군요!\n한 번만 더 구매하시면 느티나무 목표치 달성 시 사용할 수 있는 음료 1+1 쿠폰을 드려요! 앞으로도 많은 참여 부탁드립니다.';
         this.buttonText = '확인';
         break;
       case 'thirdPurchase':
-        this.path = '/about';
-        this.bodyText = '축하드립니다~목표치 달성 시 1+1 쿠폰 지급 대상입니다~\n목표치달성까지좀만더힘내주세요';
-        this.buttonText = '쿠폰 보러 가기';
+        this.path = '/';
+        this.bodyText = '축하드립니다!\n음료를 3번 이상 구매해 목표치 달성 시 사용 가능한 음료 1+1 쿠폰 지급 대상이 되셨습니다.\n목표치 달성까지 조금만 더 힘내주세요!';
+        this.buttonText = '확인';
         break;
       case 'fourthOrMorePurchase':
         this.path = '/';
-        this.bodyText = '감사합니다 목표치를 다 채우기 위해 힘을 계속 보태 주세요';
+        this.bodyText = '성원에 감사드립니다. 느티나무의 목표치 달성을 위해 계속 힘을 보태 주세요!';
         this.buttonText = '확인';
         break;
       case 'beforeRedeem':
