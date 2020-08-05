@@ -10,7 +10,7 @@
 <script>
 import jsQR from 'jsqr';
 import axios from 'axios';
-import { api_verify } from '../../fakeData';
+// import { api_verify } from '../../fakeData';
 import Modal from '../components/Modal';
 
 export default {
@@ -85,19 +85,20 @@ export default {
           verificationCode: 'zohabzohafighting', // result.data
         }, { headers: {  } })
         .then((response) => {
+          console.log(response)
           // 이 이후에 redirect하면서 팝업이랑 반짝이 띄워 줘야 함. 업데이트된 게이지바도 반영하고
-          this.$emit('updatePurchaseQuantity', response.data.purchaseQuantity);
-          const purchaseCount = response.data.purchaseCount;
-          if (purchaseCount === 1) {
+          this.$emit('updateUserInfo', response.data.purchaseCount, response.data.purchaseQuantity);
+          const purchaseCountNow = response.data.purchaseCountNow;
+          if (purchaseCountNow === 1) {
             this.modalType = 'firstPurchase';
             this.isModalVisible = true;
-          } else if (purchaseCount === 2) {
+          } else if (purchaseCountNow === 2) {
             this.modalType = 'secondPurchase';
             this.isModalVisible = true;
-          } else if (purchaseCount === 3) {
+          } else if (purchaseCountNow === 3) {
             this.modalType = 'thirdPurchase';
             this.isModalVisible = true;
-          } else if (purchaseCount >= 4) {
+          } else if (purchaseCountNow >= 4) {
             this.modalType = 'fourthOrMorePurchase';
             this.isModalVisible = true;
           } else {
@@ -106,28 +107,25 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          // fake data
-
-          // 유저의 구매 수량 업데이트
-          this.$emit('updatePurchaseQuantity', api_verify.response.data.purchaseQuantity);
-
-          const purchaseCount = api_verify.response.data.purchaseCount;
-          if (purchaseCount === 1) {
-            this.modalType = 'firstPurchase';
-            this.isModalVisible = true;
-          } else if (purchaseCount === 2) {
-            this.modalType = 'secondPurchase';
-            this.isModalVisible = true;
-          } else if (purchaseCount === 3) {
-            this.modalType = 'thirdPurchase';
-            this.isModalVisible = true;
-          } else if (purchaseCount >= 4) {
-            this.modalType = 'fourthOrMorePurchase';
-            this.isModalVisible = true;
-          } else {
-            console.log('error');
-          }
         });
+        // dummy data ver.
+        // this.$emit('updateUserInfo', api_verify.response.data.purchaseCount, api_verify.response.data.purchaseQuantity);
+        // const purchaseCountNow = api_verify.response.data.purchaseCountNow;
+        // if (purchaseCountNow === 1) {
+        //   this.modalType = 'firstPurchase';
+        //   this.isModalVisible = true;
+        // } else if (purchaseCountNow === 2) {
+        //   this.modalType = 'secondPurchase';
+        //   this.isModalVisible = true;
+        // } else if (purchaseCountNow === 3) {
+        //   this.modalType = 'thirdPurchase';
+        //   this.isModalVisible = true;
+        // } else if (purchaseCountNow >= 4) {
+        //   this.modalType = 'fourthOrMorePurchase';
+        //   this.isModalVisible = true;
+        // } else {
+        //   console.log('error');
+        // }
       } else {
         document.getElementById('result').innerText = 'QR코드를 인식시켜 주세요.';
       }
@@ -140,3 +138,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+#result {
+  color: #ffffff;
+}
+</style>

@@ -44,12 +44,12 @@ export default {
         break;
       case 'thirdPurchase':
         this.path = '/about';
-        this.bodyText = '목표치 다 채우면 무료 쿠폰~\n그리고 1등쿠폰도 노려보세요';
+        this.bodyText = '축하드립니다~목표치 달성 시 1+1 쿠폰 지급 대상입니다~\n목표치달성까지좀만더힘내주세요';
         this.buttonText = '쿠폰 보러 가기';
         break;
       case 'fourthOrMorePurchase':
         this.path = '/';
-        this.bodyText = '목표치를 다 채우기 위해 계속 노력해 주세요';
+        this.bodyText = '감사합니다 목표치를 다 채우기 위해 힘을 계속 보태 주세요';
         this.buttonText = '확인';
         break;
       case 'beforeRedeem':

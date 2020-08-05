@@ -1,14 +1,14 @@
 <template>
   <div id="app">
     <Header :user="currentUser" />
-    <router-view :user="currentUser" v-on:getPhoneNumber="authenticate" v-on:updatePurchaseQuantity="updateCurrentUser" />
+    <router-view :user="currentUser" v-on:getPhoneNumber="authenticate" v-on:updateUserInfo="updateCurrentUser" />
   </div>
 </template>
 
 <script>
 import Header from './components/Header';
 import axios from 'axios';
-import { api_main, api_authenticate } from '../fakeData';
+// import { api_main, api_authenticate } from '../fakeData';
 
 export default {
   name: 'App',
@@ -25,34 +25,32 @@ export default {
   created: function() {
     axios.get(`${process.env.VUE_APP_URL}/`)
     .then((response) => {
-      // not yet implemented
       console.log(response)
       this.achievement = response.data.achievement;
     })
     .catch((error) => {
-      // so use fake data now
       console.log(error)
-      this.achievement = api_main.response.data.achievement;
     });
+    // dummy data ver.
+    // this.achievement = api_main.response.data.achievement;
   },
   methods: {
     authenticate: function(phoneNumber) {
       axios.post(`${process.env.VUE_APP_URL}/authenticate`, { phoneNumber })
       .then((response) => {
-        // not yet implemented
         console.log(response)
         this.achievement = response.data.achievement;
         this.currentUser = response.data.currentUser;
       })
       .catch((error) => {
-        // so use fake data now
         console.log(error)
-        const data = api_authenticate.response.data;
-        this.achievement = data.achievement;
-        this.currentUser = data.currentUser;
       });
+      // dummy data ver.
+      // this.achievement = api_authenticate.response.data.achievement;
+      // this.currentUser = api_authenticate.response.data.currentUser;
     },
-    updateCurrentUser: function(purchaseQuantity) {
+    updateCurrentUser: function(purchaseCount, purchaseQuantity) {
+      this.currentUser.purchaseCount = purchaseCount;
       this.currentUser.purchaseQuantity = purchaseQuantity;
     },
   }

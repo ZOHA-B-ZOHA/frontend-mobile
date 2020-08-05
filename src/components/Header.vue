@@ -23,7 +23,7 @@
 
 <script>
 import axios from 'axios';
-import { api_rankings } from '../../fakeData';
+// import { api_rankings } from '../../fakeData';
 
 export default {
   name: 'Header',
@@ -50,8 +50,9 @@ export default {
       })
       .catch((error) => {
         console.log(error);
-        this.rankings = api_rankings.response.data.rankings;
       });
+      // dummy data ver.
+      // this.rankings = api_rankings.response.data.rankings;
     },
   },
 }
