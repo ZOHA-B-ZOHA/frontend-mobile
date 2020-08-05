@@ -7,8 +7,8 @@
 
 <script>
 import Header from './components/Header';
-// import axios from 'axios';
-import { api_main, api_authenticate } from '../fakeData';
+import axios from 'axios';
+// import { api_main, api_authenticate } from '../fakeData';
 
 export default {
   name: 'App',
@@ -23,31 +23,31 @@ export default {
     }
   },
   created: function() {
-    // axios.get(`${process.env.VUE_APP_URL}/`)
-    // .then((response) => {
-    //   console.log(response)
-    //   this.achievement = response.data.achievement;
-    // })
-    // .catch((error) => {
-    //   console.log(error)
-    // });
+    axios.get(`${process.env.VUE_APP_URL}/`)
+    .then((response) => {
+      console.log(response)
+      this.achievement = response.data.achievement;
+    })
+    .catch((error) => {
+      console.log(error)
+    });
     // dummy data ver.
-    this.achievement = api_main.response.data.achievement;
+    // this.achievement = api_main.response.data.achievement;
   },
   methods: {
-    authenticate: function(/*phoneNumber*/) {
-      // axios.post(`${process.env.VUE_APP_URL}/authenticate`, { phoneNumber })
-      // .then((response) => {
-      //   console.log(response)
-      //   this.achievement = response.data.achievement;
-      //   this.currentUser = response.data.currentUser;
-      // })
-      // .catch((error) => {
-      //   console.log(error)
-      // });
+    authenticate: function(phoneNumber) {
+      axios.post(`${process.env.VUE_APP_URL}/authenticate`, { phoneNumber })
+      .then((response) => {
+        console.log(response)
+        this.achievement = response.data.achievement;
+        this.currentUser = response.data.currentUser;
+      })
+      .catch((error) => {
+        console.log(error)
+      });
       // dummy data ver.
-      this.achievement = api_authenticate.response.data.achievement;
-      this.currentUser = api_authenticate.response.data.currentUser;
+      // this.achievement = api_authenticate.response.data.achievement;
+      // this.currentUser = api_authenticate.response.data.currentUser;
     },
     updateCurrentUser: function(purchaseCount, purchaseQuantity) {
       this.currentUser.purchaseCount = purchaseCount;

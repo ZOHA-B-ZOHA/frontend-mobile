@@ -25,8 +25,8 @@
 </template>
 
 <script>
-// import axios from 'axios';
-import { api_rankings } from '../../fakeData';
+import axios from 'axios';
+// import { api_rankings } from '../../fakeData';
 
 export default {
   name: 'Header',
@@ -46,16 +46,16 @@ export default {
       leaderBoard.classList.toggle('hidden');
     },
     getRankings: function() { // 랭킹 버튼을 눌렀을 때
-      // axios.post(`${process.env.VUE_APP_URL}/rankings`, { phoneNumber: this.user.phoneNumber })
-      // .then((response) => {
-      //   console.log(response);
-      //   this.rankings = response.data.rankings;
-      // })
-      // .catch((error) => {
-      //   console.log(error);
-      // });
+      axios.post(`${process.env.VUE_APP_URL}/rankings`, { phoneNumber: this.user.phoneNumber })
+      .then((response) => {
+        console.log(response);
+        this.rankings = response.data.rankings;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
       // dummy data ver.
-      this.rankings = api_rankings.response.data.rankings;
+      // this.rankings = api_rankings.response.data.rankings;
     },
   },
 }
