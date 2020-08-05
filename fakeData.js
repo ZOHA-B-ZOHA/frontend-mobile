@@ -22,6 +22,10 @@ const api_authenticate = {
           firstRound: 3,
           secondRound: 2,
         },
+        purchaseCount: {
+          firstRound: 5,
+          secondRound: 4,
+        },
       },
     },
   },
@@ -35,28 +39,28 @@ const api_rankings = {
   },
   response: {
     data: {
-      rankings: [
-        {
-          phoneNumber: '01011112222',
-          purchaseQuantity: 6,
+      rankings: {
+        first: {
+          quantity: 6,
+          userPhoneNumbers: [
+            '01011112222',
+            '01012345678',
+          ],
         },
-        {
-          phoneNumber: '01012345678',
-          purchaseQuantity: 5,
+        second: {
+          quantity: 5,
+          userPhoneNumbers: [
+            '01022221111',
+            '01022221112',
+          ],
         },
-        {
-          phoneNumber: '01022221111',
-          purchaseQuantity: 4,
+        third: {
+          quantity: 4,
+          userPhoneNumbers: [
+            '01022221110',
+          ],
         },
-        {
-          phoneNumber: '01022221112',
-          purchaseQuantity: 4,
-        },
-        {
-          phoneNumber: '01022221110',
-          purchaseQuantity: 3,
-        },
-      ],
+      },
     },
   },
 };
@@ -74,12 +78,15 @@ const api_verify = {
     data: {
       achievement: 0.52,
       justEarned: true,
-      purchaseCount: 3,
+      purchaseCountNow: 5,
       purchaseQuantity: {
         firstRound: 3,
-        secondRound: 12,
+        secondRound: 5,
       },
-      complete: false,
+      purchaseCount: {
+        firstRound: 5,
+        secondRound: 5,
+      },
     },
   },
 };
@@ -93,7 +100,7 @@ const api_rewards = {
   response: {
     data: {
       rewards: {
-        firstRoundPlus: 'used', // null|'unavailable'|'unused'|'used'|'expired'
+        firstRoundPlus: 'used',
         firstRoundFree: 'expired',
         secondRoundPlus: 'unused',
         secondRoundFree: null,
