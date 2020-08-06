@@ -44,7 +44,7 @@ export default {
     toggleRanking: function(e) {
       const leaderBoard = e.target.childNodes[1]; // 순서로 찾는 건 좀 불안정하긴 한데,, 의미상으로는 이게 지금 좀 더 이해하기 쉬움
       console.log(leaderBoard)
-      if (!this.rankings) this.getRankings();
+      this.getRankings();
       leaderBoard.classList.toggle('hidden');
     },
     getRankings: function() { // 랭킹 버튼을 눌렀을 때
