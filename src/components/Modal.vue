@@ -27,9 +27,7 @@ export default {
       case 'beforeVerification':
         this.path = '/verify';
         this.bodyText =
-          `구매 지점: ${this.query.branch}\n
-          구매 수량: ${this.query.quantity}\n
-          픽업 코너에서 구매하신 물품을 받으면서 QR코드를 스캔해 주세요.`;
+          `구매 지점: ${this.query.branch}\n구매 수량: ${this.query.quantity}\n\n픽업 코너에서 구매하신 물품을 받으면서 QR코드를 스캔해 주세요.`;
         this.buttonText = 'QR코드 스캔하기';
         break;
       case 'firstPurchase':
@@ -100,5 +98,8 @@ a, button {
   margin-bottom: 16px;
   background-color: #E26C67;
   color: white;
+}
+p {
+  white-space: pre-wrap;
 }
 </style>
