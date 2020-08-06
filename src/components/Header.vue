@@ -1,14 +1,14 @@
 <template>
   <header>
-    <router-link to="/" v-if="$route.name === 'Earn' || $route.name === 'Verification' || $route.name === 'About'">
+    <a id="back" @click="$router.go(-1);" v-if="$route.name === 'Earn' || $route.name === 'Verification' || $route.name === 'About'">
       <img alt="뒤로 가기" src="../assets/arrow.png" width="24" />
-    </router-link>
+    </a>
     <div v-else class="fake left"></div>
     <img v-if="$route.name === 'Home'" alt="조합조하 로고" src="../assets/logo.png" width="100" />
     <div v-else-if="$route.name === 'Earn'">적립하기</div>
     <div v-else-if="$route.name === 'About'">내 정보</div>
     <div v-else-if="$route.name === 'Verification'">QR코드 인증하기</div>
-    <button v-if="$route.name === 'Home'" class="ranking" v-bind:class="{ hidden: !user }" @click="toggleRanking">
+    <button id="ranking" v-if="$route.name === 'Home'" v-bind:class="{ hidden: !user }" @click="toggleRanking">
       랭킹
       <div class="leaderBoard hidden">
         <!-- <div v-for="ranking in rankings" v-bind:key="ranking.phoneNumber">
@@ -131,7 +131,7 @@ header div {
   font-size: 24px;
   color: white;
 }
-button {
+#ranking {
   /* v-bind를 쓰려고 id 대신 class를 쓰기는 했는데,, */
   width: 50px;
   height: 50px;
