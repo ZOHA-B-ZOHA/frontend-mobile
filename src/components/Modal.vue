@@ -53,9 +53,13 @@ export default {
         this.buttonText = '확인';
         break;
       case 'beforeRedeem':
-        this.path = '';
         this.bodyText = '정말 사용하시겠습니까?';
         this.buttonText = '네';
+        break;
+      case 'gotError':
+        this.path = '/';
+        this.bodyText = '오류가 발생했습니다. 메인 화면으로 돌아갑니다.';
+        this.buttonText = '확인'
         break;
       default:
         break;

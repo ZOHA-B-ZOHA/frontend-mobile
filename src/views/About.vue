@@ -20,7 +20,7 @@
         <Reward type="secondRoundFree" :status="rewards.secondRoundFree" v-on:triggerModal="showModal" />
       </div>
     </section>
-    <Modal v-if="isModalVisible" type="beforeRedeem" :query="modalQuery" v-on:handleClick="redeem" />
+    <Modal v-if="isModalVisible" :type="modalType" :query="modalQuery" v-on:handleClick="redeem" />
   </main>
 </template>
 
@@ -43,6 +43,7 @@ export default {
     return {
       rewards: {},
       isModalVisible: false,
+      modalType: null,
       modalQuery: Object,
     };
   },
@@ -64,6 +65,7 @@ export default {
         useButton: true,
         rewardType,
       };
+      this.modalType = 'beforeRedeem';
       this.isModalVisible = true;
     },
     redeem: function(rewardType, phoneNumber=this.user.phoneNumber) {
@@ -78,6 +80,8 @@ export default {
       })
       .catch((error) => {
         console.log(error)
+        this.modalType = 'gotError';
+        this.isModalVisible = true;
       });
       // dummy data ver.
       // this.rewards = api_redeem.response.data.rewards;

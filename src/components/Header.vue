@@ -80,6 +80,7 @@ export default {
       })
       .catch((error) => {
         console.log(error);
+        this.$emit('getError');
       });
       // dummy data ver.
       // this.rankings = api_rankings.response.data.rankings;

@@ -108,6 +108,8 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+          this.modalType = 'gotError';
+          this.isModalVisible = true;
         });
         // dummy data ver.
         // this.$emit('updateUserInfo', api_verify.response.data.purchaseCount, api_verify.response.data.purchaseQuantity);

@@ -7,6 +7,7 @@
       v-on:getPhoneNumber="authenticate"
       v-on:updateUserInfo="updateCurrentUser"
       v-on:getUpdatedAchievement="updateAchievement" />
+    <Modal v-if="isModalVisible" type="gotError" />
   </div>
 </template>
 
@@ -14,17 +15,20 @@
 import Header from './components/Header';
 import axios from 'axios';
 // import { api_main, api_authenticate } from '../fakeData';
+import Modal from './components/Modal';
 
 export default {
   name: 'App',
   components: {
     Header,
+    Modal,
   },
   data: function() {
     return {
       currentUser: null,
       achievement: 0,
       justEarned: false,
+      isModalVisible: false,
     }
   },
   created: function() {
@@ -35,6 +39,7 @@ export default {
     })
     .catch((error) => {
       console.log(error)
+      this.isModalVisible = true;
     });
     // dummy data ver.
     // this.achievement = api_main.response.data.achievement;
@@ -49,6 +54,7 @@ export default {
       })
       .catch((error) => {
         console.log(error)
+        this.isModalVisible = true;
       });
       // dummy data ver.
       // this.achievement = api_authenticate.response.data.achievement;

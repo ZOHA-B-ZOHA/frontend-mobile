@@ -14,17 +14,21 @@
           <button type="submit">확인</button>
         </div>
       </form>
+      <Modal v-if="isModalVisible" type="gotError" v-on:getError="showModal" />
     </section>
+
   </main>
 </template>
 
 <script>
 import GaugeBar from '../components/GaugeBar';
+import Modal from '../components/Modal';
 
 export default {
   name: 'Home',
   components: {
     GaugeBar,
+    Modal,
   },
   props: {
     user: Object,
@@ -33,12 +37,16 @@ export default {
   data: function() {
     return {
       rankings: null,
+      isModalVisible: false,
     };
   },
   methods: {
     handleSubmit: function(e) {
       this.$emit('getPhoneNumber', e.target.phoneNumber.value) // e.target.elements.phoneNumber.value
     },
+    showModal: function() {
+      this.isModalVisible = true;
+    }
   },
 };
 </script>
