@@ -152,6 +152,14 @@ a, button {
   line-height: 50px; /* to center the text in a tag vertically */
   font-size: 16px;
 }
+a:active, button:active, select:active {
+  filter: none;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+button:focus, select:focus, input:focus {
+  outline: none;
+}
+/* 근데 이런 상태들을 이렇게 막 구분 안 되게 해 놔도 되나....?? */
 
 /* Apple iOS Safari */
 html {

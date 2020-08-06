@@ -121,6 +121,9 @@ a {
   /* cursor:  */
   filter: none;
 }
+a:active {
+  box-shadow: none;
+}
 img {
   margin-top: 12px;
 }
