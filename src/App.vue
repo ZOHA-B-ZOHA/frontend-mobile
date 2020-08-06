@@ -147,4 +147,20 @@ a, button {
   line-height: 50px; /* to center the text in a tag vertically */
   font-size: 16px;
 }
+
+/* Apple iOS Safari */
+html {
+  -webkit-text-size-adjust: none
+}
+input, button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+input, button, select {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius:0;
+}
 </style>
