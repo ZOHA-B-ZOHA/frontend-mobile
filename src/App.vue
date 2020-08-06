@@ -35,7 +35,8 @@ export default {
     axios.get('https://zohabzoha.com/api')
     .then((response) => {
       console.log(response)
-      this.achievement = Number(response.data.achievement);
+      // https://hyeonseok.com/soojung/dev/2019/02/23/850.html
+      this.achievement = Math.round(Number(response.data.achievement) * 1000) / 1000;
     })
     .catch((error) => {
       console.log(error)
@@ -49,7 +50,7 @@ export default {
       axios.post('https://zohabzoha.com/api/authenticate', { phoneNumber })
       .then((response) => {
         console.log(response)
-        this.achievement = Number(response.data.achievement);
+        this.achievement = Math.round(Number(response.data.achievement) * 1000) / 1000;
         this.currentUser = response.data.currentUser;
       })
       .catch((error) => {
@@ -65,7 +66,7 @@ export default {
       this.currentUser.purchaseQuantity = purchaseQuantity;
     },
     updateAchievement: function(updatedAchievement) {
-      this.achievement = Number(updatedAchievement);
+      this.achievement = Math.round(Number(updatedAchievement) * 1000) / 1000;
     }
   }
 }

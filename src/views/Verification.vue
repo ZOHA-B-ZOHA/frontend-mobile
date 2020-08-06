@@ -87,7 +87,7 @@ export default {
         .then((response) => {
           console.log(response)
           // 이 이후에 redirect하면서 팝업이랑 반짝이 띄워 줘야 함. 업데이트된 게이지바도 반영하고
-          this.$emit('getUpdatedAchievement', Number(response.data.achievement));
+          this.$emit('getUpdatedAchievement', Math.round(Number(response.data.achievement) * 1000) / 1000);
           this.$emit('updateUserInfo', response.data.purchaseCount, response.data.purchaseQuantity);
           const purchaseCountNow = response.data.purchaseCountNow;
           if (purchaseCountNow === 1) {
