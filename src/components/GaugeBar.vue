@@ -3,7 +3,12 @@
     <svg xmlns="http://www.w3.org/2000/svg" width="246" height="382" viewBox="0 0 246 382" fill="none">
       <path d="M21.8501 128.374C21.8501 128.374 41.6843 368.108 42.844 374.554C44.0036 381 50.4318 381 50.4318 381H198.679C205.677 381 206.266 376.903 206.856 372.797C207.446 368.69 227.85 128.374 227.85 128.374" fill="url(#paint0_linear)" fill-opacity="0.2"/>
       <path d="M21.8501 128.374C21.8501 128.374 41.6843 368.108 42.844 374.554C44.0036 381 50.4318 381 50.4318 381H198.679C205.677 381 206.266 376.903 206.856 372.797C207.446 368.69 227.85 128.374 227.85 128.374" stroke="white" stroke-width="2" stroke-miterlimit="10"/>
-      <path :d="`M${50-(50-29)*this.achievement} ${374-(374-136)*this.achievement}L50 374H200L${200+(221-200)*this.achievement} ${374-(374-136)*this.achievement}H${50-(50-29)*this.achievement}Z`" fill="url(#paint1_linear)"/>
+      <!-- <image x="100" y="20" width="53" height="49" xlink:href="../assets/images/heart.svg"> -->
+      <!-- <animate attributeName="y" values="20;60;100;160;300" dur="1s" /> -->
+      <image v-if="justEarned" x="100" y="30" width="53" height="49" xlink:href="../assets/images/heart.svg">
+        <animate attributeName="y" from="30" to="300" dur="1s" />
+      </image>
+      <path :d="`M${50-(50-29)*this.achievement} ${374-(374-136)*this.achievement}L50 374H200L${200+(221-200)*this.achievement} ${374-(374-136)*this.achievement}H${50-(50-29)*this.achievement}Z`" fill="url(#latte_gradient)"/>
       <image v-if="achievement >= 0.1 && achievement < 0.3" x="53" y="356" xlink:href="../assets/images/10to30.svg" />
       <image v-else-if="achievement >= 0.3 && achievement < 0.6" x="53" y="343" xlink:href="../assets/images/30to60.svg" />
       <image v-else-if="achievement >= 0.6 && achievement <= 1.0" x="49" y="328" xlink:href="../assets/images/60to100.svg" />
@@ -16,7 +21,7 @@
       <path d="M23 101.248C23.2629 74.5693 33.9144 49.0733 52.6395 30.3017C71.3646 11.5301 96.6499 1 123 1C149.35 1 174.635 11.5301 193.36 30.3017C212.086 49.0733 222.737 74.5693 223 101.248" fill="#F2F2F2" fill-opacity="0.2"/>
       <path d="M23 101.248C23.2629 74.5693 33.9144 49.0733 52.6395 30.3017C71.3646 11.5301 96.6499 1 123 1C149.35 1 174.635 11.5301 193.36 30.3017C212.086 49.0733 222.737 74.5693 223 101.248" stroke="white" stroke-width="2" stroke-miterlimit="10"/>
       <defs>
-        <linearGradient id="paint1_linear" x1="125.005" y1="374" x2="125.005" y2="136" gradientUnits="userSpaceOnUse">
+        <linearGradient id="latte_gradient" x1="125.005" y1="374" x2="125.005" y2="136" gradientUnits="userSpaceOnUse">
           <stop stop-color="#FF5A5A"/>
           <stop offset="0.05" stop-color="#FF7373"/>
           <stop offset="0.14" stop-color="#FFA1A1"/>
@@ -43,6 +48,7 @@ export default {
   name: 'GaugeBar',
   props: {
     achievement: Number,
+    justEarned: Boolean,
   },
   data: function() {
     return {

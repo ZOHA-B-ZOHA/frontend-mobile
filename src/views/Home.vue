@@ -1,6 +1,6 @@
 <template>
   <main>
-    <GaugeBar :achievement="achievement" />
+    <GaugeBar :achievement="achievement" :justEarned="justEarned" />
     <nav v-if="user">
       <router-link to="/earn">적립하기</router-link>
       <router-link to="/about">마이페이지</router-link>
@@ -33,6 +33,7 @@ export default {
   props: {
     user: Object,
     achievement: Number,
+    justEarned: Boolean,
   },
   data: function() {
     return {
@@ -40,13 +41,23 @@ export default {
       isModalVisible: false,
     };
   },
+  created: function() {
+    if (this.justEarned) {
+      console.log('just earned');
+      // 애니메이션 시간 동안,,,,,
+      setTimeout(this.updateJustEarned, 1000);
+    }
+  },
   methods: {
     handleSubmit: function(e) {
       this.$emit('getPhoneNumber', e.target.phoneNumber.value) // e.target.elements.phoneNumber.value
     },
     showModal: function() {
       this.isModalVisible = true;
-    }
+    },
+    updateJustEarned: function() {
+      this.$emit('updateJustEarned', false);
+    },
   },
 };
 </script>

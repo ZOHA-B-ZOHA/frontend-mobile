@@ -4,9 +4,11 @@
     <router-view
       :user="currentUser"
       :achievement="achievement"
+      :justEarned="justEarned"
       v-on:getPhoneNumber="authenticate"
       v-on:updateUserInfo="updateCurrentUser"
-      v-on:getUpdatedAchievement="updateAchievement" />
+      v-on:getUpdatedAchievement="updateAchievement"
+      v-on:updateJustEarned="updateJustEarned" />
     <Modal v-if="isModalVisible" type="gotError" />
   </div>
 </template>
@@ -67,7 +69,10 @@ export default {
     },
     updateAchievement: function(updatedAchievement) {
       this.achievement = Math.round(Number(updatedAchievement) * 1000) / 1000;
-    }
+    },
+    updateJustEarned: function(updatedJustEarned) {
+      this.justEarned = updatedJustEarned;
+    },
   }
 }
 </script>
