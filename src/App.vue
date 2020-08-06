@@ -1,7 +1,12 @@
 <template>
   <div id="app">
     <Header :user="currentUser" />
-    <router-view :user="currentUser" :achievement="achievement" v-on:getPhoneNumber="authenticate" v-on:updateUserInfo="updateCurrentUser" />
+    <router-view
+      :user="currentUser"
+      :achievement="achievement"
+      v-on:getPhoneNumber="authenticate"
+      v-on:updateUserInfo="updateCurrentUser"
+      v-on:getUpdatedAchievement="updateAchievement" />
   </div>
 </template>
 
@@ -26,7 +31,7 @@ export default {
     axios.get('https://zohabzoha.com/api')
     .then((response) => {
       console.log(response)
-      this.achievement = response.data.achievement;
+      this.achievement = Number(response.data.achievement);
     })
     .catch((error) => {
       console.log(error)
@@ -39,7 +44,7 @@ export default {
       axios.post('https://zohabzoha.com/api/authenticate', { phoneNumber })
       .then((response) => {
         console.log(response)
-        this.achievement = response.data.achievement;
+        this.achievement = Number(response.data.achievement);
         this.currentUser = response.data.currentUser;
       })
       .catch((error) => {
@@ -53,6 +58,9 @@ export default {
       this.currentUser.purchaseCount = purchaseCount;
       this.currentUser.purchaseQuantity = purchaseQuantity;
     },
+    updateAchievement: function(updatedAchievement) {
+      this.achievement = Number(updatedAchievement);
+    }
   }
 }
 </script>
