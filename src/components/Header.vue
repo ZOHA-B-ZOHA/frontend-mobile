@@ -86,16 +86,14 @@ export default {
       // dummy data ver.
       // this.rankings = api_rankings.response.data.rankings;
     },
-    decryptPhoneNumber: async function(encryptedPhoneNumber) {
-      return new Promise((resolve) => { // , reject 이거 어떻게 쓰는 거지 에러 처리는 해야 하는데
-        const key = 'zohabzohapassword';
-        const pass = crypto.createHash('sha256').update(String(key)).digest('base64').substring(0, 32);
-        const iv = Buffer.from(key.slice(0, 16));
-        const decipher = crypto.createDecipheriv('aes-256-cbc', pass, iv);
-        let result = decipher.update(encryptedPhoneNumber, 'base64', 'utf8');
-        result += decipher.final('utf8');
-        resolve(result);
-      });
+    decryptPhoneNumber: function(encryptedPhoneNumber) {
+      const key = 'zohabzohapassword';
+      const pass = crypto.createHash('sha256').update(String(key)).digest('base64').substring(0, 32);
+      const iv = Buffer.from(key.slice(0, 16));
+      const decipher = crypto.createDecipheriv('aes-256-cbc', pass, iv);
+      let result = decipher.update(encryptedPhoneNumber, 'base64', 'utf8');
+      result += decipher.final('utf8');
+      return result;
     },
   },
 }
