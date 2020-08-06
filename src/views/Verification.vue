@@ -128,12 +128,13 @@ export default {
         // }
       } else {
         document.getElementById('result').innerText = 'QR코드를 인식시켜 주세요.';
+        requestAnimationFrame(this.scan);
       }
 
       // https://stackoverflow.com/questions/8771919/rangeerror-with-requestanimationframe
       // 함수에 인자를 집어넣기 위해 함수를 실행시키면 안 됨. 그래서 인자도 컴포넌트의 data로 넘김.
       // requestAnimationFrame(this.scan(ctx, video));
-      requestAnimationFrame(this.scan);
+      // requestAnimationFrame(this.scan);
     },
   },
 }
