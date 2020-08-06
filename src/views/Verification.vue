@@ -9,8 +9,8 @@
 
 <script>
 import jsQR from 'jsqr';
-// import axios from 'axios';
-import { api_verify } from '../../fakeData';
+import axios from 'axios';
+// import { api_verify } from '../../fakeData';
 import Modal from '../components/Modal';
 
 export default {
@@ -78,62 +78,63 @@ export default {
 
         document.getElementById('result').innerText = result.data;
         // 실제로는 바로 적립하도록 넘어가야 함!
-        // axios.post(`${process.env.VUE_APP_URL}/verify`, {
-        //   phoneNumber: this.user.phoneNumber, // console.log(121212, this.$route.query);
-        //   branch: this.$route.query.branch,
-        //   purchaseQuantity: this.$route.query.quantity,
-        //   verificationCode: result.data
-        // }, { headers: {  } })
-        // .then((response) => {
-        //   console.log(response)
-        //   // 이 이후에 redirect하면서 팝업이랑 반짝이 띄워 줘야 함. 업데이트된 게이지바도 반영하고
-        //   this.$emit('updateUserInfo', response.data.purchaseCount, response.data.purchaseQuantity);
-        //   const purchaseCountNow = response.data.purchaseCountNow;
-        //   if (purchaseCountNow === 1) {
-        //     this.modalType = 'firstPurchase';
-        //     this.isModalVisible = true;
-        //   } else if (purchaseCountNow === 2) {
-        //     this.modalType = 'secondPurchase';
-        //     this.isModalVisible = true;
-        //   } else if (purchaseCountNow === 3) {
-        //     this.modalType = 'thirdPurchase';
-        //     this.isModalVisible = true;
-        //   } else if (purchaseCountNow >= 4) {
-        //     this.modalType = 'fourthOrMorePurchase';
-        //     this.isModalVisible = true;
-        //   } else {
-        //     console.log('error');
-        //   }
-        // })
-        // .catch((error) => {
-        //   console.log(error);
-        // });
+        axios.post('https://zohabzoha.com/api/verify', {
+          phoneNumber: this.user.phoneNumber, // console.log(121212, this.$route.query);
+          branch: this.$route.query.branch,
+          purchaseQuantity: this.$route.query.quantity,
+          verificationCode: result.data
+        }, { headers: {  } })
+        .then((response) => {
+          console.log(response)
+          // 이 이후에 redirect하면서 팝업이랑 반짝이 띄워 줘야 함. 업데이트된 게이지바도 반영하고
+          this.$emit('updateUserInfo', response.data.purchaseCount, response.data.purchaseQuantity);
+          const purchaseCountNow = response.data.purchaseCountNow;
+          if (purchaseCountNow === 1) {
+            this.modalType = 'firstPurchase';
+            this.isModalVisible = true;
+          } else if (purchaseCountNow === 2) {
+            this.modalType = 'secondPurchase';
+            this.isModalVisible = true;
+          } else if (purchaseCountNow === 3) {
+            this.modalType = 'thirdPurchase';
+            this.isModalVisible = true;
+          } else if (purchaseCountNow >= 4) {
+            this.modalType = 'fourthOrMorePurchase';
+            this.isModalVisible = true;
+          } else {
+            console.log('error');
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
         // dummy data ver.
-        this.$emit('updateUserInfo', api_verify.response.data.purchaseCount, api_verify.response.data.purchaseQuantity);
-        const purchaseCountNow = api_verify.response.data.purchaseCountNow;
-        if (purchaseCountNow === 1) {
-          this.modalType = 'firstPurchase';
-          this.isModalVisible = true;
-        } else if (purchaseCountNow === 2) {
-          this.modalType = 'secondPurchase';
-          this.isModalVisible = true;
-        } else if (purchaseCountNow === 3) {
-          this.modalType = 'thirdPurchase';
-          this.isModalVisible = true;
-        } else if (purchaseCountNow >= 4) {
-          this.modalType = 'fourthOrMorePurchase';
-          this.isModalVisible = true;
-        } else {
-          console.log('error');
-        }
+        // this.$emit('updateUserInfo', api_verify.response.data.purchaseCount, api_verify.response.data.purchaseQuantity);
+        // const purchaseCountNow = api_verify.response.data.purchaseCountNow;
+        // if (purchaseCountNow === 1) {
+        //   this.modalType = 'firstPurchase';
+        //   this.isModalVisible = true;
+        // } else if (purchaseCountNow === 2) {
+        //   this.modalType = 'secondPurchase';
+        //   this.isModalVisible = true;
+        // } else if (purchaseCountNow === 3) {
+        //   this.modalType = 'thirdPurchase';
+        //   this.isModalVisible = true;
+        // } else if (purchaseCountNow >= 4) {
+        //   this.modalType = 'fourthOrMorePurchase';
+        //   this.isModalVisible = true;
+        // } else {
+        //   console.log('error');
+        // }
       } else {
         document.getElementById('result').innerText = 'QR코드를 인식시켜 주세요.';
+        requestAnimationFrame(this.scan);
       }
 
       // https://stackoverflow.com/questions/8771919/rangeerror-with-requestanimationframe
       // 함수에 인자를 집어넣기 위해 함수를 실행시키면 안 됨. 그래서 인자도 컴포넌트의 data로 넘김.
       // requestAnimationFrame(this.scan(ctx, video));
-      requestAnimationFrame(this.scan);
+      // requestAnimationFrame(this.scan);
     },
   },
 }

@@ -25,7 +25,7 @@
 </template>
 
 <script>
-// import axios from 'axios';
+import axios from 'axios';
 import { api_rewards, api_redeem } from '../../fakeData';
 import Reward from '../components/Reward';
 import Modal from '../components/Modal';
@@ -47,14 +47,14 @@ export default {
     };
   },
   created: function() {
-    // axios.post(`${process.env.VUE_APP_URL}/rewards`, { phoneNumber: this.user.phoneNumber })
-    // .then((response) => {
-    //   console.log(response)
-    //   this.rewards = response.data.rewards;
-    // })
-    // .catch((error) => {
-    //   console.log(error);
-    // })
+    axios.post('https://zohabzoha.com/api/rewards', { phoneNumber: this.user.phoneNumber })
+    .then((response) => {
+      console.log(response)
+      this.rewards = response.data.rewards;
+    })
+    .catch((error) => {
+      console.log(error);
+    })
     // dummy data ver.
     this.rewards = api_rewards.response.data.rewards;
   },
@@ -66,19 +66,19 @@ export default {
       };
       this.isModalVisible = true;
     },
-    redeem: function(/*rewardType, phoneNumber=this.user.phoneNumber*/) {
-      // axios.post(`${process.env.VUE_APP_URL}/redeem`, {
-      //   rewardType,
-      //   phoneNumber,
-      // })
-      // .then((response) => {
-      //   console.log(response)
-      //   this.rewards = response.data.rewards;
-      //   this.isModalVisible = false;
-      // })
-      // .catch((error) => {
-      //   console.log(error)
-      // });
+    redeem: function(rewardType, phoneNumber=this.user.phoneNumber) {
+      axios.post('https://zohabzoha.com/api/redeem', {
+        rewardType,
+        phoneNumber,
+      })
+      .then((response) => {
+        console.log(response)
+        this.rewards = response.data.rewards;
+        this.isModalVisible = false;
+      })
+      .catch((error) => {
+        console.log(error)
+      });
       // dummy data ver.
       this.rewards = api_redeem.response.data.rewards;
       this.isModalVisible = false;
