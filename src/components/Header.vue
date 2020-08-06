@@ -46,7 +46,7 @@ export default {
       leaderBoard.classList.toggle('hidden');
     },
     getRankings: function() { // 랭킹 버튼을 눌렀을 때
-      axios.post(`${process.env.VUE_APP_URL}/rankings`, { phoneNumber: this.user.phoneNumber })
+      axios.post('https://zohabzoha.com/api/rankings', { phoneNumber: this.user.phoneNumber })
       .then((response) => {
         console.log(response);
         this.rankings = response.data.rankings;
