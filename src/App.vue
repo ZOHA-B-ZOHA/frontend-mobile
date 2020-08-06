@@ -68,7 +68,20 @@ export default {
       this.currentUser.purchaseQuantity = purchaseQuantity;
     },
     updateAchievement: function(updatedAchievement) {
-      this.achievement = Math.round(Number(updatedAchievement) * 1000) / 1000;
+      if (updatedAchievement) {
+        this.achievement = Math.round(Number(updatedAchievement) * 1000) / 1000;
+      } else {
+        axios.get('https://zohabzoha.com/api')
+        .then((response) => {
+          console.log(response)
+          // https://hyeonseok.com/soojung/dev/2019/02/23/850.html
+          this.achievement = Math.round(Number(response.data.achievement) * 1000) / 1000;
+        })
+        .catch((error) => {
+          console.log(error)
+          this.isModalVisible = true;
+        });
+      }
     },
     updateJustEarned: function(updatedJustEarned) {
       this.justEarned = updatedJustEarned;
