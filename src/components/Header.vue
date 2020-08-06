@@ -15,9 +15,9 @@
           <div v-if="ranking.phoneNumber === user.phoneNumber">{{ ranking.purchaseQuantity }}(나)</div>
           <div v-else>{{ ranking.purchaseQuantity }}</div>
         </div> -->
-        <div v-if="rankings">{{ rankings.first.quantity }}, {{ rankings.first.userPhoneNumbers.length }}</div>
-        <div v-if="rankings">{{ rankings.second.quantity }}, {{ rankings.second.userPhoneNumbers.length }}</div>
-        <div v-if="rankings">{{ rankings.third.quantity }}, {{ rankings.third.userPhoneNumbers.length }}</div>
+        <div v-if="rankings" :class="{ userIncluded: currentUserIncluded === 'first' }">{{ rankings.first.quantity }}, {{ rankings.first.userPhoneNumbers.length }}</div>
+        <div v-if="rankings" :class="{ userIncluded: currentUserIncluded === 'second' }">{{ rankings.second.quantity }}, {{ rankings.second.userPhoneNumbers.length }}</div>
+        <div v-if="rankings" :class="{ userIncluded: currentUserIncluded === 'third' }">{{ rankings.third.quantity }}, {{ rankings.third.userPhoneNumbers.length }}</div>
       </div>
     </button>
     <div v-else class="fake right"></div>
@@ -36,6 +36,7 @@ export default {
   data: function() {
     return {
       rankings: null,
+      currentUserIncluded: null,
     };
   },
   methods: {
@@ -50,12 +51,49 @@ export default {
       .then((response) => {
         console.log(response);
         this.rankings = response.data.rankings;
+
+        const firstRanked = this.rankings.first.userPhoneNumbers;
+        const secondRanked = this.rankings.second.userPhoneNumbers;
+        const thirdRanked = this.rankings.third.userPhoneNumbers;
+        for (let i=0; i<firstRanked.length; i++) {
+          if (this.decryptPhoneNumber(firstRanked[i]) === this.user.phoneNumber) {
+            this.currentUserIncluded = 'first';
+            break;
+          }
+        }
+        if (!this.currentUserIncluded) {
+          for (let i=0; i<secondRanked.length; i++) {
+            if (this.decryptPhoneNumber(secondRanked[i]) === this.user.phoneNumber) {
+              this.currentUserIncluded = 'second';
+              break;
+            }
+          }
+        }
+        if (!this.currentUserIncluded) {
+          for (let i=0; i<thirdRanked.length; i++) {
+            if (this.decryptPhoneNumber(thirdRanked[i]) === this.user.phoneNumber) {
+              this.currentUserIncluded = 'third';
+              break;
+            }
+          }
+        }
       })
       .catch((error) => {
         console.log(error);
       });
       // dummy data ver.
       // this.rankings = api_rankings.response.data.rankings;
+    },
+    decryptPhoneNumber: async function(encryptedPhoneNumber) {
+      return new Promise((resolve) => { // , reject 이거 어떻게 쓰는 거지 에러 처리는 해야 하는데
+        const key = 'zohabzohapassword';
+        const pass = crypto.createHash('sha256').update(String(key)).digest('base64').substring(0, 32);
+        const iv = Buffer.from(key.slice(0, 16));
+        const decipher = crypto.createDecipheriv('aes-256-cbc', pass, iv);
+        let result = decipher.update(encryptedPhoneNumber, 'base64', 'utf8');
+        result += decipher.final('utf8');
+        resolve(result);
+      });
     },
   },
 }
