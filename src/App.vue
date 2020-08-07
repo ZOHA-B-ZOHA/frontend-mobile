@@ -1,13 +1,14 @@
 <template>
   <div id="app">
-    <Header :user="currentUser" />
+    <Header
+      :user="currentUser"
+      v-on:getUpdatedAchievement="updateAchievement" />
     <router-view
       :user="currentUser"
       :achievement="achievement"
       :justEarned="justEarned"
       v-on:getPhoneNumber="authenticate"
       v-on:updateUserInfo="updateCurrentUser"
-      v-on:getUpdatedAchievement="updateAchievement"
       v-on:updateJustEarned="updateJustEarned" />
     <Modal v-if="isModalVisible" type="gotError" />
   </div>

@@ -1,6 +1,7 @@
 <template>
   <header>
-    <a id="back" @click="$router.go(-1);" v-if="$route.name === 'Earn' || $route.name === 'Verification' || $route.name === 'About'">
+    <button v-if="$route.name === 'Home' && user" @click="getUpdatedAchievement">새로고침</button>
+    <a v-else-if="$route.name === 'Earn' || $route.name === 'Verification' || $route.name === 'About'" id="back" @click="$router.go(-1);">
       <img alt="뒤로 가기" src="../assets/images/icons/arrow.svg" width="24" />
     </a>
     <div v-else class="fake left"></div>
@@ -9,12 +10,8 @@
     <div v-else-if="$route.name === 'About'">내 정보</div>
     <div v-else-if="$route.name === 'Verification'">QR코드 인증하기</div>
     <button id="ranking" v-if="$route.name === 'Home'" v-bind:class="{ hidden: !user }" @click="toggleRanking">
-      랭킹
+      <img alt="" src="../assets/images/icons/ranking.svg" width="50" height="50" />
       <div class="leaderBoard hidden">
-        <!-- <div v-for="ranking in rankings" v-bind:key="ranking.phoneNumber">
-          <div v-if="ranking.phoneNumber === user.phoneNumber">{{ ranking.purchaseQuantity }}(나)</div>
-          <div v-else>{{ ranking.purchaseQuantity }}</div>
-        </div> -->
         <div v-if="rankings" :class="{ userIncluded: currentUserIncluded === 'first' }">{{ rankings.first.quantity }}, {{ rankings.first.userPhoneNumbers.length }}</div>
         <div v-if="rankings" :class="{ userIncluded: currentUserIncluded === 'second' }">{{ rankings.second.quantity }}, {{ rankings.second.userPhoneNumbers.length }}</div>
         <div v-if="rankings" :class="{ userIncluded: currentUserIncluded === 'third' }">{{ rankings.third.quantity }}, {{ rankings.third.userPhoneNumbers.length }}</div>
@@ -92,6 +89,9 @@ export default {
       result += decipher.final('utf8');
       return result;
     },
+    getUpdatedAchievement: function() {
+      this.$emit('getUpdatedAchievement');
+    },
   },
 }
 </script>
@@ -107,15 +107,11 @@ header {
   justify-content: space-between;
 }
 a {
-  /* width: 25px;
-  height: 25px; */
   width: 50px;
   height: 50px;
   background: none;
-  /* margin-left: 18px; */
   margin-bottom: 0px;
   line-height: 0px;
-  /* cursor:  */
   filter: none;
 }
 a:active {
@@ -135,15 +131,9 @@ header div {
   /* v-bind를 쓰려고 id 대신 class를 쓰기는 했는데,, */
   width: 50px;
   height: 50px;
-  /* width: 21px;
-  height: 25px; */
-  /* 이미지는 css background로 넣기.
-  근데 누를 수 있는 건 명확하게 누를 수 있다고 표시를 해 주는 게 더 좋을 듯 */
   border-radius: 50%;
   padding: 0px;
   margin: 10px 12px 0px 0px;
-  /* margin-bottom: 0px;
-  margin-right: 12px; */
 }
 .hidden {
   visibility: hidden;
@@ -151,16 +141,8 @@ header div {
 .leaderBoard {
   color: lime;
 }
-/* header::after {
-  content: "invisible";
-  width: 43px;
-  height:25px;
-  visibility: hidden;
-} */
 .fake {
   content: 'fake block';
-  /* width: 43px;
-  height:25px; */
   width: 50px;
   height:50px;
   visibility: hidden;

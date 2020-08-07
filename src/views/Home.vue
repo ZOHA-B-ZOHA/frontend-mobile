@@ -1,6 +1,5 @@
 <template>
   <main>
-    <button @click="getUpdatedAchievement">새로고침</button>
     <GaugeBar :achievement="achievement" :justEarned="justEarned" />
     <nav v-if="user">
       <!-- <router-link v-if="achievement < 1" to="/earn">적립하기</router-link> -->
@@ -59,9 +58,6 @@ export default {
     },
     updateJustEarned: function() {
       this.$emit('updateJustEarned', false);
-    },
-    getUpdatedAchievement: function() {
-      this.$emit('getUpdatedAchievement');
     },
   },
 };
