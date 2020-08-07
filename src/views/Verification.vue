@@ -147,7 +147,7 @@ export default {
             this.modalType = 'QRNotDetected';
             this.modalQuery = { useButton: true };
             this.isModalVisible = true;
-          } else if (content === process.env.VERIFICATION_CODE) {
+          } else if (content === process.env.VUE_APP_VERIFICATION_CODE) {
             axios.post('https://zohabzoha.com/api/verify', {
               phoneNumber: this.user.phoneNumber,
               branch: this.$route.query.branch,
