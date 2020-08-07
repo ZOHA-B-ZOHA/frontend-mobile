@@ -45,8 +45,8 @@ export default {
       const imageFile = e.target.files[0];
       const imageLastModifiedTime = imageFile.lastModified;
       const nowTime = new Date().getTime();
-      const minuteGap = (nowTime - imageLastModifiedTime) / 1000 / 60; // 이게 근데 수정 날짜가 아니라 access 날짜가 나오는 것 같은데... 검증에는 상관 없겠지만
-      if (minuteGap > 5) { // 찍은 지 5분 이상이 지났으면
+      const minuteGap = (nowTime - imageLastModifiedTime) / 1000 / 60 / 60; // 이게 근데 수정 날짜가 아니라 access 날짜가 나오는 것 같은데... 검증에는 상관 없겠지만
+      if (minuteGap > 10) { // 찍은 지 10초 이상이 지났으면
         this.modalType = 'imageTooOld';
         this.modalQuery = { useButton: true };
         this.isModalVisible = true;
