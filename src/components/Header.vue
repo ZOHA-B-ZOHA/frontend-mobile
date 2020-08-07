@@ -1,10 +1,10 @@
 <template>
   <header>
     <a id="back" @click="$router.go(-1);" v-if="$route.name === 'Earn' || $route.name === 'Verification' || $route.name === 'About'">
-      <img alt="뒤로 가기" src="../assets/arrow.png" width="24" />
+      <img alt="뒤로 가기" src="../assets/images/icons/arrow.svg" width="24" />
     </a>
     <div v-else class="fake left"></div>
-    <img v-if="$route.name === 'Home'" alt="조합조하 로고" src="../assets/logo.png" width="100" />
+    <img v-if="$route.name === 'Home'" alt="조합조하 로고" src="../assets/images/icons/logo.svg" width="100" />
     <div v-else-if="$route.name === 'Earn'">적립하기</div>
     <div v-else-if="$route.name === 'About'">내 정보</div>
     <div v-else-if="$route.name === 'Verification'">QR코드 인증하기</div>

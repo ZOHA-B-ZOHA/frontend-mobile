@@ -36,7 +36,6 @@ export default {
     axios.get('https://zohabzoha.com/api')
     .then((response) => {
       console.log(response)
-      // https://hyeonseok.com/soojung/dev/2019/02/23/850.html
       this.achievement = Math.round(Number(response.data.achievement) * 1000) / 1000;
     })
     .catch((error) => {
@@ -68,7 +67,6 @@ export default {
         axios.get('https://zohabzoha.com/api')
         .then((response) => {
           console.log(response)
-          // https://hyeonseok.com/soojung/dev/2019/02/23/850.html
           this.achievement = Math.round(Number(response.data.achievement) * 1000) / 1000;
         })
         .catch((error) => {
@@ -87,18 +85,17 @@ export default {
 <style>
 @font-face {
   font-family: NanumSquareRound;
-  /* src: url(./assets/NanumSquareRoundR.ttf) format("ttf"); */
+  /* src: url(./assets/fonts/NanumSquareRoundR.ttf) format("ttf"); */
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
   font-weight: normal;
 }
 @font-face {
   font-family: NanumSquareRound;
-  src: url(./assets/NanumSquareRoundB.ttf) format("ttf");
+  src: url(./assets/fonts/NanumSquareRoundB.ttf) format("ttf");
   font-weight: bold;
 }
 * {
   font-family: NanumSquareRound;
-  /* font-weight: bold; */
 }
 body {
   margin: 0px;
@@ -140,7 +137,7 @@ input {
   width: 315px;
   height: 50px;
   border: none;
-  padding: 0px 10px; /* 여긴 아직 디자인이 안 나와서 내가 알아서 함 */
+  padding: 0px 10px;
   box-sizing: border-box; /* makes padding inclusive */
   color: #B42828;
   background-color: white;
@@ -151,7 +148,7 @@ a, button {
   width: 315px;
   height: 50px;
   border: none;
-  color: #B42828; /* #E26C67; */;
+  color: #B42828;
   background-color: white;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   text-decoration: none;
