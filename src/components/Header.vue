@@ -14,91 +14,34 @@
     <div v-else-if="$route.name === 'About'">내 정보</div>
     <div v-else-if="$route.name === 'Verification'">QR코드 인증하기</div>
     <!-- header right -->
-    <button v-if="$route.name === 'Home' && user" @click="toggleRankings" class="icon-wrapper">
-      <img id="ranking" alt="" src="../assets/images/icons/ranking.svg" width="50" height="50" />
+    <button v-if="$route.name === 'Home' && user" @click="toggleRanking" class="icon-wrapper">
+      <img id="btn-ranking" alt="" src="../assets/images/icons/ranking.svg" width="50" height="50" />
     </button>
     <div v-else class="fake"></div>
-    <!-- rankings -->
-    <div v-if="isRankingsVisible" id="rankings">
-      <div v-if="rankings" :class="{ userIncluded: currentUserIncluded === 'first' }">
-        {{ rankings.first.quantity }}, {{ rankings.first.userPhoneNumbers.length }}
-      </div>
-      <div v-if="rankings" :class="{ userIncluded: currentUserIncluded === 'second' }">
-        {{ rankings.second.quantity }}, {{ rankings.second.userPhoneNumbers.length }}
-      </div>
-      <div v-if="rankings" :class="{ userIncluded: currentUserIncluded === 'third' }">
-        {{ rankings.third.quantity }}, {{ rankings.third.userPhoneNumbers.length }}
-      </div>
-    </div>
+    <!-- ranking -->
+    <Ranking v-if="isRankingVisible" :phoneNumber="user.phoneNumber" />
   </header>
 </template>
 
 <script>
-import axios from 'axios';
-import crypto from 'crypto-browserify'; // 브라우저의 crypto랑 이름이 겹치는데 괜찮으려나....? 어쨌든 지금 오류는 안 나긴 함
+import Ranking from './Ranking';
 
 export default {
   name: 'Header',
+  components: {
+    Ranking,
+  },
   props: {
     user: Object,
   },
   data: function() {
     return {
-      rankings: null,
-      currentUserIncluded: null,
-      isRankingsVisible: false,
+      isRankingVisible: false,
     };
   },
   methods: {
-    toggleRankings: function() {
-      this.getRankings();
-      this.isRankingsVisible = this.isRankingsVisible ? false : true;
-    },
-    getRankings: function() { // 랭킹 버튼을 눌렀을 때
-      axios.post('https://zohabzoha.com/api/rankings', { phoneNumber: this.user.phoneNumber })
-      .then((response) => {
-        console.log(response);
-        this.rankings = response.data.rankings;
-
-        const firstRanked = this.rankings.first.userPhoneNumbers;
-        const secondRanked = this.rankings.second.userPhoneNumbers;
-        const thirdRanked = this.rankings.third.userPhoneNumbers;
-        for (let i=0; i<firstRanked.length; i++) {
-          if (this.decryptPhoneNumber(firstRanked[i]) === this.user.phoneNumber) {
-            this.currentUserIncluded = 'first';
-            break;
-          }
-        }
-        if (!this.currentUserIncluded) {
-          for (let i=0; i<secondRanked.length; i++) {
-            if (this.decryptPhoneNumber(secondRanked[i]) === this.user.phoneNumber) {
-              this.currentUserIncluded = 'second';
-              break;
-            }
-          }
-        }
-        if (!this.currentUserIncluded) {
-          for (let i=0; i<thirdRanked.length; i++) {
-            if (this.decryptPhoneNumber(thirdRanked[i]) === this.user.phoneNumber) {
-              this.currentUserIncluded = 'third';
-              break;
-            }
-          }
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        this.$emit('getError');
-      });
-    },
-    decryptPhoneNumber: function(encryptedPhoneNumber) {
-      const key = 'zohabzohapassword';
-      const pass = crypto.createHash('sha256').update(String(key)).digest('base64').substring(0, 32);
-      const iv = Buffer.from(key.slice(0, 16));
-      const decipher = crypto.createDecipheriv('aes-256-cbc', pass, iv);
-      let result = decipher.update(encryptedPhoneNumber, 'base64', 'utf8');
-      result += decipher.final('utf8');
-      return result;
+    toggleRanking: function() {
+      this.isRankingVisible = this.isRankingVisible ? false : true;
     },
     getUpdatedAchievement: function() {
       this.$emit('getUpdatedAchievement');
@@ -138,7 +81,7 @@ header {
   margin-left: 28px;
   margin-top: 16px;
 }
-#ranking {
+#btn-ranking {
   margin-right: 28px;
   margin-top: 16px;
 }
