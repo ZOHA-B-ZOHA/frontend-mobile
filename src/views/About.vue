@@ -20,13 +20,13 @@
         <Reward type="secondRoundFree" :status="rewards.secondRoundFree" v-on:triggerModal="showModal" />
       </div>
     </section>
-    <Modal v-if="isModalVisible" type="beforeRedeem" :query="modalQuery" v-on:handleClick="redeem" />
+    <Modal v-if="isModalVisible" :type="modalType" :query="modalQuery" v-on:handleClick="redeem" />
   </main>
 </template>
 
 <script>
 import axios from 'axios';
-import { api_rewards, api_redeem } from '../../fakeData';
+// import { api_rewards, api_redeem } from '../../fakeData';
 import Reward from '../components/Reward';
 import Modal from '../components/Modal';
 
@@ -43,6 +43,7 @@ export default {
     return {
       rewards: {},
       isModalVisible: false,
+      modalType: null,
       modalQuery: Object,
     };
   },
@@ -56,7 +57,7 @@ export default {
       console.log(error);
     })
     // dummy data ver.
-    this.rewards = api_rewards.response.data.rewards;
+    // this.rewards = api_rewards.response.data.rewards;
   },
   methods: {
     showModal: function(rewardType) { // rewardType
@@ -64,6 +65,7 @@ export default {
         useButton: true,
         rewardType,
       };
+      this.modalType = 'beforeRedeem';
       this.isModalVisible = true;
     },
     redeem: function(rewardType, phoneNumber=this.user.phoneNumber) {
@@ -78,10 +80,12 @@ export default {
       })
       .catch((error) => {
         console.log(error)
+        this.modalType = 'gotError';
+        this.isModalVisible = true;
       });
       // dummy data ver.
-      this.rewards = api_redeem.response.data.rewards;
-      this.isModalVisible = false;
+      // this.rewards = api_redeem.response.data.rewards;
+      // this.isModalVisible = false;
     },
   },
 }

@@ -1,23 +1,23 @@
 <template>
   <header>
-    <router-link to="/" v-if="$route.name === 'Earn' || $route.name === 'Verification' || $route.name === 'About'">
+    <a id="back" @click="$router.go(-1);" v-if="$route.name === 'Earn' || $route.name === 'Verification' || $route.name === 'About'">
       <img alt="뒤로 가기" src="../assets/arrow.png" width="24" />
-    </router-link>
+    </a>
     <div v-else class="fake left"></div>
     <img v-if="$route.name === 'Home'" alt="조합조하 로고" src="../assets/logo.png" width="100" />
     <div v-else-if="$route.name === 'Earn'">적립하기</div>
     <div v-else-if="$route.name === 'About'">내 정보</div>
     <div v-else-if="$route.name === 'Verification'">QR코드 인증하기</div>
-    <button v-if="$route.name === 'Home'" class="ranking" v-bind:class="{ hidden: !user }" @click="toggleRanking">
+    <button id="ranking" v-if="$route.name === 'Home'" v-bind:class="{ hidden: !user }" @click="toggleRanking">
       랭킹
       <div class="leaderBoard hidden">
         <!-- <div v-for="ranking in rankings" v-bind:key="ranking.phoneNumber">
           <div v-if="ranking.phoneNumber === user.phoneNumber">{{ ranking.purchaseQuantity }}(나)</div>
           <div v-else>{{ ranking.purchaseQuantity }}</div>
         </div> -->
-        <div v-if="rankings">{{ rankings.first.quantity }}, {{ rankings.first.userPhoneNumbers.length }}</div>
-        <div v-if="rankings">{{ rankings.second.quantity }}, {{ rankings.second.userPhoneNumbers.length }}</div>
-        <div v-if="rankings">{{ rankings.third.quantity }}, {{ rankings.third.userPhoneNumbers.length }}</div>
+        <div v-if="rankings" :class="{ userIncluded: currentUserIncluded === 'first' }">{{ rankings.first.quantity }}, {{ rankings.first.userPhoneNumbers.length }}</div>
+        <div v-if="rankings" :class="{ userIncluded: currentUserIncluded === 'second' }">{{ rankings.second.quantity }}, {{ rankings.second.userPhoneNumbers.length }}</div>
+        <div v-if="rankings" :class="{ userIncluded: currentUserIncluded === 'third' }">{{ rankings.third.quantity }}, {{ rankings.third.userPhoneNumbers.length }}</div>
       </div>
     </button>
     <div v-else class="fake right"></div>
@@ -27,6 +27,7 @@
 <script>
 import axios from 'axios';
 // import { api_rankings } from '../../fakeData';
+import crypto from 'crypto-browserify'; // 브라우저의 crypto랑 이름이 겹치는데 괜찮으려나....? 어쨌든 지금 오류는 안 나긴 함
 
 export default {
   name: 'Header',
@@ -36,13 +37,14 @@ export default {
   data: function() {
     return {
       rankings: null,
+      currentUserIncluded: null,
     };
   },
   methods: {
     toggleRanking: function(e) {
       const leaderBoard = e.target.childNodes[1]; // 순서로 찾는 건 좀 불안정하긴 한데,, 의미상으로는 이게 지금 좀 더 이해하기 쉬움
       console.log(leaderBoard)
-      if (!this.rankings) this.getRankings();
+      this.getRankings();
       leaderBoard.classList.toggle('hidden');
     },
     getRankings: function() { // 랭킹 버튼을 눌렀을 때
@@ -50,12 +52,48 @@ export default {
       .then((response) => {
         console.log(response);
         this.rankings = response.data.rankings;
+
+        const firstRanked = this.rankings.first.userPhoneNumbers;
+        const secondRanked = this.rankings.second.userPhoneNumbers;
+        const thirdRanked = this.rankings.third.userPhoneNumbers;
+        for (let i=0; i<firstRanked.length; i++) {
+          if (this.decryptPhoneNumber(firstRanked[i]) === this.user.phoneNumber) {
+            this.currentUserIncluded = 'first';
+            break;
+          }
+        }
+        if (!this.currentUserIncluded) {
+          for (let i=0; i<secondRanked.length; i++) {
+            if (this.decryptPhoneNumber(secondRanked[i]) === this.user.phoneNumber) {
+              this.currentUserIncluded = 'second';
+              break;
+            }
+          }
+        }
+        if (!this.currentUserIncluded) {
+          for (let i=0; i<thirdRanked.length; i++) {
+            if (this.decryptPhoneNumber(thirdRanked[i]) === this.user.phoneNumber) {
+              this.currentUserIncluded = 'third';
+              break;
+            }
+          }
+        }
       })
       .catch((error) => {
         console.log(error);
+        this.$emit('getError');
       });
       // dummy data ver.
       // this.rankings = api_rankings.response.data.rankings;
+    },
+    decryptPhoneNumber: function(encryptedPhoneNumber) {
+      const key = 'zohabzohapassword';
+      const pass = crypto.createHash('sha256').update(String(key)).digest('base64').substring(0, 32);
+      const iv = Buffer.from(key.slice(0, 16));
+      const decipher = crypto.createDecipheriv('aes-256-cbc', pass, iv);
+      let result = decipher.update(encryptedPhoneNumber, 'base64', 'utf8');
+      result += decipher.final('utf8');
+      return result;
     },
   },
 }
@@ -83,6 +121,9 @@ a {
   /* cursor:  */
   filter: none;
 }
+a:active {
+  box-shadow: none;
+}
 img {
   margin-top: 12px;
 }
@@ -93,7 +134,7 @@ header div {
   font-size: 24px;
   color: white;
 }
-button {
+#ranking {
   /* v-bind를 쓰려고 id 대신 class를 쓰기는 했는데,, */
   width: 50px;
   height: 50px;

@@ -1,8 +1,9 @@
 <template>
   <main>
-    <GaugeBar :achievement="achievement" />
+    <button @click="getUpdatedAchievement">새로고침</button>
+    <GaugeBar :achievement="achievement" :justEarned="justEarned" />
     <nav v-if="user">
-      <router-link to="/earn">적립하기</router-link>
+      <router-link v-if="achievement < 1" to="/earn">적립하기</router-link>
       <router-link to="/about">마이페이지</router-link>
     </nav>
     <section v-else>
@@ -10,34 +11,57 @@
         <label for="phoneNumber" class="label">전화번호 입력</label>
         <p><img width="12" src="../assets/icon_alert.png" alt="주의" />전화번호 입력 시 개인정보 수집에 동의하는 것으로 간주됩니다.<br />개인정보는 리워드 지급에만 사용되며, 이벤트 종료 후 한 달 이내로 파기합니다.</p>
         <div>
+          <input type="file" accept="image/*" capture="environment">
           <input id="phoneNumber" type="text" name="phoneNumber" placeholder="예) 01012345678" pattern="01\d\d{3,4}\d{4}" />
           <button type="submit">확인</button>
         </div>
       </form>
+      <Modal v-if="isModalVisible" type="gotError" v-on:getError="showModal" />
     </section>
+
   </main>
 </template>
 
 <script>
 import GaugeBar from '../components/GaugeBar';
+import Modal from '../components/Modal';
 
 export default {
   name: 'Home',
   components: {
     GaugeBar,
+    Modal,
   },
   props: {
     user: Object,
     achievement: Number,
+    justEarned: Boolean,
   },
   data: function() {
     return {
       rankings: null,
+      isModalVisible: false,
     };
+  },
+  created: function() {
+    if (this.justEarned) {
+      console.log('just earned');
+      // 애니메이션 시간 동안,,,,,
+      setTimeout(this.updateJustEarned, 1000);
+    }
   },
   methods: {
     handleSubmit: function(e) {
       this.$emit('getPhoneNumber', e.target.phoneNumber.value) // e.target.elements.phoneNumber.value
+    },
+    showModal: function() {
+      this.isModalVisible = true;
+    },
+    updateJustEarned: function() {
+      this.$emit('updateJustEarned', false);
+    },
+    getUpdatedAchievement: function() {
+      this.$emit('getUpdatedAchievement');
     },
   },
 };

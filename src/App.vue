@@ -1,7 +1,15 @@
 <template>
   <div id="app">
     <Header :user="currentUser" />
-    <router-view :user="currentUser" :achievement="achievement" v-on:getPhoneNumber="authenticate" v-on:updateUserInfo="updateCurrentUser" />
+    <router-view
+      :user="currentUser"
+      :achievement="achievement"
+      :justEarned="justEarned"
+      v-on:getPhoneNumber="authenticate"
+      v-on:updateUserInfo="updateCurrentUser"
+      v-on:getUpdatedAchievement="updateAchievement"
+      v-on:updateJustEarned="updateJustEarned" />
+    <Modal v-if="isModalVisible" type="gotError" />
   </div>
 </template>
 
@@ -9,27 +17,32 @@
 import Header from './components/Header';
 import axios from 'axios';
 // import { api_main, api_authenticate } from '../fakeData';
+import Modal from './components/Modal';
 
 export default {
   name: 'App',
   components: {
     Header,
+    Modal,
   },
   data: function() {
     return {
       currentUser: null,
       achievement: 0,
       justEarned: false,
+      isModalVisible: false,
     }
   },
   created: function() {
     axios.get('https://zohabzoha.com/api')
     .then((response) => {
       console.log(response)
-      this.achievement = response.data.achievement;
+      // https://hyeonseok.com/soojung/dev/2019/02/23/850.html
+      this.achievement = Math.round(Number(response.data.achievement) * 1000) / 1000;
     })
     .catch((error) => {
       console.log(error)
+      this.isModalVisible = true;
     });
     // dummy data ver.
     // this.achievement = api_main.response.data.achievement;
@@ -39,11 +52,12 @@ export default {
       axios.post('https://zohabzoha.com/api/authenticate', { phoneNumber })
       .then((response) => {
         console.log(response)
-        this.achievement = response.data.achievement;
+        this.achievement = Math.round(Number(response.data.achievement) * 1000) / 1000;
         this.currentUser = response.data.currentUser;
       })
       .catch((error) => {
         console.log(error)
+        this.isModalVisible = true;
       });
       // dummy data ver.
       // this.achievement = api_authenticate.response.data.achievement;
@@ -52,6 +66,25 @@ export default {
     updateCurrentUser: function(purchaseCount, purchaseQuantity) {
       this.currentUser.purchaseCount = purchaseCount;
       this.currentUser.purchaseQuantity = purchaseQuantity;
+    },
+    updateAchievement: function(updatedAchievement) {
+      if (updatedAchievement) {
+        this.achievement = Math.round(Number(updatedAchievement) * 1000) / 1000;
+      } else {
+        axios.get('https://zohabzoha.com/api')
+        .then((response) => {
+          console.log(response)
+          // https://hyeonseok.com/soojung/dev/2019/02/23/850.html
+          this.achievement = Math.round(Number(response.data.achievement) * 1000) / 1000;
+        })
+        .catch((error) => {
+          console.log(error)
+          this.isModalVisible = true;
+        });
+      }
+    },
+    updateJustEarned: function(updatedJustEarned) {
+      this.justEarned = updatedJustEarned;
     },
   }
 }
@@ -131,5 +164,29 @@ a, button {
   margin-bottom: 25px;
   line-height: 50px; /* to center the text in a tag vertically */
   font-size: 16px;
+}
+a:active, button:active, select:active {
+  filter: none;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+button:focus, select:focus, input:focus {
+  outline: none;
+}
+/* 근데 이런 상태들을 이렇게 막 구분 안 되게 해 놔도 되나....?? */
+
+/* Apple iOS Safari */
+html {
+  -webkit-text-size-adjust: none
+}
+input, button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+input, button, select {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius:0;
 }
 </style>

@@ -27,9 +27,7 @@ export default {
       case 'beforeVerification':
         this.path = '/verify';
         this.bodyText =
-          `구매 지점: ${this.query.branch}\n
-          구매 수량: ${this.query.quantity}\n
-          픽업 코너에서 구매하신 물품을 받으면서 QR코드를 스캔해 주세요.`;
+          `구매 지점: ${this.query.branch}\n구매 수량: ${this.query.quantity}\n\n픽업 코너에서 구매하신 물품을 받으면서 QR코드를 스캔해 주세요.`;
         this.buttonText = 'QR코드 스캔하기';
         break;
       case 'firstPurchase':
@@ -53,9 +51,13 @@ export default {
         this.buttonText = '확인';
         break;
       case 'beforeRedeem':
-        this.path = '';
         this.bodyText = '정말 사용하시겠습니까?';
         this.buttonText = '네';
+        break;
+      case 'gotError':
+        this.path = '/';
+        this.bodyText = '오류가 발생했습니다. 메인 화면으로 돌아갑니다.';
+        this.buttonText = '확인'
         break;
       default:
         break;
@@ -96,5 +98,8 @@ a, button {
   margin-bottom: 16px;
   background-color: #E26C67;
   color: white;
+}
+p {
+  white-space: pre-wrap;
 }
 </style>
