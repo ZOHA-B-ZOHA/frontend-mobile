@@ -102,7 +102,7 @@ body {
   margin: 0px;
 }
 #app {
-  height: 100vh;
+  min-height: 100vh;
   text-align: center;
   background: linear-gradient(180deg, #FFB88C 0%, #DE6262 99.7%);
   display: flex;
@@ -114,15 +114,8 @@ body {
 main {
   flex: 1;
   width: 100%;
-  display: flex;
-  flex-direction: column;
 }
-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-form {
+main, section, nav, form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -134,26 +127,21 @@ form {
   font-size: 16px;
   line-height: 36px;
 }
-input {
+.btn-main {
   width: 315px;
   height: 50px;
   border: none;
-  padding: 0px 10px;
-  box-sizing: border-box; /* makes padding inclusive */
   color: #B42828;
   background-color: white;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   margin-bottom: 25px;
 }
-a, button {
-  width: 315px;
-  height: 50px;
-  border: none;
-  color: #B42828;
-  background-color: white;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+input.btn-main, select.btn-main {
+  padding: 0px 10px;
+  box-sizing: border-box; /* makes padding inclusive */
+}
+a.btn-main, button.btn-main, label.btn-main {
   text-decoration: none;
-  margin-bottom: 25px;
   line-height: 50px; /* to center the text in a tag vertically */
   font-size: 16px;
 }
@@ -164,7 +152,6 @@ a:active, button:active, select:active {
 button:focus, select:focus, input:focus {
   outline: none;
 }
-/* 근데 이런 상태들을 이렇게 막 구분 안 되게 해 놔도 되나....?? */
 
 /* Apple iOS Safari */
 html {

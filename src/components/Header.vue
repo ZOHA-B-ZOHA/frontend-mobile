@@ -1,23 +1,35 @@
 <template>
   <header>
-    <button v-if="$route.name === 'Home' && user" @click="getUpdatedAchievement">새로고침</button>
-    <a v-else-if="$route.name === 'Earn' || $route.name === 'Verification' || $route.name === 'About'" id="back" @click="$router.go(-1);">
+    <!-- header left -->
+    <button v-if="$route.name === 'Home'" @click="getUpdatedAchievement" class="icon-wrapper">
+      <img alt="새로고침" src="../assets/images/icons/refresh.svg" width="50" height="50" />
+    </button>
+    <a v-else-if="$route.name === 'Earn' || $route.name === 'Verification' || $route.name === 'About'" @click="$router.go(-1);" class="icon-wrapper">
       <img alt="뒤로 가기" src="../assets/images/icons/arrow.svg" width="24" />
     </a>
-    <div v-else class="fake left"></div>
+    <div v-else class="fake"></div>
+    <!-- header center -->
     <img v-if="$route.name === 'Home'" alt="조합조하 로고" src="../assets/images/icons/logo.svg" width="100" />
     <div v-else-if="$route.name === 'Earn'">적립하기</div>
     <div v-else-if="$route.name === 'About'">내 정보</div>
     <div v-else-if="$route.name === 'Verification'">QR코드 인증하기</div>
-    <button id="ranking" v-if="$route.name === 'Home'" v-bind:class="{ hidden: !user }" @click="toggleRanking">
+    <!-- header right -->
+    <button v-if="$route.name === 'Home' && user" @click="toggleRankings" class="icon-wrapper">
       <img alt="" src="../assets/images/icons/ranking.svg" width="50" height="50" />
-      <div class="leaderBoard hidden">
-        <div v-if="rankings" :class="{ userIncluded: currentUserIncluded === 'first' }">{{ rankings.first.quantity }}, {{ rankings.first.userPhoneNumbers.length }}</div>
-        <div v-if="rankings" :class="{ userIncluded: currentUserIncluded === 'second' }">{{ rankings.second.quantity }}, {{ rankings.second.userPhoneNumbers.length }}</div>
-        <div v-if="rankings" :class="{ userIncluded: currentUserIncluded === 'third' }">{{ rankings.third.quantity }}, {{ rankings.third.userPhoneNumbers.length }}</div>
-      </div>
     </button>
-    <div v-else class="fake right"></div>
+    <div v-else class="fake"></div>
+    <!-- rankings -->
+    <div v-if="isRankingsVisible" id="rankings">
+      <div v-if="rankings" :class="{ userIncluded: currentUserIncluded === 'first' }">
+        {{ rankings.first.quantity }}, {{ rankings.first.userPhoneNumbers.length }}
+      </div>
+      <div v-if="rankings" :class="{ userIncluded: currentUserIncluded === 'second' }">
+        {{ rankings.second.quantity }}, {{ rankings.second.userPhoneNumbers.length }}
+      </div>
+      <div v-if="rankings" :class="{ userIncluded: currentUserIncluded === 'third' }">
+        {{ rankings.third.quantity }}, {{ rankings.third.userPhoneNumbers.length }}
+      </div>
+    </div>
   </header>
 </template>
 
@@ -34,14 +46,13 @@ export default {
     return {
       rankings: null,
       currentUserIncluded: null,
+      isRankingsVisible: false,
     };
   },
   methods: {
-    toggleRanking: function(e) {
-      const leaderBoard = e.target.childNodes[1]; // 순서로 찾는 건 좀 불안정하긴 한데,, 의미상으로는 이게 지금 좀 더 이해하기 쉬움
-      console.log(leaderBoard)
+    toggleRankings: function() {
       this.getRankings();
-      leaderBoard.classList.toggle('hidden');
+      this.isRankingsVisible = this.isRankingsVisible ? false : true;
     },
     getRankings: function() { // 랭킹 버튼을 눌렀을 때
       axios.post('https://zohabzoha.com/api/rankings', { phoneNumber: this.user.phoneNumber })
@@ -106,48 +117,28 @@ header {
   align-items: center;
   justify-content: space-between;
 }
-a {
+.icon-wrapper {
+  background: none;
+  outline: none;
+  border: none;
+  padding: 0px;
   width: 50px;
   height: 50px;
-  background: none;
-  margin-bottom: 0px;
-  line-height: 0px;
-  filter: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-a:active {
+.icon-wrapper:active {
   box-shadow: none;
-}
-img {
-  margin-top: 12px;
-}
-a img {
-  margin-left: 18px;
 }
 header div {
   font-size: 24px;
   color: white;
-}
-#ranking {
-  /* v-bind를 쓰려고 id 대신 class를 쓰기는 했는데,, */
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  padding: 0px;
-  margin: 10px 12px 0px 0px;
-}
-.hidden {
-  visibility: hidden;
-}
-.leaderBoard {
-  color: lime;
 }
 .fake {
   content: 'fake block';
   width: 50px;
   height:50px;
   visibility: hidden;
-}
-.left {
-  margin-left: 12px;
 }
 </style>

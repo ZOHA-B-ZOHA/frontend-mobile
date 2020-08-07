@@ -2,8 +2,8 @@
   <div id="background">
     <div id="modal">
       <p>{{ bodyText }}</p>
-      <button v-if="query && query.useButton" @click="handleClick">{{ buttonText }}</button>
-      <router-link v-else :to="{ path, query }">{{ buttonText }}</router-link>
+      <button v-if="query && query.useButton" @click="handleClick" class="btn-main">{{ buttonText }}</button>
+      <router-link v-else :to="{ path, query }" class="btn-main">{{ buttonText }}</router-link>
     </div>
   </div>
 </template>
