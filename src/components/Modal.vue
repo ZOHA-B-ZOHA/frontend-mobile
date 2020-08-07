@@ -67,6 +67,10 @@ export default {
         this.bodyText = 'QR코드를 인식하지 못했습니다.\n다시 촬영해 주시기 바랍니다.';
         this.buttonText = '확인';
         break;
+      case 'invalidQRCode':
+        this.bodyText = '유효하지 않은 QR코드입니다.\n느티나무 이벤트 지점에 있는 QR코드를 촬영해 주세요.';
+        this.buttonText = '확인';
+        break;
       default:
         break;
     }
@@ -75,7 +79,7 @@ export default {
     handleClick: function() {
       if (this.type === 'beforeRedeem') {
         this.$emit('handleClick', this.query.rewardType);
-      } else if (this.type === 'imageTooOld' || this.type === 'QRNotDetected') {
+      } else if (this.type === 'imageTooOld' || this.type === 'QRNotDetected' || this.type === 'invalidQRCode') {
         this.$router.go(-1);
       }
     }
