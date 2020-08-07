@@ -3,7 +3,7 @@
     <canvas id="preview" width="300" height="300">이 브라우저는 Javascript Canvas API를 지원하지 않습니다.</canvas>
     <div id="result">QR코드를 인식시켜 주세요.</div>
     <!-- 뭔가 부가적인 설명이 더 필요할 것 같긴 하다 -->
-    <Modal v-if="isModalVisible" :type="modalType" />
+    <Modal v-if="isModalVisible" :type="modalType" :query="modalQuery" />
   </main>
 </template>
 
@@ -26,6 +26,7 @@ export default {
       video: null,
       isModalVisible: false,
       modalType: '',
+      modalQuery: null,
     };
   },
   mounted: function() {
@@ -47,6 +48,7 @@ export default {
       const minuteGap = (nowTime - imageLastModifiedTime) / 1000 / 60; // 이게 근데 수정 날짜가 아니라 access 날짜가 나오는 것 같은데... 검증에는 상관 없겠지만
       if (minuteGap > 5) { // 찍은 지 5분 이상이 지났으면
         this.modalType = 'imageTooOld';
+        this.modalQuery = { useButton: true };
         this.isModalVisible = true;
         // 적립하기 페이지로 돌아갔을 때 지점이랑 수량이 유지되면 좋을 텐데....,,,,
       } else {
@@ -101,6 +103,7 @@ export default {
           });
         } else {
           this.modalType = 'QRNotDetected';
+          this.modalQuery = { useButton: true };
           this.isModalVisible = true;
         }
       }
