@@ -27,7 +27,7 @@ export default {
       case 'beforeVerification':
         this.path = '/verify';
         this.bodyText =
-          `구매 지점: ${this.query.branch}\n구매 수량: ${this.query.quantity}\n\n픽업 코너에서 구매하신 물품을 받으면서 QR코드를 촬영해 주세요.\n\n*이미지 파일을 업로드하실 경우,\nQR코드의 이전 촬영본이 있더라도 새로 찍어주세요.`;
+          `구매 지점: ${this.query.branch}\n구매 수량: ${this.query.quantity}\n\n픽업 코너에서 구매하신 물품을 받으면서 QR코드를 촬영해 주세요.\n\n*QR코드의 이전 촬영본이 있더라도 새로 찍어주세요.`;
         this.buttonText = 'QR코드 촬영하기';
         break;
       case 'firstPurchase':
