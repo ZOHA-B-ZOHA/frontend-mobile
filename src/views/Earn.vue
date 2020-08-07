@@ -8,9 +8,9 @@
         <label for="branch" class="label">구매 지점</label>
         <select id="branch" name="branch" v-model="branch">
           <option value="도서관점">도서관점</option>
-          <option value="137동점">137동점</option>
+          <option value="137동점">137동점 (언어교육원)</option>
           <option value="자하연점">자하연점</option>
-          <option value="동원관점">동원관점</option>
+          <option value="동원관점">동원관점 (경영대)</option>
         </select>
       </section>
       <section>
