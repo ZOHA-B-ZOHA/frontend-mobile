@@ -112,24 +112,6 @@ export default {
           this.modalType = 'gotError';
           this.isModalVisible = true;
         });
-        // dummy data ver.
-        // this.$emit('updateUserInfo', api_verify.response.data.purchaseCount, api_verify.response.data.purchaseQuantity);
-        // const purchaseCountNow = api_verify.response.data.purchaseCountNow;
-        // if (purchaseCountNow === 1) {
-        //   this.modalType = 'firstPurchase';
-        //   this.isModalVisible = true;
-        // } else if (purchaseCountNow === 2) {
-        //   this.modalType = 'secondPurchase';
-        //   this.isModalVisible = true;
-        // } else if (purchaseCountNow === 3) {
-        //   this.modalType = 'thirdPurchase';
-        //   this.isModalVisible = true;
-        // } else if (purchaseCountNow >= 4) {
-        //   this.modalType = 'fourthOrMorePurchase';
-        //   this.isModalVisible = true;
-        // } else {
-        //   console.log('error');
-        // }
       } else {
         document.getElementById('result').innerText = 'QR코드를 인식시켜 주세요.';
         requestAnimationFrame(this.scan);

@@ -26,7 +26,6 @@
 
 <script>
 import axios from 'axios';
-// import { api_rankings } from '../../fakeData';
 import crypto from 'crypto-browserify'; // 브라우저의 crypto랑 이름이 겹치는데 괜찮으려나....? 어쨌든 지금 오류는 안 나긴 함
 
 export default {
@@ -83,8 +82,6 @@ export default {
         console.log(error);
         this.$emit('getError');
       });
-      // dummy data ver.
-      // this.rankings = api_rankings.response.data.rankings;
     },
     decryptPhoneNumber: function(encryptedPhoneNumber) {
       const key = 'zohabzohapassword';

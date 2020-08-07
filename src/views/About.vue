@@ -26,7 +26,6 @@
 
 <script>
 import axios from 'axios';
-// import { api_rewards, api_redeem } from '../../fakeData';
 import Reward from '../components/Reward';
 import Modal from '../components/Modal';
 
@@ -56,8 +55,6 @@ export default {
     .catch((error) => {
       console.log(error);
     })
-    // dummy data ver.
-    // this.rewards = api_rewards.response.data.rewards;
   },
   methods: {
     showModal: function(rewardType) { // rewardType
@@ -83,9 +80,6 @@ export default {
         this.modalType = 'gotError';
         this.isModalVisible = true;
       });
-      // dummy data ver.
-      // this.rewards = api_redeem.response.data.rewards;
-      // this.isModalVisible = false;
     },
   },
 }

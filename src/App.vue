@@ -16,7 +16,6 @@
 <script>
 import Header from './components/Header';
 import axios from 'axios';
-// import { api_main, api_authenticate } from '../fakeData';
 import Modal from './components/Modal';
 
 export default {
@@ -44,8 +43,6 @@ export default {
       console.log(error)
       this.isModalVisible = true;
     });
-    // dummy data ver.
-    // this.achievement = api_main.response.data.achievement;
   },
   methods: {
     authenticate: function(phoneNumber) {
@@ -59,9 +56,6 @@ export default {
         console.log(error)
         this.isModalVisible = true;
       });
-      // dummy data ver.
-      // this.achievement = api_authenticate.response.data.achievement;
-      // this.currentUser = api_authenticate.response.data.currentUser;
     },
     updateCurrentUser: function(purchaseCount, purchaseQuantity) {
       this.currentUser.purchaseCount = purchaseCount;
