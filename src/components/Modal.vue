@@ -59,6 +59,16 @@ export default {
         this.bodyText = '오류가 발생했습니다. 메인 화면으로 돌아갑니다.';
         this.buttonText = '확인'
         break;
+      case 'imageTooOld':
+        this.path = '/earn';
+        this.bodyText = '촬영한 지 너무 오래 지난? 이미지입니다.\n사진을 새로 촬영해 주시기 바랍니다.';
+        this.buttonText = '확인';
+        break;
+      case 'QRNotDetected':
+        this.path = '/verify';
+        this.bodyText = 'QR코드를 인식하지 못했습니다.\n다시 촬영해 주시기 바랍니다.';
+        this.buttonText = '확인';
+        break;
       default:
         break;
     }

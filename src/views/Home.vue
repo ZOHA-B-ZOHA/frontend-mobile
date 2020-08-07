@@ -11,7 +11,6 @@
         <label for="phoneNumber" class="label">전화번호 입력</label>
         <p><img width="12" src="../assets/icon_alert.png" alt="주의" />전화번호 입력 시 개인정보 수집에 동의하는 것으로 간주됩니다.<br />개인정보는 리워드 지급에만 사용되며, 이벤트 종료 후 한 달 이내로 파기합니다.</p>
         <div>
-          <input type="file" accept="image/*" capture="environment">
           <input id="phoneNumber" type="text" name="phoneNumber" placeholder="예) 01012345678" pattern="01\d\d{3,4}\d{4}" />
           <button type="submit">확인</button>
         </div>
