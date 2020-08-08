@@ -1,5 +1,6 @@
 <template>
   <main>
+    <div class="label">*인식이 잘 되지 않을 경우 QR코드 이미지에서 조금 떨어져서 다시 촬영해 주세요.</div>
     <label for="getqrimage" class="btn-main">QR코드 다시 촬영하기</label>
     <qrcode-capture id="getqrimage" :multiple="false" @detect="onDetect" />
     <Modal v-if="isModalVisible" :type="modalType" :query="modalQuery" v-on:closeModal="isModalVisible = false" />
@@ -105,8 +106,12 @@ export default {
 </script>
 
 <style scoped>
+.label {
+  margin: auto 0px;
+  text-align: center;
+  line-height: 30px;
+}
 label {
-  margin-top: auto;
   margin-bottom: 35px;
 }
 #getqrimage {
