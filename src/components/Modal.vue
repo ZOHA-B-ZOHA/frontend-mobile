@@ -107,6 +107,7 @@ export default {
   width: 275px;
   padding: 20px;
   word-break: keep-all;
+  text-align: center;
 }
 a, button {
   display: inline-block;
@@ -115,8 +116,10 @@ a, button {
   margin-bottom: 16px;
   background-color: #E26C67;
   color: white;
+  font-size: 16px;
 }
 p {
   white-space: pre-wrap;
+  font-size: 16px;
 }
 </style>
