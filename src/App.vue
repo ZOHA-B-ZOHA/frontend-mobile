@@ -1,17 +1,27 @@
 <template>
   <div id="app">
-    <Header
-      :user="currentUser"
-      v-on:getUpdatedAchievement="updateAchievement" />
-    <router-view
-      :user="currentUser"
-      :achievement="achievement"
-      :justEarned="justEarned"
-      v-on:getPhoneNumber="authenticate"
-      v-on:updateUserInfo="updateCurrentUser"
-      v-on:updateJustEarned="updateJustEarned"
-      v-on:getUpdatedAchievement="updateAchievement" />
-    <Modal v-if="isModalVisible" type="gotError" />
+    <template v-if="isDesktop">
+      <main id="desktop">
+        <div>
+          <img alt="" src="./assets/images/icons/logo.svg" />
+          <p>조합조하는 데스크탑 환경을 지원하지 않습니다. 모바일 환경에서 접속해 주세요.</p>
+        </div>
+      </main>
+    </template>
+    <template v-else>
+      <Header
+        :user="currentUser"
+        v-on:getUpdatedAchievement="updateAchievement" />
+      <router-view
+        :user="currentUser"
+        :achievement="achievement"
+        :justEarned="justEarned"
+        v-on:getPhoneNumber="authenticate"
+        v-on:updateUserInfo="updateCurrentUser"
+        v-on:updateJustEarned="updateJustEarned"
+        v-on:getUpdatedAchievement="updateAchievement" />
+      <Modal v-if="isModalVisible" type="gotError" />
+    </template>
   </div>
 </template>
 
@@ -28,6 +38,7 @@ export default {
   },
   data: function() {
     return {
+      isDesktop: false,
       currentUser: null,
       achievement: 0,
       justEarned: false,
@@ -35,15 +46,20 @@ export default {
     }
   },
   created: function() {
-    axios.get('https://zohabzoha.com/api')
-    .then((response) => {
-      console.log(response)
-      this.achievement = Math.round(Number(response.data.achievement) * 1000) / 1000;
-    })
-    .catch((error) => {
-      console.log(error)
-      this.isModalVisible = true;
-    });
+    const desktopList = ['win16', 'win32', 'win64', 'mac', 'macintel'];
+    if (desktopList.includes(navigator.platform.toLowerCase())) {
+      this.isDesktop = true;
+    } else {
+      axios.get('https://zohabzoha.com/api')
+      .then((response) => {
+        console.log(response)
+        this.achievement = Math.round(Number(response.data.achievement) * 1000) / 1000;
+      })
+      .catch((error) => {
+        console.log(error)
+        this.isModalVisible = true;
+      });
+    }
   },
   methods: {
     authenticate: function(phoneNumber) {
@@ -101,6 +117,14 @@ export default {
 }
 body {
   margin: 0px;
+}
+#desktop {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
 }
 #app {
   min-height: 100vh;
