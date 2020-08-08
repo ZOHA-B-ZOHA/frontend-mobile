@@ -23,21 +23,19 @@
           <div class="people-num third">{{ rankings.third.userPhoneNumbers.length }}명</div>
         </div>
       </main>
+      <div v-else id="error">
+        오류가 발생해서 랭킹을 받아 오지 못했습니다.
+      </div>
     </div>
-    <Modal v-if="isModalVisible" type="gotError" />
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import crypto from 'crypto-browserify'; // 브라우저의 crypto랑 이름이 겹치는데 괜찮으려나....? 어쨌든 지금 오류는 안 나긴 함
-import Modal from './Modal';
 
 export default {
   name: 'Ranking',
-  components: {
-    Modal,
-  },
   props: {
     phoneNumber: String,
   },
@@ -45,7 +43,6 @@ export default {
     return {
       rankings: null,
       currentUserIncluded: null,
-      isModalVisible: false,
     };
   },
   created: function() {
@@ -83,7 +80,6 @@ export default {
     })
     .catch((error) => {
       console.log(error);
-      this.isModalVisible = true;
     });
   },
   methods: {
@@ -182,5 +178,8 @@ main {
 }
 .third {
   color: #FFB68C;
+}
+#error {
+  color: black;
 }
 </style>
