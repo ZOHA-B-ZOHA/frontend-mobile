@@ -98,6 +98,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 3;
 }
 #modal {
   background-color: white;

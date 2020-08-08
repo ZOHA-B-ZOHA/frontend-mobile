@@ -112,7 +112,7 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 1;
+  z-index: 2;
 }
 #ranking {
   background-color: white;
