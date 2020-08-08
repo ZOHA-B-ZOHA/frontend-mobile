@@ -18,7 +18,6 @@
       <path d="M231 101.249H15V117.288H231V101.249Z" fill="#F2F2F2" fill-opacity="0.2" stroke="white" stroke-width="2" stroke-miterlimit="10"/>
       <path d="M23 101.248C23.2629 74.5693 33.9144 49.0733 52.6395 30.3017C71.3646 11.5301 96.6499 1 123 1C149.35 1 174.635 11.5301 193.36 30.3017C212.086 49.0733 222.737 74.5693 223 101.248" fill="#F2F2F2" fill-opacity="0.2"/>
       <path d="M23 101.248C23.2629 74.5693 33.9144 49.0733 52.6395 30.3017C71.3646 11.5301 96.6499 1 123 1C149.35 1 174.635 11.5301 193.36 30.3017C212.086 49.0733 222.737 74.5693 223 101.248" stroke="white" stroke-width="2" stroke-miterlimit="10"/>
-      <text v-if="achievement >= 1" x="123" y="200" text-anchor="middle" fill="black" font-size="1em">목표치 달성~성원에 감사드립니다</text>
       <defs>
         <linearGradient id="latte_gradient" x1="125.005" y1="374" x2="125.005" y2="136" gradientUnits="userSpaceOnUse">
           <stop stop-color="#FF5A5A"/>
@@ -39,6 +38,7 @@
         </linearGradient>
       </defs>
     </svg>
+    <img v-if="achievement >= 1" x="123" src="../assets/images/gaugebar/banner.svg" />
   </section>
 </template>
 
@@ -51,8 +51,6 @@ export default {
   },
   data: function() {
     return {
-      // d: `M${17-(17-7)*this.achievement} ${95-(95-30)*this.achievement}H${53+(63-53)*this.achievement}L53 95H17L${17-(17-7)*this.achievement} ${95-(95-30)*this.achievement}Z`,
-      // d: `M29 136L50 374H200L221 136H29Z`,
       lattePathData: `M${50-(50-29)*this.achievement} ${374-(374-136)*this.achievement}L50 374H200L${200+(221-200)*this.achievement} ${374-(374-136)*this.achievement}H${50-(50-29)*this.achievement}Z`,
     }
   }
@@ -68,5 +66,10 @@ export default {
 }
 svg {
   height: 100%;
+}
+img {
+  z-index: 1;
+  position: fixed;
+  top: 41%;
 }
 </style>
