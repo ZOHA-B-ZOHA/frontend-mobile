@@ -162,6 +162,7 @@ input, button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  padding: 0; /* https://stackoverflow.com/questions/44941161/safari-on-ios-cant-render-button-text-center-aligned/49012014 */
 }
 input, button, select {
   -webkit-border-radius: 0;
