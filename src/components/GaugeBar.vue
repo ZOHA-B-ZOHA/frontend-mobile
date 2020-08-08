@@ -3,7 +3,7 @@
     <svg xmlns="http://www.w3.org/2000/svg" width="246" height="382" viewBox="0 0 246 382" fill="none">
       <path d="M21.8501 128.374C21.8501 128.374 41.6843 368.108 42.844 374.554C44.0036 381 50.4318 381 50.4318 381H198.679C205.677 381 206.266 376.903 206.856 372.797C207.446 368.69 227.85 128.374 227.85 128.374" fill="url(#paint0_linear)" fill-opacity="0.2"/>
       <path d="M21.8501 128.374C21.8501 128.374 41.6843 368.108 42.844 374.554C44.0036 381 50.4318 381 50.4318 381H198.679C205.677 381 206.266 376.903 206.856 372.797C207.446 368.69 227.85 128.374 227.85 128.374" stroke="white" stroke-width="2" stroke-miterlimit="10"/>
-      <image v-if="justEarned" x="100" y="30" width="53" height="49" xlink:href="../assets/images/gaugebar/heart.svg">
+      <image v-if="justEarned" x="100" y="300" width="53" height="49" xlink:href="../assets/images/gaugebar/heart.svg">
         <animate attributeName="y" from="30" to="300" dur="1s" />
       </image>
       <path :d="`M${50-(50-29)*this.achievement} ${374-(374-136)*this.achievement}L50 374H200L${200+(221-200)*this.achievement} ${374-(374-136)*this.achievement}H${50-(50-29)*this.achievement}Z`" fill="url(#latte_gradient)"/>
