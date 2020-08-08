@@ -54,6 +54,7 @@ export default {
 header {
   width: 100%;
   height: 60px;
+  margin-top: 10px;
   margin-bottom: 0px;
   text-align: left;
   display: flex;
