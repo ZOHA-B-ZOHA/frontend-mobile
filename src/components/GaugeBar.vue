@@ -12,8 +12,8 @@
       <image v-else-if="achievement >= 0.6 && achievement <= 1.0" x="49" y="328" xlink:href="../assets/images/gaugebar/60to100.svg" />
       <image v-if="achievement >= 0.1" :x="50-(50-29)*this.achievement+12" :y="374-(374-136)*this.achievement" xlink:href="../assets/images/gaugebar/overmilk.svg" />
       <image v-if="achievement >= 0.6" :x="200+(221-200)*this.achievement-60" :y="374-(374-136)*this.achievement-30" xlink:href="../assets/images/gaugebar/strawberries.svg" />
-      <text v-if="achievement < 0.9" :x="50-(50-29)*this.achievement" :y="374-(374-136)*this.achievement-8" fill="white" font-size="1em">{{ achievement * 100 }}%</text>
-      <text v-else-if="achievement >= 0.9" x="123" y="70" text-anchor="middle" fill="white" font-size="2em">{{ achievement * 100 }}%</text>
+      <text v-if="achievement < 0.9" :x="50-(50-29)*this.achievement" :y="374-(374-136)*this.achievement-8" fill="white" font-size="1em">{{ (achievement * 100).toFixed(2) }}%</text>
+      <text v-else-if="achievement >= 0.9" x="123" y="70" text-anchor="middle" fill="white" font-size="2em">{{ (achievement * 100).toFixed(2) }}%</text>
       <path d="M245 117.288H1V129.318H245V117.288Z" fill="#F2F2F2" fill-opacity="0.2" stroke="white" stroke-width="2" stroke-miterlimit="10"/>
       <path d="M231 101.249H15V117.288H231V101.249Z" fill="#F2F2F2" fill-opacity="0.2" stroke="white" stroke-width="2" stroke-miterlimit="10"/>
       <path d="M23 101.248C23.2629 74.5693 33.9144 49.0733 52.6395 30.3017C71.3646 11.5301 96.6499 1 123 1C149.35 1 174.635 11.5301 193.36 30.3017C212.086 49.0733 222.737 74.5693 223 101.248" fill="#F2F2F2" fill-opacity="0.2"/>
