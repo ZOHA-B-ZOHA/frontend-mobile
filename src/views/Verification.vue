@@ -2,7 +2,7 @@
   <main>
     <label for="getqrimage" class="btn-main">QR코드 다시 촬영하기</label>
     <qrcode-capture id="getqrimage" :multiple="false" @detect="onDetect" />
-    <Modal v-if="isModalVisible" :type="modalType" :query="modalQuery" />
+    <Modal v-if="isModalVisible" :type="modalType" :query="modalQuery" v-on:closeModal="isModalVisible = false" />
   </main>
 </template>
 

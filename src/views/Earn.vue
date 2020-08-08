@@ -20,7 +20,7 @@
       </section>
       <button type="submit" @click="isModalVisible = true" class="btn-main">적립하기</button>
     </form>
-    <Modal v-if="isModalVisible" type="beforeVerification" :query="{ branch, quantity }" />
+    <Modal v-if="isModalVisible" type="beforeVerification" :query="{ branch, quantity }" v-on:closeModal="isModalVisible = false" />
   </main>
 </template>
 
