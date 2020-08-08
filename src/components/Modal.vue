@@ -2,8 +2,8 @@
   <div id="background">
     <div id="modal">
       <p>{{ bodyText }}</p>
-      <button v-if="query && query.useButton" @click="handleClick">{{ buttonText }}</button>
-      <router-link v-else :to="{ path, query }">{{ buttonText }}</router-link>
+      <button v-if="query && query.useButton" @click="handleClick" class="btn-main">{{ buttonText }}</button>
+      <router-link v-else :to="{ path, query }" class="btn-main">{{ buttonText }}</router-link>
     </div>
   </div>
 </template>
@@ -27,8 +27,8 @@ export default {
       case 'beforeVerification':
         this.path = '/verify';
         this.bodyText =
-          `구매 지점: ${this.query.branch}\n구매 수량: ${this.query.quantity}\n\n픽업 코너에서 구매하신 물품을 받으면서 QR코드를 스캔해 주세요.`;
-        this.buttonText = 'QR코드 스캔하기';
+          `구매 지점: ${this.query.branch}\n구매 수량: ${this.query.quantity}\n\n픽업 코너에서 구매하신 물품을 받으면서 QR코드를 촬영해 주세요.\n\n*QR코드의 이전 촬영본이 있더라도 새로 찍어주세요.`;
+        this.buttonText = 'QR코드 촬영하기';
         break;
       case 'firstPurchase':
         this.path = '/';
@@ -56,8 +56,20 @@ export default {
         break;
       case 'gotError':
         this.path = '/';
-        this.bodyText = '오류가 발생했습니다. 메인 화면으로 돌아갑니다.';
+        this.bodyText = '죄송합니다. 오류가 발생했습니다. 메인 화면으로 돌아갑니다.';
         this.buttonText = '확인'
+        break;
+      case 'imageTooOld':
+        this.bodyText = '촬영한 지 너무 오래 지난? 이미지입니다.\n사진을 새로 촬영해 주시기 바랍니다.';
+        this.buttonText = '확인';
+        break;
+      case 'QRNotDetected':
+        this.bodyText = 'QR코드를 인식하지 못했습니다.\n다시 촬영해 주시기 바랍니다.';
+        this.buttonText = '확인';
+        break;
+      case 'invalidQRCode':
+        this.bodyText = '유효하지 않은 QR코드입니다.\n느티나무 이벤트 지점에 있는 QR코드를 촬영해 주세요.';
+        this.buttonText = '확인';
         break;
       default:
         break;
@@ -65,7 +77,11 @@ export default {
   },
   methods: {
     handleClick: function() {
-      this.$emit('handleClick', this.query.rewardType);
+      if (this.type === 'beforeRedeem') {
+        this.$emit('handleClick', this.query.rewardType);
+      } else if (this.type === 'imageTooOld' || this.type === 'QRNotDetected' || this.type === 'invalidQRCode') {
+        this.$router.go(-1);
+      }
     }
   }
 }

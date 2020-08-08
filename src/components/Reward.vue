@@ -34,15 +34,15 @@ export default {
         switch (this.status) {
           case 'unused':
             this.imgAlt = '사용할 수 있는 원 플러스 원 쿠폰';
-            this.imgSrc = require('../assets/images/plus_unused.png');
+            this.imgSrc = require('../assets/images/rewards/plus_unused.svg');
             break;
           case 'used':
             this.imgAlt = '이미 사용한 원 플러스 원 쿠폰';
-            this.imgSrc = require('../assets/images/plus_used.png');
+            this.imgSrc = require('../assets/images/rewards/plus_used.svg');
             break;
           case 'expired':
             this.imgAlt = '사용 기한이 지난 원 플러스 원 쿠폰';
-            this.imgSrc = require('../assets/images/plus_expired.png');
+            this.imgSrc = require('../assets/images/rewards/plus_expired.svg');
             break;
           default:
             break;
@@ -51,15 +51,15 @@ export default {
         switch (this.status) {
           case 'unused':
             this.imgAlt = '사용할 수 있는 무료 쿠폰';
-            this.imgSrc = require('../assets/images/free_unused.png');
+            this.imgSrc = require('../assets/images/rewards/free_unused.svg');
             break;
           case 'used':
             this.imgAlt = '이미 사용한 무료 쿠폰';
-            this.imgSrc = require('../assets/images/free_unused.png');
+            this.imgSrc = require('../assets/images/rewards/free_unused.svg');
             break;
           case 'expired':
             this.imgAlt = '사용 기한이 지난 무료 쿠폰';
-            this.imgSrc = require('../assets/images/free_expired.png');
+            this.imgSrc = require('../assets/images/rewards/free_expired.svg');
             break;
           default:
             break;

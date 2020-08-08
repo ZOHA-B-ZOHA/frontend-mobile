@@ -2,18 +2,22 @@
   <main>
     <section>
       <div class="label">전화번호</div>
-      <div class="content">{{ user.phoneNumber }}</div>
+      <div class="btn-main content">{{ user.phoneNumber }}</div>
     </section>
     <section>
       <div class="label">구매 횟수</div>
-      <div class="content">
-        <div>1차: {{ user.purchaseCount.firstRound }}회</div>
-        <div>2차: {{ user.purchaseCount.secondRound }}회</div>
+      <div class="btn-main content">
+        <div>
+          1차: {{ user.purchaseCount.firstRound ? user.purchaseCount.firstRound : 0 }}회
+        </div>
+        <div>
+          2차: {{ user.purchaseCount.secondRound ? user.purchaseCount.secondRound : 0 }}회
+        </div>
       </div>
     </section>
     <section>
       <div class="label">나의 쿠폰</div>
-      <div class="content rewardContainer">
+      <div class="btn-main content rewardContainer">
         <Reward type="firstRoundPlus" :status="rewards.firstRoundPlus" v-on:triggerModal="showModal" />
         <Reward type="firstRoundFree" :status="rewards.firstRoundFree" v-on:triggerModal="showModal" />
         <Reward type="secondRoundPlus" :status="rewards.secondRoundPlus" v-on:triggerModal="showModal" />
@@ -26,7 +30,6 @@
 
 <script>
 import axios from 'axios';
-// import { api_rewards, api_redeem } from '../../fakeData';
 import Reward from '../components/Reward';
 import Modal from '../components/Modal';
 
@@ -56,8 +59,6 @@ export default {
     .catch((error) => {
       console.log(error);
     })
-    // dummy data ver.
-    // this.rewards = api_rewards.response.data.rewards;
   },
   methods: {
     showModal: function(rewardType) { // rewardType
@@ -83,9 +84,6 @@ export default {
         this.modalType = 'gotError';
         this.isModalVisible = true;
       });
-      // dummy data ver.
-      // this.rewards = api_redeem.response.data.rewards;
-      // this.isModalVisible = false;
     },
   },
 }
@@ -93,14 +91,9 @@ export default {
 
 <style scoped>
 .content {
-  width: 315px;
-  border: none;
+  height: fit-content;
   box-sizing: border-box; /* makes padding inclusive */
   padding: 16px 0px 16px 12px;
-  color: #E26C67;
-  background-color: white;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  margin-bottom: 25px;
   text-align: left;
 }
 .rewardContainer {
