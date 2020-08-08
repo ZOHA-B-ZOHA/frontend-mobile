@@ -55,7 +55,7 @@ export default {
             break;
           case 'used':
             this.imgAlt = '이미 사용한 무료 쿠폰';
-            this.imgSrc = require('../assets/images/rewards/free_unused.svg');
+            this.imgSrc = require('../assets/images/rewards/free_used.svg');
             break;
           case 'expired':
             this.imgAlt = '사용 기한이 지난 무료 쿠폰';
