@@ -4,20 +4,20 @@
       <header>
         <div id="fake"></div>
         <img alt="랭킹" src="../assets/images/icons/ranking_title.svg" />
-        <button>x</button>
+        <button @click="close">x</button>
       </header>
-      <main>
-        <div :class="{ rank: true, included: currentUserIncluded === 'first' }">
+      <main v-if="rankings">
+        <div v-if="rankings && rankings.first" :class="{ rank: true, included: currentUserIncluded === 'first' }">
           <img alt="1등" src="../assets/images/icons/ranking_first.svg" width="32" />
           <div class="purchase-num first">{{ rankings.first.quantity }}개</div>
           <div class="people-num first">{{ rankings.first.userPhoneNumbers.length }}명</div>
         </div>
-        <div :class="{ rank: true, included: currentUserIncluded === 'second' }">
+        <div v-if="rankings && rankings.second" :class="{ rank: true, included: currentUserIncluded === 'second' }">
           <img alt="2등" src="../assets/images/icons/ranking_second.svg" width="32" />
           <div class="purchase-num second">{{ rankings.second.quantity }}개</div>
           <div class="people-num second">{{ rankings.second.userPhoneNumbers.length }}명</div>
         </div>
-        <div :class="{ rank: true, included: currentUserIncluded === 'third' }">
+        <div v-if="rankings && rankings.third" :class="{ rank: true, included: currentUserIncluded === 'third' }">
           <img alt="3등" src="../assets/images/icons/ranking_third.svg" width="32" />
           <div class="purchase-num third">{{ rankings.third.quantity }}개</div>
           <div class="people-num third">{{ rankings.third.userPhoneNumbers.length }}명</div>
@@ -96,6 +96,9 @@ export default {
       result += decipher.final('utf8');
       return result;
     },
+    close: function() {
+      this.$emit('closeRanking');
+    },
   },
 };
 </script>
@@ -122,6 +125,23 @@ export default {
   height: 315px;
   justify-content: space-around;
   align-items: center;
+}
+header {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+#fake {
+  width: 50px;
+  height: 50px;
+  content: 'fake block';
+  visibility: hidden;
+}
+header button {
+  width: 50px;
+  height: 50px;
 }
 main {
   display: flex;
