@@ -9,7 +9,8 @@
       :justEarned="justEarned"
       v-on:getPhoneNumber="authenticate"
       v-on:updateUserInfo="updateCurrentUser"
-      v-on:updateJustEarned="updateJustEarned" />
+      v-on:updateJustEarned="updateJustEarned"
+      v-on:getUpdatedAchievement="updateAchievement" />
     <Modal v-if="isModalVisible" type="gotError" />
   </div>
 </template>
