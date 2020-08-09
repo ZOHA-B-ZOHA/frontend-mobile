@@ -2,7 +2,9 @@
   <div id="background">
     <div id="modal">
       <header v-if="type === 'beforeVerification' || type === 'beforeRedeem'">
-        <button @click="close">x</button>
+        <button @click="close">
+          <img alt="" src="../assets/images/icons/close.svg" with="20" height="20" />
+        </button>
       </header>
       <p>{{ bodyText }}</p>
       <button v-if="query && query.useButton" @click="handleClick" class="btn-main">{{ buttonText }}</button>
@@ -126,6 +128,8 @@ header button {
   width: 20px;
   height: 20px;
   margin: 0px;
+  border: none;
+  background: none;
 }
 a, button {
   display: inline-block;

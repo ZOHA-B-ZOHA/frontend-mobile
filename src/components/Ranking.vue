@@ -4,7 +4,9 @@
       <header>
         <div id="fake"></div>
         <img alt="랭킹" src="../assets/images/icons/ranking_title.svg" />
-        <button @click="close">x</button>
+        <button @click="close">
+          <img alt="" src="../assets/images/icons/close.svg" with="20" height="20" />
+        </button>
       </header>
       <p v-if="currentUserIncluded">현재 {{ currentUserIncluded }}등이시군요!</p>
       <main v-if="rankings">
@@ -128,7 +130,7 @@ header {
   height: 70px;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: left;
 }
 #fake {
   width: 50px;
@@ -137,8 +139,11 @@ header {
   visibility: hidden;
 }
 header button {
-  width: 50px;
-  height: 50px;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: none;
+  margin-top: 16px;
 }
 p {
   margin: 0px;
