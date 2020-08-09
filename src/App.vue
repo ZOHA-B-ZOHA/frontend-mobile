@@ -119,6 +119,7 @@ export default {
 } */
 * {
   font-family: NanumSquareRound;
+  word-break: keep-all;
 }
 html, body {
   margin: 0px;
