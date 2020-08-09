@@ -87,12 +87,14 @@ export default {
   },
   methods: {
     decryptPhoneNumber: function(encryptedPhoneNumber) {
-      const key = process.env.VUE_APP_DECRYPT_KEY;
+      const key = process.env.VUE_APP_DECRYPTION_KEY;
+      console.log(key)
       const pass = crypto.createHash('sha256').update(String(key)).digest('base64').substring(0, 32);
       const iv = Buffer.from(key.slice(0, 16));
       const decipher = crypto.createDecipheriv('aes-256-cbc', pass, iv);
       let result = decipher.update(encryptedPhoneNumber, 'base64', 'utf8');
       result += decipher.final('utf8');
+      console.log(result)
       return result;
     },
     close: function() {
