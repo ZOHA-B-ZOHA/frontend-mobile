@@ -29,6 +29,7 @@ export default {
     };
   },
   created: function() {
+    let text1, text2;
     switch (this.type) {
       case 'beforeVerification':
         this.path = '/verify';
@@ -57,7 +58,27 @@ export default {
         this.buttonText = '확인';
         break;
       case 'beforeRedeem':
-        this.bodyText = '정말 사용하시겠습니까?';
+        switch (this.query.rewardType) {
+          case 'firstRoundPlus':
+            text1 = '1차 이벤트로 받은 쿠폰입니다.';
+            text2 = '사용 기한: 8월 31일까지';
+            break;
+          case 'firstRoundFree':
+            text1 = '1차 이벤트로 받은 쿠폰입니다.';
+            text2 = '사용 기한: 8월 31일까지';
+            break;
+          case 'secondRoundPlus':
+            text1 = '2차 이벤트로 받은 쿠폰입니다.';
+            text2 = '사용 기한: 9월 7일까지';
+            break;
+          case 'secondRoundFree':
+            text1 = '2차 이벤트로 받은 쿠폰입니다.';
+            text2 = '사용 기한: 9월 7일까지';
+            break;
+            default:
+              break;
+        }
+        this.bodyText = `${text1}\n${text2}\n\n정말 사용하시겠습니까?`;
         this.buttonText = '쿠폰 사용하기';
         break;
       case 'gotError':
