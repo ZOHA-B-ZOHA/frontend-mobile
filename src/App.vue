@@ -120,8 +120,9 @@ export default {
 * {
   font-family: NanumSquareRound;
 }
-body {
+html, body {
   margin: 0px;
+  height: 100%;
 }
 #desktop {
   width: 100vw;
@@ -132,7 +133,8 @@ body {
   color: white;
 }
 #app {
-  min-height: 100vh;
+  /* min-height: 100vh; */
+  min-height: 100%;
   text-align: center;
   background: linear-gradient(180deg, #FFB88C 0%, #DE6262 99.7%);
   display: flex;
