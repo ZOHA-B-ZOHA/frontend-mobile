@@ -133,8 +133,8 @@ header {
   align-items: left;
 }
 #fake {
-  width: 50px;
-  height: 50px;
+  width: 20px;
+  height: 20px;
   content: 'fake block';
   visibility: hidden;
 }
