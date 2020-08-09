@@ -46,10 +46,10 @@ export default {
     }
   },
   created: function() {
-    // const desktopList = ['win16', 'win32', 'win64', 'mac', 'macintel'];
-    // if (desktopList.includes(navigator.platform.toLowerCase())) {
-    //   this.isDesktop = true;
-    // } else {
+    const desktopList = ['win16', 'win32', 'win64', 'mac', 'macintel'];
+    if (desktopList.includes(navigator.platform.toLowerCase())) {
+      this.isDesktop = true;
+    } else {
       axios.get('https://zohabzoha.com/api')
       .then((response) => {
         console.log(response)
@@ -59,7 +59,7 @@ export default {
         console.log(error)
         // this.isModalVisible = true;
       });
-    // }
+    }
   },
   methods: {
     authenticate: function(phoneNumber) {
