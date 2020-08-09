@@ -208,5 +208,7 @@ input, button, select {
   -o-border-radius: 0;
   border-radius:0;
   -webkit-appearance: none;
+  margin: 0px;
+  padding: 0px;
 }
 </style>
