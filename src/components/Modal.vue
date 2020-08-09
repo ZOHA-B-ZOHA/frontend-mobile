@@ -42,17 +42,17 @@ export default {
         break;
       case 'secondPurchase':
         this.path = '/';
-        this.bodyText = '두 번째 구매시군요!\n한 번만 더 구매하시면 느티나무 목표치 달성 시 음료 1+1 쿠폰을 드려요!\n앞으로도 많은 참여 부탁드립니다.';
+        this.bodyText = '두 번째 구매시군요!\n한 번만 더 구매하시면 목표치 달성 시 1+1 쿠폰을 드려요!\n앞으로도 많은 참여 부탁드립니다.';
         this.buttonText = '확인';
         break;
       case 'thirdPurchase':
         this.path = '/';
-        this.bodyText = '축하드립니다!\n음료를 3번 이상 구매해 목표치 달성 시 음료 1+1 쿠폰 지급 대상이 되셨습니다.\n목표치 달성까지 조금만 더 힘을 보태 주세요!';
+        this.bodyText = '축하드립니다!\n3번 이상 구매해 목표치 달성 시 1+1 쿠폰 지급 대상이 되셨습니다.\n\n목표치 달성까지 조금만 더 힘을 보태 주세요!';
         this.buttonText = '확인';
         break;
       case 'fourthOrMorePurchase':
         this.path = '/';
-        this.bodyText = '성원에 감사드립니다. 느티나무의 목표치 달성을 위해 계속 힘을 보태 주세요!';
+        this.bodyText = '성원에 감사드립니다. 1+1 쿠폰이 기다리고 있으니 느티나무의 목표치 달성을 위해 계속 힘을 보태 주세요!';
         this.buttonText = '확인';
         break;
       case 'beforeRedeem':
