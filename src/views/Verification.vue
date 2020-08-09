@@ -35,7 +35,6 @@ export default {
     cameraInput.click();
   },
   methods: {
-    // onDetect: async function(promise) {
     onDetect: async function() {
       const cameraInput = document.getElementById('getqrimage');
       const imageFile = cameraInput.files[0];
@@ -47,7 +46,6 @@ export default {
         this.modalType = 'imageTooOld';
         this.modalQuery = { useButton: true };
         this.isModalVisible = true;
-        // 적립하기 페이지로 돌아갔을 때 지점이랑 수량이 유지되면 좋을 텐데....,,,,
       } else {
         axios.post('https://zohabzoha.com/api/verify', {
           phoneNumber: this.user.phoneNumber,
@@ -56,7 +54,6 @@ export default {
           verificationCode: process.env.VUE_APP_VERIFICATION_CODE,
         })
         .then((response) => {
-          console.log(response)
           this.$emit('updateJustEarned', response.data.justEarned);
           this.$emit('getUpdatedAchievement', Math.round(Number(response.data.achievement) * 1000) / 1000);
           this.$emit('updateUserInfo', response.data.purchaseCount, response.data.purchaseQuantity);
@@ -78,8 +75,7 @@ export default {
             this.isModalVisible = true;
           }
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
           this.modalType = 'gotError';
           this.isModalVisible = true;
         });

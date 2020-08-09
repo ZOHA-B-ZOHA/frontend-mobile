@@ -24,6 +24,7 @@
         <Reward v-if="rewards.firstRoundFree" type="firstRoundFree" :status="rewards.firstRoundFree" v-on:triggerModal="showRedeemModal" />
         <Reward v-if="rewards.secondRoundPlus" type="secondRoundPlus" :status="rewards.secondRoundPlus" v-on:triggerModal="showRedeemModal" />
         <Reward v-if="rewards.secondRoundFree" type="secondRoundFree" :status="rewards.secondRoundFree" v-on:triggerModal="showRedeemModal" />
+        <div v-if="catchError" style="grid-column: 1 / 3; line-height: 24px;">오류가 발생해서 쿠폰 목록을 가져 오지 못했습니다.</div>
       </div>
     </section>
     <Modal v-if="isModalVisible" :type="modalType" :query="modalQuery" v-on:handleClick="redeem" v-on:closeModal="isModalVisible = false" />
@@ -50,16 +51,16 @@ export default {
       isModalVisible: false,
       modalType: null,
       modalQuery: Object,
+      catchError: false,
     };
   },
   created: function() {
     axios.post('https://zohabzoha.com/api/rewards', { phoneNumber: this.user.phoneNumber })
     .then((response) => {
-      console.log(response)
       this.rewards = response.data.rewards;
     })
-    .catch((error) => {
-      console.log(error);
+    .catch(() => {
+      this.catchError = true;
     })
   },
   methods: {
@@ -68,7 +69,7 @@ export default {
       this.modalType = 'rewardGuide';
       this.isModalVisible = true;
     },
-    showRedeemModal: function(rewardType) { // rewardType
+    showRedeemModal: function(rewardType) {
       this.modalQuery = {
         useButton: true,
         rewardType,
@@ -82,12 +83,10 @@ export default {
         phoneNumber,
       })
       .then((response) => {
-        console.log(response)
         this.rewards = response.data.rewards;
         this.isModalVisible = false;
       })
-      .catch((error) => {
-        console.log(error)
+      .catch(() => {
         this.modalType = 'gotError';
         this.isModalVisible = true;
       });

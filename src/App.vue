@@ -20,7 +20,6 @@
         v-on:updateUserInfo="updateCurrentUser"
         v-on:updateJustEarned="updateJustEarned"
         v-on:getUpdatedAchievement="updateAchievement" />
-      <!-- <Modal v-if="isModalVisible" type="gotError" /> -->
     </template>
   </div>
 </template>
@@ -28,13 +27,11 @@
 <script>
 import Header from './components/Header';
 import axios from 'axios';
-// import Modal from './components/Modal';
 
 export default {
   name: 'App',
   components: {
     Header,
-    // Modal,
   },
   data: function() {
     return {
@@ -42,7 +39,6 @@ export default {
       currentUser: null,
       achievement: 0,
       justEarned: false,
-      // isModalVisible: false,
     }
   },
   created: function() {
@@ -52,12 +48,10 @@ export default {
     } else {
       axios.get('https://zohabzoha.com/api')
       .then((response) => {
-        console.log(response)
         this.achievement = Math.round(Number(response.data.achievement) * 1000) / 1000;
       })
       .catch((error) => {
         console.log(error)
-        // this.isModalVisible = true;
       });
     }
   },
@@ -65,13 +59,11 @@ export default {
     authenticate: function(phoneNumber) {
       axios.post('https://zohabzoha.com/api/authenticate', { phoneNumber })
       .then((response) => {
-        console.log(response)
         this.achievement = Math.round(Number(response.data.achievement) * 1000) / 1000;
         this.currentUser = response.data.currentUser;
       })
       .catch((error) => {
         console.log(error)
-        // this.isModalVisible = true;
       });
     },
     updateCurrentUser: function(purchaseCount, purchaseQuantity) {
@@ -84,12 +76,10 @@ export default {
       } else {
         axios.get('https://zohabzoha.com/api')
         .then((response) => {
-          console.log(response)
           this.achievement = Math.round(Number(response.data.achievement) * 1000) / 1000;
         })
         .catch((error) => {
           console.log(error)
-          // this.isModalVisible = true;
         });
       }
     },
@@ -103,20 +93,9 @@ export default {
 <style>
 @font-face {
   font-family: NanumSquareRound;
-  /* src: url(./assets/fonts/NanumSquareRoundR.ttf) format("ttf"); */
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
   font-weight: normal;
 }
-/* @font-face {
-  font-family: NanumSquareRound;
-  src: url(./assets/fonts/NanumSquareRoundB.ttf) format("ttf");
-  font-weight: bold;
-} */
-/* @font-face {
-  font-family: 'Black Han Sans';
-  src: url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
-  font-weight: normal;
-} */
 * {
   font-family: NanumSquareRound;
   word-break: keep-all;
@@ -134,7 +113,6 @@ html, body {
   color: white;
 }
 #app {
-  /* min-height: 100vh; */
   min-height: 100%;
   text-align: center;
   background: linear-gradient(180deg, #FFB88C 0%, #DE6262 99.7%);
@@ -203,7 +181,7 @@ input, button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  padding: 0; /* https://stackoverflow.com/questions/44941161/safari-on-ios-cant-render-button-text-center-aligned/49012014 */
+  padding: 0;
 }
 input, button, select {
   -webkit-border-radius: 0;

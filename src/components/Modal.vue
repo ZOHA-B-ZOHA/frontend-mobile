@@ -110,12 +110,10 @@ export default {
       if (this.type === 'beforeRedeem') {
         this.$emit('handleClick', this.query.rewardType);
       } else if (this.type === 'imageTooOld' || this.type === 'QRNotDetected' || this.type === 'invalidQRCode') {
-        // this.$router.go(-1);
         this.$emit('closeModal');
       }
     },
     close: function() {
-      console.log('close');
       this.$emit('closeModal');
     }
   }
@@ -138,7 +136,6 @@ export default {
 #modal {
   background-color: white;
   color: #B42828;
-  /* margin: 0px 20px; */
   width: 275px;
   padding: 20px;
   word-break: keep-all;

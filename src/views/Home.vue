@@ -3,7 +3,6 @@
     <GaugeBar :achievement="achievement" :justEarned="justEarned" />
     <nav v-if="user">
       <router-link v-if="achievement < 1" to="/earn" class="btn-main">적립하기</router-link>
-      <!-- <router-link to="/earn" class="btn-main">적립하기</router-link> -->
       <router-link to="/about" class="btn-main">마이페이지</router-link>
     </nav>
     <section v-else>
@@ -44,14 +43,13 @@ export default {
   },
   created: function() {
     if (this.justEarned) {
-      console.log('just earned');
-      // 애니메이션 시간 동안,,,,,
+      // the duration of the heart animation is 1000 milliseconds
       setTimeout(this.updateJustEarned, 1000);
     }
   },
   methods: {
     handleSubmit: function(e) {
-      this.$emit('getPhoneNumber', e.target.phoneNumber.value) // e.target.elements.phoneNumber.value
+      this.$emit('getPhoneNumber', e.target.phoneNumber.value);
     },
     showModal: function() {
       this.isModalVisible = true;
@@ -87,7 +85,6 @@ img {
 }
 div {
   display: flex;
-  /* width: 315px; */
 }
 input {
   width: 215px;

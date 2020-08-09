@@ -26,7 +26,7 @@
           <div class="people-num third">{{ rankings.third.userPhoneNumbers.length }}명</div>
         </div>
       </main>
-      <p v-else id="error">
+      <p v-if="catchError" id="error">
         오류가 발생해서 랭킹을 받아 오지 못했습니다. 잠시 후에 다시 시도해 주시기 바랍니다.
       </p>
     </div>
@@ -46,12 +46,12 @@ export default {
     return {
       rankings: {},
       currentUserIncluded: null,
+      catchError: false,
     };
   },
   created: function() {
     axios.post('https://zohabzoha.com/api/rankings', { phoneNumber: this.phoneNumber })
     .then((response) => {
-      console.log(response);
       this.rankings = response.data.rankings;
 
       const firstRanked = this.rankings.first.userPhoneNumbers;
@@ -81,20 +81,18 @@ export default {
         }
       }
     })
-    .catch((error) => {
-      console.log(error);
+    .catch(() => {
+      this.catchError = true;
     });
   },
   methods: {
     decryptPhoneNumber: function(encryptedPhoneNumber) {
       const key = process.env.VUE_APP_DECRYPTION_KEY;
-      console.log(key)
       const pass = crypto.createHash('sha256').update(String(key)).digest('base64').substring(0, 32);
       const iv = Buffer.from(key.slice(0, 16));
       const decipher = crypto.createDecipheriv('aes-256-cbc', pass, iv);
       let result = decipher.update(encryptedPhoneNumber, 'base64', 'utf8');
       result += decipher.final('utf8');
-      console.log(result)
       return result;
     },
     close: function() {
@@ -129,10 +127,11 @@ export default {
 }
 header {
   width: 100%;
-  height: 70px;
+  height: 50px;
   display: flex;
   justify-content: space-around;
   align-items: left;
+  margin-bottom: 10px;
 }
 #fake {
   width: 20px;
@@ -169,8 +168,6 @@ main {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  /* border: 2px white solid; */
-  /* margin-bottom: 20px; */
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .included {
