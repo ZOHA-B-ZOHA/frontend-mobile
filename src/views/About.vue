@@ -17,12 +17,15 @@
     </section>
     <section>
       <div class="label">나의 쿠폰</div>
-      <div class ="label sub">*쿠폰은 도서관점에서만 사용가능합니다.</div>
+      <div class ="label sub">
+        *쿠폰은 도서관점에서만 사용가능합니다.
+        <button @click="showRewardGuideModal">?</button>
+      </div>
       <div class="btn-main content rewardContainer">
-        <Reward type="firstRoundPlus" :status="rewards.firstRoundPlus" v-on:triggerModal="showModal" />
-        <Reward type="firstRoundFree" :status="rewards.firstRoundFree" v-on:triggerModal="showModal" />
-        <Reward type="secondRoundPlus" :status="rewards.secondRoundPlus" v-on:triggerModal="showModal" />
-        <Reward type="secondRoundFree" :status="rewards.secondRoundFree" v-on:triggerModal="showModal" />
+        <Reward type="firstRoundPlus" :status="rewards.firstRoundPlus" v-on:triggerModal="showRedeemModal" />
+        <Reward type="firstRoundFree" :status="rewards.firstRoundFree" v-on:triggerModal="showRedeemModal" />
+        <Reward type="secondRoundPlus" :status="rewards.secondRoundPlus" v-on:triggerModal="showRedeemModal" />
+        <Reward type="secondRoundFree" :status="rewards.secondRoundFree" v-on:triggerModal="showRedeemModal" />
       </div>
     </section>
     <Modal v-if="isModalVisible" :type="modalType" :query="modalQuery" v-on:handleClick="redeem" v-on:closeModal="isModalVisible = false" />
@@ -62,7 +65,12 @@ export default {
     })
   },
   methods: {
-    showModal: function(rewardType) { // rewardType
+    showRewardGuideModal: function() {
+      this.modalQuery = { noButton: true };
+      this.modalType = 'rewardGuide';
+      this.isModalVisible = true;
+    },
+    showRedeemModal: function(rewardType) { // rewardType
       this.modalQuery = {
         useButton: true,
         rewardType,

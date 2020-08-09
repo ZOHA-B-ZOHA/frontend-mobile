@@ -1,13 +1,14 @@
 <template>
   <div id="background">
     <div id="modal">
-      <header v-if="type === 'beforeVerification' || type === 'beforeRedeem'">
+      <header v-if="type === 'beforeVerification' || type === 'beforeRedeem' || type === 'rewardGuide'">
         <button @click="close">
           <img alt="" src="../assets/images/icons/close.svg" with="20" height="20" />
         </button>
       </header>
       <p>{{ bodyText }}</p>
       <button v-if="query && query.useButton" @click="handleClick" class="btn-main">{{ buttonText }}</button>
+      <div v-else-if="query && query.noButton"></div>
       <router-link v-else :to="{ path, query }" class="btn-main">{{ buttonText }}</router-link>
     </div>
   </div>
@@ -57,7 +58,7 @@ export default {
         break;
       case 'beforeRedeem':
         this.bodyText = '정말 사용하시겠습니까?';
-        this.buttonText = '네';
+        this.buttonText = '쿠폰 사용하기';
         break;
       case 'gotError':
         this.path = '/';
@@ -75,6 +76,9 @@ export default {
       case 'invalidQRCode':
         this.bodyText = '유효하지 않은 QR코드입니다.\n이벤트 지점에 있는 QR코드를 촬영해 주세요.';
         this.buttonText = '확인';
+        break;
+      case 'rewardGuide':
+        this.bodyText = '<쿠폰 사용 방법>\n\n사용하고 싶은 쿠폰을 느티나무 직원 분께 보여 주세요.\n직원 분께서 직접 [쿠폰 사용하기] 버튼을 누르셔야 사용 가능합니다.\n\n(스크린샷 불가)';
         break;
       default:
         break;
