@@ -2,8 +2,8 @@
   <main>
     <GaugeBar :achievement="achievement" :justEarned="justEarned" />
     <nav v-if="user">
-      <!-- <router-link v-if="achievement < 1" to="/earn" class="btn-main">적립하기</router-link> -->
-      <router-link to="/earn" class="btn-main">적립하기</router-link>
+      <router-link v-if="achievement < 1" to="/earn" class="btn-main">적립하기</router-link>
+      <!-- <router-link to="/earn" class="btn-main">적립하기</router-link> -->
       <router-link to="/about" class="btn-main">마이페이지</router-link>
     </nav>
     <section v-else>
