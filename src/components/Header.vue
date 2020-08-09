@@ -19,7 +19,7 @@
     </button>
     <div v-else class="fake"></div>
     <!-- ranking -->
-    <Ranking v-if="isRankingVisible" :phoneNumber="user.phoneNumber" />
+    <Ranking v-if="isRankingVisible" :phoneNumber="user.phoneNumber" v-on:closeRanking="toggleRanking" />
   </header>
 </template>
 

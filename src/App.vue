@@ -1,49 +1,65 @@
 <template>
   <div id="app">
-    <Header
-      :user="currentUser"
-      v-on:getUpdatedAchievement="updateAchievement" />
-    <router-view
-      :user="currentUser"
-      :achievement="achievement"
-      :justEarned="justEarned"
-      v-on:getPhoneNumber="authenticate"
-      v-on:updateUserInfo="updateCurrentUser"
-      v-on:updateJustEarned="updateJustEarned"
-      v-on:getUpdatedAchievement="updateAchievement" />
-    <Modal v-if="isModalVisible" type="gotError" />
+    <template v-if="isDesktop">
+      <main id="desktop">
+        <div>
+          <img alt="" src="./assets/images/icons/logo.svg" />
+          <p>조합조하는 데스크탑 환경을 지원하지 않습니다. 모바일 환경에서 접속해 주세요.</p>
+        </div>
+      </main>
+    </template>
+    <template v-else>
+      <Header
+        :user="currentUser"
+        v-on:getUpdatedAchievement="updateAchievement" />
+      <router-view
+        :user="currentUser"
+        :achievement="achievement"
+        :justEarned="justEarned"
+        v-on:getPhoneNumber="authenticate"
+        v-on:updateUserInfo="updateCurrentUser"
+        v-on:updateJustEarned="updateJustEarned"
+        v-on:getUpdatedAchievement="updateAchievement" />
+      <!-- <Modal v-if="isModalVisible" type="gotError" /> -->
+    </template>
   </div>
 </template>
 
 <script>
 import Header from './components/Header';
 import axios from 'axios';
-import Modal from './components/Modal';
+// import Modal from './components/Modal';
 
 export default {
   name: 'App',
   components: {
     Header,
-    Modal,
+    // Modal,
   },
   data: function() {
     return {
+      isDesktop: false,
       currentUser: null,
       achievement: 0,
       justEarned: false,
-      isModalVisible: false,
+      // isModalVisible: false,
     }
   },
   created: function() {
-    axios.get('https://zohabzoha.com/api')
-    .then((response) => {
-      console.log(response)
-      this.achievement = Math.round(Number(response.data.achievement) * 1000) / 1000;
-    })
-    .catch((error) => {
-      console.log(error)
-      this.isModalVisible = true;
-    });
+    const desktopList = ['win16', 'win32', 'win64', 'mac', 'macintel'];
+    if (desktopList.includes(navigator.platform.toLowerCase())) {
+      this.isDesktop = true;
+    } else {
+      axios.get('https://zohabzoha.com/api')
+      .then((response) => {
+        console.log(response)
+        this.achievement = Math.round(Number(response.data.achievement) * 1000) / 1000;
+      })
+      .catch((error) => {
+        console.log(error)
+        // this.isModalVisible = true;
+      });
+    }
   },
   methods: {
     authenticate: function(phoneNumber) {
@@ -55,7 +71,7 @@ export default {
       })
       .catch((error) => {
         console.log(error)
-        this.isModalVisible = true;
+        // this.isModalVisible = true;
       });
     },
     updateCurrentUser: function(purchaseCount, purchaseQuantity) {
@@ -73,7 +89,7 @@ export default {
         })
         .catch((error) => {
           console.log(error)
-          this.isModalVisible = true;
+          // this.isModalVisible = true;
         });
       }
     },
@@ -91,16 +107,29 @@ export default {
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
   font-weight: normal;
 }
-@font-face {
+/* @font-face {
   font-family: NanumSquareRound;
   src: url(./assets/fonts/NanumSquareRoundB.ttf) format("ttf");
   font-weight: bold;
-}
+} */
+/* @font-face {
+  font-family: 'Black Han Sans';
+  src: url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
+  font-weight: normal;
+} */
 * {
   font-family: NanumSquareRound;
 }
 body {
   margin: 0px;
+}
+#desktop {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
 }
 #app {
   min-height: 100vh;
@@ -141,6 +170,15 @@ input.btn-main, select.btn-main {
   padding: 0px 10px;
   box-sizing: border-box; /* makes padding inclusive */
 }
+input.btn-main {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1.2px solid #FFFFFF;
+  box-sizing: border-box;
+  color: white;
+}
+input.btn-main::placeholder {
+  color: white;
+}
 a.btn-main, button.btn-main, label.btn-main {
   text-decoration: none;
   line-height: 50px; /* to center the text in a tag vertically */
@@ -169,5 +207,8 @@ input, button, select {
   -moz-border-radius: 0;
   -o-border-radius: 0;
   border-radius:0;
+  -webkit-appearance: none;
+  margin: 0px;
+  padding: 0px;
 }
 </style>

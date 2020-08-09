@@ -1,6 +1,11 @@
 <template>
   <div id="background">
     <div id="modal">
+      <header v-if="type === 'beforeVerification' || type === 'beforeRedeem'">
+        <button @click="close">
+          <img alt="" src="../assets/images/icons/close.svg" with="20" height="20" />
+        </button>
+      </header>
       <p>{{ bodyText }}</p>
       <button v-if="query && query.useButton" @click="handleClick" class="btn-main">{{ buttonText }}</button>
       <router-link v-else :to="{ path, query }" class="btn-main">{{ buttonText }}</router-link>
@@ -80,8 +85,13 @@ export default {
       if (this.type === 'beforeRedeem') {
         this.$emit('handleClick', this.query.rewardType);
       } else if (this.type === 'imageTooOld' || this.type === 'QRNotDetected' || this.type === 'invalidQRCode') {
-        this.$router.go(-1);
+        // this.$router.go(-1);
+        this.$emit('closeModal');
       }
+    },
+    close: function() {
+      console.log('close');
+      this.$emit('closeModal');
     }
   }
 }
@@ -108,6 +118,18 @@ export default {
   padding: 20px;
   word-break: keep-all;
   text-align: center;
+}
+header {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+}
+header button {
+  width: 20px;
+  height: 20px;
+  margin: 0px;
+  border: none;
+  background: none;
 }
 a, button {
   display: inline-block;

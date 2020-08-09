@@ -17,6 +17,7 @@
     </section>
     <section>
       <div class="label">나의 쿠폰</div>
+      <div class ="label sub">*쿠폰은 중앙도서관점에서만 사용가능합니다.</div>
       <div class="btn-main content rewardContainer">
         <Reward type="firstRoundPlus" :status="rewards.firstRoundPlus" v-on:triggerModal="showModal" />
         <Reward type="firstRoundFree" :status="rewards.firstRoundFree" v-on:triggerModal="showModal" />
@@ -24,7 +25,7 @@
         <Reward type="secondRoundFree" :status="rewards.secondRoundFree" v-on:triggerModal="showModal" />
       </div>
     </section>
-    <Modal v-if="isModalVisible" :type="modalType" :query="modalQuery" v-on:handleClick="redeem" />
+    <Modal v-if="isModalVisible" :type="modalType" :query="modalQuery" v-on:handleClick="redeem" v-on:closeModal="isModalVisible = false" />
   </main>
 </template>
 
@@ -90,11 +91,14 @@ export default {
 </script>
 
 <style scoped>
-.content {
+.btn-main.content {
   height: fit-content;
-  box-sizing: border-box; /* makes padding inclusive */
-  padding: 16px 0px 16px 12px;
+  padding: 16px 12px;
   text-align: left;
+  background: none;
+  border: 1.2px solid #FFFFFF;
+  box-sizing: border-box;
+  color: white;
 }
 .rewardContainer {
   display: grid;
@@ -104,5 +108,10 @@ export default {
   align-items: center;
   align-content: center;
   padding-top: 20px;
+}
+.sub {
+  font-size: 12px;
+  line-height: 12px;
+  margin-bottom: 12px;
 }
 </style>

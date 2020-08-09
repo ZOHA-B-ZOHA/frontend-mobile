@@ -4,40 +4,41 @@
       <header>
         <div id="fake"></div>
         <img alt="랭킹" src="../assets/images/icons/ranking_title.svg" />
-        <button>x</button>
+        <button @click="close">
+          <img alt="" src="../assets/images/icons/close.svg" with="20" height="20" />
+        </button>
       </header>
-      <main>
-        <div :class="{ rank: true, included: currentUserIncluded === 'first' }">
+      <p v-if="currentUserIncluded">현재 {{ currentUserIncluded }}등이시군요!</p>
+      <main v-if="rankings">
+        <div v-if="rankings && rankings.first" :class="{ rank: true, included: currentUserIncluded === 1 }">
           <img alt="1등" src="../assets/images/icons/ranking_first.svg" width="32" />
-          <div class="purchase-num first">{{ rankings.first.quantity }}개</div>
+          <div class="purchase-num first"><span>{{ rankings.first.quantity }}</span>개</div>
           <div class="people-num first">{{ rankings.first.userPhoneNumbers.length }}명</div>
         </div>
-        <div :class="{ rank: true, included: currentUserIncluded === 'second' }">
+        <div v-if="rankings && rankings.second" :class="{ rank: true, included: currentUserIncluded === 2 }">
           <img alt="2등" src="../assets/images/icons/ranking_second.svg" width="32" />
-          <div class="purchase-num second">{{ rankings.second.quantity }}개</div>
+          <div class="purchase-num second"><span>{{ rankings.second.quantity }}</span>개</div>
           <div class="people-num second">{{ rankings.second.userPhoneNumbers.length }}명</div>
         </div>
-        <div :class="{ rank: true, included: currentUserIncluded === 'third' }">
+        <div v-if="rankings && rankings.third" :class="{ rank: true, included: currentUserIncluded === 3 }">
           <img alt="3등" src="../assets/images/icons/ranking_third.svg" width="32" />
-          <div class="purchase-num third">{{ rankings.third.quantity }}개</div>
+          <div class="purchase-num third"><span>{{ rankings.third.quantity }}</span>개</div>
           <div class="people-num third">{{ rankings.third.userPhoneNumbers.length }}명</div>
         </div>
       </main>
+      <div v-else id="error">
+        오류가 발생해서 랭킹을 받아 오지 못했습니다. 잠시 후에 다시 시도해 주시기 바랍니다.
+      </div>
     </div>
-    <Modal v-if="isModalVisible" type="gotError" />
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import crypto from 'crypto-browserify'; // 브라우저의 crypto랑 이름이 겹치는데 괜찮으려나....? 어쨌든 지금 오류는 안 나긴 함
-import Modal from './Modal';
 
 export default {
   name: 'Ranking',
-  components: {
-    Modal,
-  },
   props: {
     phoneNumber: String,
   },
@@ -45,7 +46,6 @@ export default {
     return {
       rankings: null,
       currentUserIncluded: null,
-      isModalVisible: false,
     };
   },
   created: function() {
@@ -60,14 +60,14 @@ export default {
 
       for (let i=0; i<firstRanked.length; i++) {
         if (this.decryptPhoneNumber(firstRanked[i]) === this.phoneNumber) {
-          this.currentUserIncluded = 'first';
+          this.currentUserIncluded = 1;
           break;
         }
       }
       if (!this.currentUserIncluded) {
         for (let i=0; i<secondRanked.length; i++) {
           if (this.decryptPhoneNumber(secondRanked[i]) === this.phoneNumber) {
-            this.currentUserIncluded = 'second';
+            this.currentUserIncluded = 2;
             break;
           }
         }
@@ -75,7 +75,7 @@ export default {
       if (!this.currentUserIncluded) {
         for (let i=0; i<thirdRanked.length; i++) {
           if (this.decryptPhoneNumber(thirdRanked[i]) === this.phoneNumber) {
-            this.currentUserIncluded = 'third';
+            this.currentUserIncluded = 3;
             break;
           }
         }
@@ -83,7 +83,6 @@ export default {
     })
     .catch((error) => {
       console.log(error);
-      this.isModalVisible = true;
     });
   },
   methods: {
@@ -95,6 +94,9 @@ export default {
       let result = decipher.update(encryptedPhoneNumber, 'base64', 'utf8');
       result += decipher.final('utf8');
       return result;
+    },
+    close: function() {
+      this.$emit('closeRanking');
     },
   },
 };
@@ -120,14 +122,41 @@ export default {
   flex-direction: column;
   width: 315px;
   height: 315px;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
+}
+header {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  justify-content: space-around;
+  align-items: left;
+}
+#fake {
+  width: 50px;
+  height: 50px;
+  content: 'fake block';
+  visibility: hidden;
+}
+header button {
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: none;
+  margin-top: 16px;
+}
+p {
+  margin: 0px;
+  color: #B42828;
+  font-size: 16px;
 }
 main {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  height: 200px;
+  flex: none;
 }
 .rank {
   background-color: white;
@@ -149,10 +178,15 @@ main {
   margin-left: -8px;
 }
 .purchase-num {
-
+  font-family: 'Black Han Sans';
+  font-size: 16px;
+}
+.purchase-num span {
+  font-family: 'Black Han Sans';
+  font-size: 24px;
 }
 .people-num {
-
+  font-size: 16px;
 }
 .first {
   color: #E1696E;
@@ -162,5 +196,8 @@ main {
 }
 .third {
   color: #FFB68C;
+}
+#error {
+  color: black;
 }
 </style>
