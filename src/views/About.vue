@@ -93,7 +93,7 @@ export default {
 <style scoped>
 .btn-main.content {
   height: fit-content;
-  padding: 16px 0px 16px 12px;
+  padding: 16px 12px;
   text-align: left;
   background: none;
   border: 1.2px solid #FFFFFF;
