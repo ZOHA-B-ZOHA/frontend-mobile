@@ -87,7 +87,7 @@ export default {
   },
   methods: {
     decryptPhoneNumber: function(encryptedPhoneNumber) {
-      const key = 'zohabzohapassword';
+      const key = process.env.VUE_APP_DECRYPT_KEY;
       const pass = crypto.createHash('sha256').update(String(key)).digest('base64').substring(0, 32);
       const iv = Buffer.from(key.slice(0, 16));
       const decipher = crypto.createDecipheriv('aes-256-cbc', pass, iv);
