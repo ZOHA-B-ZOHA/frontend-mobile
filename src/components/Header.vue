@@ -1,8 +1,8 @@
 <template>
   <header>
     <!-- header left -->
-    <button v-if="$route.name === 'Home'" @click="getUpdatedAchievement" class="icon-wrapper">
-      <img id="refresh" alt="새로고침" src="../assets/images/icons/refresh.svg" width="50" height="50" />
+    <button v-if="$route.name === 'Home'" @click="getUpdatedAchievement" class="icon-wrapper refresh">
+      <img alt="새로고침" src="../assets/images/icons/refresh.svg" width="50" height="50" />
     </button>
     <a v-else-if="$route.name === 'Earn' || $route.name === 'Verification' || $route.name === 'About'" @click="$router.go(-1);" class="icon-wrapper">
       <img id="back" alt="뒤로 가기" src="../assets/images/icons/arrow.svg" width="24" />
@@ -14,8 +14,8 @@
     <div v-else-if="$route.name === 'About'">내 정보</div>
     <div v-else-if="$route.name === 'Verification'">QR코드 인증하기</div>
     <!-- header right -->
-    <button v-if="$route.name === 'Home' && user" @click="toggleRanking" class="icon-wrapper">
-      <img id="btn-ranking" alt="" src="../assets/images/icons/ranking.svg" width="50" height="50" />
+    <button v-if="$route.name === 'Home' && user" @click="toggleRanking" class="icon-wrapper ranking">
+      <img alt="" src="../assets/images/icons/ranking.svg" width="50" height="50" />
     </button>
     <div v-else class="fake"></div>
     <!-- ranking -->
@@ -78,11 +78,11 @@ header {
 #logo {
   margin-top: 4px;
 }
-#refresh {
+.refresh {
   margin-left: 28px;
   margin-top: 16px;
 }
-#btn-ranking {
+.ranking {
   margin-right: 28px;
   margin-top: 16px;
 }
