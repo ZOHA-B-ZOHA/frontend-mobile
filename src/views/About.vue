@@ -17,7 +17,7 @@
     </section>
     <section>
       <div class="label">나의 쿠폰</div>
-      <div class ="label sub">*쿠폰은 중앙도서관점에서만 사용가능합니다.</div>
+      <div class ="label sub">*쿠폰은 도서관점에서만 사용가능합니다.</div>
       <div class="btn-main content rewardContainer">
         <Reward type="firstRoundPlus" :status="rewards.firstRoundPlus" v-on:triggerModal="showModal" />
         <Reward type="firstRoundFree" :status="rewards.firstRoundFree" v-on:triggerModal="showModal" />
