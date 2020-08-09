@@ -43,7 +43,7 @@ export default {
       const nowTime = Date.now();
       const secondGap = (nowTime - imageLastModifiedTime) / 1000; // 밀리초를 초로 변환
 
-      if (secondGap < 7) { // 찍은 지 7초 이상이 지났으면
+      if (secondGap > 7) { // 찍은 지 7초 이상이 지났으면
         this.modalType = 'imageTooOld';
         this.modalQuery = { useButton: true };
         this.isModalVisible = true;
