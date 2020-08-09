@@ -207,5 +207,6 @@ input, button, select {
   -moz-border-radius: 0;
   -o-border-radius: 0;
   border-radius:0;
+  -webkit-appearance: none;
 }
 </style>
