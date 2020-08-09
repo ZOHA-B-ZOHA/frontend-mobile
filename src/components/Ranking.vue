@@ -26,9 +26,9 @@
           <div class="people-num third">{{ rankings.third.userPhoneNumbers.length }}명</div>
         </div>
       </main>
-      <div v-else id="error">
+      <p v-else id="error">
         오류가 발생해서 랭킹을 받아 오지 못했습니다. 잠시 후에 다시 시도해 주시기 바랍니다.
-      </div>
+      </p>
     </div>
   </div>
 </template>
@@ -44,7 +44,7 @@ export default {
   },
   data: function() {
     return {
-      rankings: null,
+      rankings: {},
       currentUserIncluded: null,
     };
   },
@@ -200,6 +200,9 @@ main {
   color: #FFB68C;
 }
 #error {
-  color: black;
+  color: #B42828;
+  text-align: center;
+  margin: 25px;
+  word-break: keep-all;
 }
 </style>
