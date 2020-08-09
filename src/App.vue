@@ -20,7 +20,7 @@
         v-on:updateUserInfo="updateCurrentUser"
         v-on:updateJustEarned="updateJustEarned"
         v-on:getUpdatedAchievement="updateAchievement" />
-      <Modal v-if="isModalVisible" type="gotError" />
+      <!-- <Modal v-if="isModalVisible" type="gotError" /> -->
     </template>
   </div>
 </template>
@@ -28,13 +28,13 @@
 <script>
 import Header from './components/Header';
 import axios from 'axios';
-import Modal from './components/Modal';
+// import Modal from './components/Modal';
 
 export default {
   name: 'App',
   components: {
     Header,
-    Modal,
+    // Modal,
   },
   data: function() {
     return {
@@ -42,14 +42,14 @@ export default {
       currentUser: null,
       achievement: 0,
       justEarned: false,
-      isModalVisible: false,
+      // isModalVisible: false,
     }
   },
   created: function() {
-    const desktopList = ['win16', 'win32', 'win64', 'mac', 'macintel'];
-    if (desktopList.includes(navigator.platform.toLowerCase())) {
-      this.isDesktop = true;
-    } else {
+    // const desktopList = ['win16', 'win32', 'win64', 'mac', 'macintel'];
+    // if (desktopList.includes(navigator.platform.toLowerCase())) {
+    //   this.isDesktop = true;
+    // } else {
       axios.get('https://zohabzoha.com/api')
       .then((response) => {
         console.log(response)
@@ -57,9 +57,9 @@ export default {
       })
       .catch((error) => {
         console.log(error)
-        this.isModalVisible = true;
+        // this.isModalVisible = true;
       });
-    }
+    // }
   },
   methods: {
     authenticate: function(phoneNumber) {
@@ -71,7 +71,7 @@ export default {
       })
       .catch((error) => {
         console.log(error)
-        this.isModalVisible = true;
+        // this.isModalVisible = true;
       });
     },
     updateCurrentUser: function(purchaseCount, purchaseQuantity) {
@@ -89,7 +89,7 @@ export default {
         })
         .catch((error) => {
           console.log(error)
-          this.isModalVisible = true;
+          // this.isModalVisible = true;
         });
       }
     },
@@ -107,11 +107,16 @@ export default {
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
   font-weight: normal;
 }
-@font-face {
+/* @font-face {
   font-family: NanumSquareRound;
   src: url(./assets/fonts/NanumSquareRoundB.ttf) format("ttf");
   font-weight: bold;
-}
+} */
+/* @font-face {
+  font-family: 'Black Han Sans';
+  src: url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
+  font-weight: normal;
+} */
 * {
   font-family: NanumSquareRound;
 }
