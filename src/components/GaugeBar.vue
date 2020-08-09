@@ -9,7 +9,7 @@
       <path :d="`M${50-(50-29)*this.achievement} ${374-(374-136)*this.achievement}L50 374H200L${200+(221-200)*this.achievement} ${374-(374-136)*this.achievement}H${50-(50-29)*this.achievement}Z`" fill="url(#latte_gradient)"/>
       <image v-if="achievement >= 0.1 && achievement < 0.3" x="53" y="356" xlink:href="../assets/images/gaugebar/10to30.svg" />
       <image v-else-if="achievement >= 0.3 && achievement < 0.6" x="53" y="343" xlink:href="../assets/images/gaugebar/30to60.svg" />
-      <image v-else-if="achievement >= 0.6 && achievement <= 1.0" x="49" y="328" xlink:href="../assets/images/gaugebar/60to100.svg" />
+      <image v-else-if="achievement >= 0.6" x="49" y="328" xlink:href="../assets/images/gaugebar/60to100.svg" />
       <image v-if="achievement >= 0.1" :x="50-(50-29)*this.achievement+12" :y="374-(374-136)*this.achievement" xlink:href="../assets/images/gaugebar/overmilk.svg" />
       <image v-if="achievement >= 0.6" :x="200+(221-200)*this.achievement-60" :y="374-(374-136)*this.achievement-30" xlink:href="../assets/images/gaugebar/strawberries.svg" />
       <text v-if="achievement < 0.9" :x="50-(50-29)*this.achievement" :y="374-(374-136)*this.achievement-8" fill="white" font-size="1em">{{ (achievement * 100).toFixed(2) }}%</text>
