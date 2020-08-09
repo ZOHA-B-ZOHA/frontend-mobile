@@ -78,7 +78,7 @@ export default {
             default:
               break;
         }
-        this.bodyText = `${text1}\n${text2}\n\n정말 사용하시겠습니까?`;
+        this.bodyText = `[직원 확인용]\n\n${text1}\n${text2}\n\n정말 사용하시겠습니까?`;
         this.buttonText = '쿠폰 사용하기';
         break;
       case 'gotError':
