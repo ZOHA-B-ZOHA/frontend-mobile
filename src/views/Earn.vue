@@ -75,4 +75,7 @@ form button {
   margin-top: auto;
   margin-bottom: 35px;
 }
+input {
+  font-size: 16px !important;
+}
 </style>
