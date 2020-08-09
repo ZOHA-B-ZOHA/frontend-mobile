@@ -170,6 +170,15 @@ input.btn-main, select.btn-main {
   padding: 0px 10px;
   box-sizing: border-box; /* makes padding inclusive */
 }
+input.btn-main {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1.2px solid #FFFFFF;
+  box-sizing: border-box;
+  color: white;
+}
+input.btn-main::placeholder {
+  color: white;
+}
 a.btn-main, button.btn-main, label.btn-main {
   text-decoration: none;
   line-height: 50px; /* to center the text in a tag vertically */

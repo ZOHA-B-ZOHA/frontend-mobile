@@ -91,11 +91,14 @@ export default {
 </script>
 
 <style scoped>
-.content {
+.btn-main.content {
   height: fit-content;
-  box-sizing: border-box; /* makes padding inclusive */
   padding: 16px 0px 16px 12px;
   text-align: left;
+  background: none;
+  border: 1.2px solid #FFFFFF;
+  box-sizing: border-box;
+  color: white;
 }
 .rewardContainer {
   display: grid;
