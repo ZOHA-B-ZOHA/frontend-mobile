@@ -55,7 +55,7 @@ export default {
         })
         .then((response) => {
           this.$emit('updateJustEarned', response.data.justEarned);
-          this.$emit('getUpdatedAchievement', Math.round(Number(response.data.achievement) * 1000) / 1000);
+          this.$emit('getUpdatedAchievement', Number(response.data.achievement));
           this.$emit('updateUserInfo', response.data.purchaseCount, response.data.purchaseQuantity);
           const purchaseCountNow = Number(response.data.purchaseCountNow);
           if (purchaseCountNow === 1) {
@@ -101,7 +101,7 @@ export default {
         //     .then((response) => {
         //       console.log(response)
         //       this.$emit('updateJustEarned', response.data.justEarned);
-        //       this.$emit('getUpdatedAchievement', Math.round(Number(response.data.achievement) * 1000) / 1000);
+        //       this.$emit('getUpdatedAchievement', Number(response.data.achievement));
         //       this.$emit('updateUserInfo', response.data.purchaseCount, response.data.purchaseQuantity);
         //       const purchaseCountNow = Number(response.data.purchaseCountNow);
         //       if (purchaseCountNow === 1) {
