@@ -192,4 +192,10 @@ input, button, select {
   margin: 0px;
   padding: 0px;
 }
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url(./assets/images/icons/arrow_down.svg) no-repeat 95% 50%;
+}
 </style>
