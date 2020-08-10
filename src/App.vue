@@ -26,7 +26,8 @@
 
 <script>
 import Header from './components/Header';
-import axios from 'axios';
+// import axios from 'axios';
+import { api_main, api_authenticate } from '../fakeData';
 
 export default {
   name: 'App',
@@ -42,29 +43,33 @@ export default {
     }
   },
   created: function() {
-    const desktopList = ['win16', 'win32', 'win64', 'mac', 'macintel'];
-    if (desktopList.includes(navigator.platform.toLowerCase())) {
-      this.isDesktop = true;
-    } else {
-      axios.get('https://zohabzoha.com/api')
-      .then((response) => {
-        this.achievement = Math.round(Number(response.data.achievement) * 1000) / 1000;
-      })
-      .catch((error) => {
-        console.log(error)
-      });
-    }
+    this.achievement = api_main.response.data.achievement;
+    // // const desktopList = ['win16', 'win32', 'win64', 'mac', 'macintel'];
+    // // if (desktopList.includes(navigator.platform.toLowerCase())) {
+    // //   this.isDesktop = true;
+    // // } else {
+    //   axios.get('https://zohabzoha.com/api')
+    //   .then((response) => {
+    //     this.achievement = Math.round(Number(response.data.achievement) * 1000) / 1000;
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   });
+    // // }
   },
   methods: {
-    authenticate: function(phoneNumber) {
-      axios.post('https://zohabzoha.com/api/authenticate', { phoneNumber })
-      .then((response) => {
-        this.achievement = Math.round(Number(response.data.achievement) * 1000) / 1000;
-        this.currentUser = response.data.currentUser;
-      })
-      .catch((error) => {
-        console.log(error)
-      });
+    // authenticate: function(phoneNumber) {
+    authenticate: function() {
+      this.achievement = api_authenticate.response.data.achievement;
+      this.currentUser = api_authenticate.response.data.currentUser;
+      // axios.post('https://zohabzoha.com/api/authenticate', { phoneNumber })
+      // .then((response) => {
+      //   this.achievement = Math.round(Number(response.data.achievement) * 1000) / 1000;
+      //   this.currentUser = response.data.currentUser;
+      // })
+      // .catch((error) => {
+      //   console.log(error)
+      // });
     },
     updateCurrentUser: function(purchaseCount, purchaseQuantity) {
       this.currentUser.purchaseCount = purchaseCount;
@@ -74,13 +79,14 @@ export default {
       if (updatedAchievement) {
         this.achievement = Math.round(Number(updatedAchievement) * 1000) / 1000;
       } else {
-        axios.get('https://zohabzoha.com/api')
-        .then((response) => {
-          this.achievement = Math.round(Number(response.data.achievement) * 1000) / 1000;
-        })
-        .catch((error) => {
-          console.log(error)
-        });
+        this.achievement = api_main.response.data.achievement;
+        // axios.get('https://zohabzoha.com/api')
+        // .then((response) => {
+        //   this.achievement = Math.round(Number(response.data.achievement) * 1000) / 1000;
+        // })
+        // .catch((error) => {
+        //   console.log(error)
+        // });
       }
     },
     updateJustEarned: function(updatedJustEarned) {

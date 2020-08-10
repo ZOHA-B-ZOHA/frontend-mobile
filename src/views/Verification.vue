@@ -8,9 +8,10 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 import Modal from '../components/Modal';
 import { QrcodeCapture } from 'vue-qrcode-reader';
+import { api_verify } from '../../fakeData';
 
 export default {
   name: 'Verification',
@@ -35,7 +36,7 @@ export default {
     cameraInput.click();
   },
   methods: {
-    onDetect: async function() {
+    onDetect: async function(promise) {
       const cameraInput = document.getElementById('getqrimage');
       const imageFile = cameraInput.files[0];
       const imageLastModifiedTime = imageFile.lastModified;
@@ -47,95 +48,123 @@ export default {
         this.modalQuery = { useButton: true };
         this.isModalVisible = true;
       } else {
-        axios.post('https://zohabzoha.com/api/verify', {
-          phoneNumber: this.user.phoneNumber,
-          branch: this.$route.query.branch,
-          purchaseQuantity: this.$route.query.quantity,
-          verificationCode: process.env.VUE_APP_VERIFICATION_CODE,
-        })
-        .then((response) => {
-          this.$emit('updateJustEarned', response.data.justEarned);
-          this.$emit('getUpdatedAchievement', Math.round(Number(response.data.achievement) * 1000) / 1000);
-          this.$emit('updateUserInfo', response.data.purchaseCount, response.data.purchaseQuantity);
-          const purchaseCountNow = Number(response.data.purchaseCountNow);
-          if (purchaseCountNow === 1) {
-            this.modalType = 'firstPurchase';
-            this.modalQuery = { useButton: false };
+        // axios.post('https://zohabzoha.com/api/verify', {
+        //   phoneNumber: this.user.phoneNumber,
+        //   branch: this.$route.query.branch,
+        //   purchaseQuantity: this.$route.query.quantity,
+        //   verificationCode: process.env.VUE_APP_VERIFICATION_CODE,
+        // })
+        // .then((response) => {
+          // this.$emit('updateJustEarned', api_verify.response.data.justEarned);
+          // this.$emit('getUpdatedAchievement', Math.round(Number(api_verify.data.achievement) * 1000) / 1000);
+          // this.$emit('updateUserInfo', api_verify.response.data.purchaseCount, api_verify.response.data.purchaseQuantity);
+          // const purchaseCountNow = Number(api_verify.response.data.purchaseCountNow);
+          // if (purchaseCountNow === 1) {
+          //   this.modalType = 'firstPurchase';
+          //   this.modalQuery = { useButton: false };
+          //   this.isModalVisible = true;
+          // } else if (purchaseCountNow === 2) {
+          //   this.modalType = 'secondPurchase';
+          //   this.modalQuery = { useButton: false };
+          //   this.isModalVisible = true;
+          // } else if (purchaseCountNow === 3) {
+          //   this.modalType = 'thirdPurchase';
+          //   this.modalQuery = { useButton: false };
+          //   this.isModalVisible = true;
+          // } else if (purchaseCountNow >= 4) {
+          //   this.modalType = 'fourthOrMorePurchase';
+          //   this.modalQuery = { useButton: false };
+          //   this.isModalVisible = true;
+          // } else {
+          //   this.modalType = 'gotError';
+          //   this.modalQuery = { useButton: false };
+          //   this.isModalVisible = true;
+          // }
+        // })
+        // .catch(() => {
+        //   this.modalType = 'gotError';
+        //   this.modalQuery = { useButton: false };
+        //   this.isModalVisible = true;
+        // });
+
+        // QR
+        try {
+          const { content } = await promise;
+          if (content === null) {
+            this.modalType = 'QRNotDetected';
+            this.modalQuery = { useButton: true };
             this.isModalVisible = true;
-          } else if (purchaseCountNow === 2) {
-            this.modalType = 'secondPurchase';
-            this.modalQuery = { useButton: false };
-            this.isModalVisible = true;
-          } else if (purchaseCountNow === 3) {
-            this.modalType = 'thirdPurchase';
-            this.modalQuery = { useButton: false };
-            this.isModalVisible = true;
-          } else if (purchaseCountNow >= 4) {
-            this.modalType = 'fourthOrMorePurchase';
-            this.modalQuery = { useButton: false };
-            this.isModalVisible = true;
+          } else if (content === process.env.VUE_APP_VERIFICATION_CODE) {
+            // axios.post('https://zohabzoha.com/api/verify', {
+            //   phoneNumber: this.user.phoneNumber,
+            //   branch: this.$route.query.branch,
+            //   purchaseQuantity: this.$route.query.quantity,
+            //   verificationCode: content,
+            // }, { headers: {  } })
+            // .then((response) => {
+              // console.log(response)
+              // this.$emit('updateJustEarned', response.data.justEarned);
+              // this.$emit('getUpdatedAchievement', Math.round(Number(response.data.achievement) * 1000) / 1000);
+              // this.$emit('updateUserInfo', response.data.purchaseCount, response.data.purchaseQuantity);
+              // const purchaseCountNow = Number(response.data.purchaseCountNow);
+              // if (purchaseCountNow === 1) {
+              //   this.modalType = 'firstPurchase';
+              //   this.isModalVisible = true;
+              // } else if (purchaseCountNow === 2) {
+              //   this.modalType = 'secondPurchase';
+              //   this.isModalVisible = true;
+              // } else if (purchaseCountNow === 3) {
+              //   this.modalType = 'thirdPurchase';
+              //   this.isModalVisible = true;
+              // } else if (purchaseCountNow >= 4) {
+              //   this.modalType = 'fourthOrMorePurchase';
+              //   this.isModalVisible = true;
+              // } else {
+              //   this.modalType = 'gotError';
+              //   this.isModalVisible = true;
+              // }
+              this.$emit('updateJustEarned', api_verify.response.data.justEarned);
+              this.$emit('getUpdatedAchievement', Math.round(Number(api_verify.response.data.achievement) * 1000) / 1000);
+              this.$emit('updateUserInfo', api_verify.response.data.purchaseCount, api_verify.response.data.purchaseQuantity);
+              const purchaseCountNow = Number(api_verify.response.data.purchaseCountNow);
+              if (purchaseCountNow === 1) {
+                this.modalType = 'firstPurchase';
+                this.modalQuery = { useButton: false };
+                this.isModalVisible = true;
+              } else if (purchaseCountNow === 2) {
+                this.modalType = 'secondPurchase';
+                this.modalQuery = { useButton: false };
+                this.isModalVisible = true;
+              } else if (purchaseCountNow === 3) {
+                this.modalType = 'thirdPurchase';
+                this.modalQuery = { useButton: false };
+                this.isModalVisible = true;
+              } else if (purchaseCountNow >= 4) {
+                this.modalType = 'fourthOrMorePurchase';
+                this.modalQuery = { useButton: false };
+                this.isModalVisible = true;
+              } else {
+                this.modalType = 'gotError';
+                this.modalQuery = { useButton: false };
+                this.isModalVisible = true;
+              }
+            // })
+            // .catch((error) => {
+            //   console.log(error);
+            //   this.modalType = 'gotError';
+            //   this.isModalVisible = true;
+            // });
           } else {
-            this.modalType = 'gotError';
-            this.modalQuery = { useButton: false };
+            this.modalType = 'invalidQRCode';
+            this.modalQuery = { useButton: true };
             this.isModalVisible = true;
           }
-        })
-        .catch(() => {
+        } catch (error) {
+          console.log(error);
           this.modalType = 'gotError';
-          this.modalQuery = { useButton: false };
+          this.modalQuery = { useButton: true };
           this.isModalVisible = true;
-        });
-        // try {
-        //   const { content } = await promise;
-        //   if (content === null) {
-        //     this.modalType = 'QRNotDetected';
-        //     this.modalQuery = { useButton: true };
-        //     this.isModalVisible = true;
-        //   } else if (content === process.env.VUE_APP_VERIFICATION_CODE) {
-        //     axios.post('https://zohabzoha.com/api/verify', {
-        //       phoneNumber: this.user.phoneNumber,
-        //       branch: this.$route.query.branch,
-        //       purchaseQuantity: this.$route.query.quantity,
-        //       verificationCode: content,
-        //     }, { headers: {  } })
-        //     .then((response) => {
-        //       console.log(response)
-        //       this.$emit('updateJustEarned', response.data.justEarned);
-        //       this.$emit('getUpdatedAchievement', Math.round(Number(response.data.achievement) * 1000) / 1000);
-        //       this.$emit('updateUserInfo', response.data.purchaseCount, response.data.purchaseQuantity);
-        //       const purchaseCountNow = Number(response.data.purchaseCountNow);
-        //       if (purchaseCountNow === 1) {
-        //         this.modalType = 'firstPurchase';
-        //         this.isModalVisible = true;
-        //       } else if (purchaseCountNow === 2) {
-        //         this.modalType = 'secondPurchase';
-        //         this.isModalVisible = true;
-        //       } else if (purchaseCountNow === 3) {
-        //         this.modalType = 'thirdPurchase';
-        //         this.isModalVisible = true;
-        //       } else if (purchaseCountNow >= 4) {
-        //         this.modalType = 'fourthOrMorePurchase';
-        //         this.isModalVisible = true;
-        //       } else {
-        //         this.modalType = 'gotError';
-        //         this.isModalVisible = true;
-        //       }
-        //     })
-        //     .catch((error) => {
-        //       console.log(error);
-        //       this.modalType = 'gotError';
-        //       this.isModalVisible = true;
-        //     });
-        //   } else {
-        //     this.modalType = 'invalidQRCode';
-        //     this.modalQuery = { useButton: true };
-        //     this.isModalVisible = true;
-        //   }
-        // } catch (error) {
-        //   console.log(error);
-        //   this.modalType = 'gotError';
-        //   this.isModalVisible = true;
-        // }
+        }
       }
     },
   },
