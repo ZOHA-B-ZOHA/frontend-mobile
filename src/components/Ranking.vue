@@ -44,7 +44,7 @@ export default {
   },
   data: function() {
     return {
-      rankings: {},
+      rankings: null,
       currentUserIncluded: null,
       catchError: false,
     };
