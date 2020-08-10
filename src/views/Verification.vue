@@ -60,23 +60,29 @@ export default {
           const purchaseCountNow = Number(response.data.purchaseCountNow);
           if (purchaseCountNow === 1) {
             this.modalType = 'firstPurchase';
+            this.modalQuery = { useButton: false };
             this.isModalVisible = true;
           } else if (purchaseCountNow === 2) {
             this.modalType = 'secondPurchase';
+            this.modalQuery = { useButton: false };
             this.isModalVisible = true;
           } else if (purchaseCountNow === 3) {
             this.modalType = 'thirdPurchase';
+            this.modalQuery = { useButton: false };
             this.isModalVisible = true;
           } else if (purchaseCountNow >= 4) {
             this.modalType = 'fourthOrMorePurchase';
+            this.modalQuery = { useButton: false };
             this.isModalVisible = true;
           } else {
             this.modalType = 'gotError';
+            this.modalQuery = { useButton: false };
             this.isModalVisible = true;
           }
         })
         .catch(() => {
           this.modalType = 'gotError';
+          this.modalQuery = { useButton: false };
           this.isModalVisible = true;
         });
         // try {
