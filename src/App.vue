@@ -194,8 +194,12 @@ input, button, select {
   -moz-border-radius: 0;
   -o-border-radius: 0;
   border-radius:0;
-  -webkit-appearance: none;
   margin: 0px;
   padding: 0px;
+}
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: url(./assets/images/icons/arrow_down.png) no-repeat 95% 50%;
 }
 </style>
