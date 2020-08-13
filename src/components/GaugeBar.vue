@@ -46,7 +46,7 @@
           <stop offset="1" stop-color="#FF5A5A"/>
         </linearGradient>
       </defs>
-      <text :x="50-(50-29)*this.achievement" :y="374-(374-136)*this.achievement-8" fill="white" font-size="0.5em">*12일 생협 전체 구매수량 미반영</text>
+      <text :x="50-(50-29)*this.achievement" :y="374-(374-136)*this.achievement-8" fill="white" font-size="0.5em">*12일 생협 전체 구매수량 업데이트 완료</text>
     </svg>
   </section>
 </template>
