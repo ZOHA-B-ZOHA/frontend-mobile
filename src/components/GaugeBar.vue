@@ -12,7 +12,7 @@
       <image v-else-if="achievement >= 0.6" x="49" y="328" xlink:href="../assets/images/gaugebar/60to100.svg" />
       <image v-if="achievement >= 0.1" :x="50-(50-29)*this.achievement+12" :y="374-(374-136)*this.achievement" xlink:href="../assets/images/gaugebar/overmilk.svg" />
       <image v-if="achievement >= 0.6" :x="200+(221-200)*this.achievement-60" :y="374-(374-136)*this.achievement-30" xlink:href="../assets/images/gaugebar/strawberries.svg" />
-      <text v-if="achievement < 0.9" :x="50-(50-29)*this.achievement" :y="374-(374-136)*this.achievement-22" fill="white" font-size="1em">{{ (achievement * 100).toFixed(2) }}%</text>
+      <text v-if="achievement < 0.9" :x="50-(50-29)*this.achievement" :y="374-(374-136)*this.achievement-36" fill="white" font-size="1em">{{ (achievement * 100).toFixed(2) }}%</text>
       <text v-else-if="achievement >= 0.9" x="123" y="70" text-anchor="middle" fill="white" font-size="2em">{{ (achievement * 100).toFixed(2) }}%</text>
       <path d="M245 117.288H1V129.318H245V117.288Z" fill="#F2F2F2" fill-opacity="0.2" stroke="white" stroke-width="2" stroke-miterlimit="10"/>
       <path d="M231 101.249H15V117.288H231V101.249Z" fill="#F2F2F2" fill-opacity="0.2" stroke="white" stroke-width="2" stroke-miterlimit="10"/>
@@ -46,7 +46,8 @@
           <stop offset="1" stop-color="#FF5A5A"/>
         </linearGradient>
       </defs>
-      <text :x="50-(50-29)*this.achievement" :y="374-(374-136)*this.achievement-8" fill="white" font-size="0.5em">*12일 생협 전체 구매수량 업데이트 완료</text>
+      <text :x="50-(50-29)*this.achievement" :y="374-(374-136)*this.achievement-20" fill="white" font-size="0.5em">*13~14일 전체 반영 결과, 1회차 목표치 달성!</text>
+      <text :x="50-(50-29)*this.achievement" :y="374-(374-136)*this.achievement-8" fill="white" font-size="0.5em">2회차도 열심히 달려보아요~</text>
     </svg>
   </section>
 </template>
