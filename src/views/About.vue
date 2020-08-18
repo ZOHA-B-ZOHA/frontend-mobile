@@ -17,8 +17,8 @@
     </section>
     <section>
       <div class="label">나의 쿠폰<button id="guide" @click="showRewardGuideModal">사용방법</button></div>
-      <div class ="label sub">*쿠폰은 도서관점에서만 사용가능합니다.</div>
-      <div class ="label sub" style="line-height: 16px;">*쿠폰은 지급된 이후로 2주일간 사용 가능합니다. 쿠폰을 눌러서 확인해 주세요.</div>
+      <div class ="label sub">*쿠폰은 느티나무 도서관점, 동원관점, 자하연점, 137동점에서 사용가능합니다.</div>
+      <div class ="label sub" style="margin-bottom: 10px;">*쿠폰은 지급된 이후로 2주일간 사용 가능합니다. 쿠폰을 눌러서 확인해 주세요.</div>
       <div class="btn-main content rewardContainer">
         <Reward v-if="rewards.firstRoundPlus" type="firstRoundPlus" :status="rewards.firstRoundPlus" v-on:triggerModal="showRedeemModal" />
         <Reward v-if="rewards.firstRoundFree" type="firstRoundFree" :status="rewards.firstRoundFree" v-on:triggerModal="showRedeemModal" />
@@ -117,8 +117,8 @@ export default {
 }
 .sub {
   font-size: 12px;
-  line-height: 12px;
-  margin-bottom: 12px;
+  line-height: 16px;
+  margin-bottom: 6px;
 }
 #guide {
   border: none;
