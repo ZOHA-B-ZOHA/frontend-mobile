@@ -34,7 +34,6 @@
 </template>
 
 <script>
-// import axios from 'axios';
 import { api_rankings } from '../demo-data';
 import crypto from 'crypto-browserify'; // 브라우저의 crypto랑 이름이 겹치는데 괜찮으려나....? 어쨌든 지금 오류는 안 나긴 함
 
@@ -51,40 +50,6 @@ export default {
     };
   },
   created: function() {
-    // axios.post('https://zohabzoha.com/api/rankings', { phoneNumber: this.phoneNumber })
-    // .then((response) => {
-    //   this.rankings = response.data.rankings;
-
-    //   const firstRanked = this.rankings.first.userPhoneNumbers;
-    //   const secondRanked = this.rankings.second.userPhoneNumbers;
-    //   const thirdRanked = this.rankings.third.userPhoneNumbers;
-
-    //   for (let i=0; i<firstRanked.length; i++) {
-    //     if (this.decryptPhoneNumber(firstRanked[i]) === this.phoneNumber) {
-    //       this.currentUserIncluded = 1;
-    //       break;
-    //     }
-    //   }
-    //   if (!this.currentUserIncluded) {
-    //     for (let i=0; i<secondRanked.length; i++) {
-    //       if (this.decryptPhoneNumber(secondRanked[i]) === this.phoneNumber) {
-    //         this.currentUserIncluded = 2;
-    //         break;
-    //       }
-    //     }
-    //   }
-    //   if (!this.currentUserIncluded) {
-    //     for (let i=0; i<thirdRanked.length; i++) {
-    //       if (this.decryptPhoneNumber(thirdRanked[i]) === this.phoneNumber) {
-    //         this.currentUserIncluded = 3;
-    //         break;
-    //       }
-    //     }
-    //   }
-    // })
-    // .catch(() => {
-    //   this.catchError = true;
-    // });
     this.rankings = api_rankings.response.data.rankings;
 
     const firstRanked = this.rankings.first.userPhoneNumbers;

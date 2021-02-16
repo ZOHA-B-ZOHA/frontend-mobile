@@ -26,7 +26,6 @@
 
 <script>
 import Header from './components/Header';
-// import axios from 'axios';
 import { api_main, api_authenticate } from './demo-data';
 
 export default {
@@ -47,26 +46,11 @@ export default {
     if (desktopList.includes(navigator.platform.toLowerCase())) {
       this.isDesktop = true;
     } else {
-      // axios.get('https://zohabzoha.com/api')
-      // .then((response) => {
-      //   this.achievement = Number(response.data.achievement);
-      // })
-      // .catch((error) => {
-      //   console.log(error)
-      // });
       this.achievement = api_main.response.data.achievement;
     }
   },
   methods: {
     authenticate: function(/* phoneNumber */) {
-      // axios.post('https://zohabzoha.com/api/authenticate', { phoneNumber })
-      // .then((response) => {
-      //   this.achievement = Number(response.data.achievement);
-      //   this.currentUser = response.data.currentUser;
-      // })
-      // .catch((error) => {
-      //   console.log(error)
-      // });
       this.achievement = api_authenticate.response.data.achievement;
       this.currentUser = api_authenticate.response.data.currentUser;
     },
@@ -75,17 +59,7 @@ export default {
       this.currentUser.purchaseQuantity = purchaseQuantity;
     },
     updateAchievement: function(updatedAchievement) {
-      if (updatedAchievement) {
-        this.achievement = Number(updatedAchievement);
-      } else {
-        // axios.get('https://zohabzoha.com/api')
-        // .then((response) => {
-        //   this.achievement = Number(response.data.achievement);
-        // })
-        // .catch((error) => {
-        //   console.log(error)
-        // });
-      }
+      if (updatedAchievement) this.achievement = Number(updatedAchievement);
     },
     updateJustEarned: function(updatedJustEarned) {
       this.justEarned = updatedJustEarned;
