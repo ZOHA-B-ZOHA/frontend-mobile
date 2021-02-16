@@ -9,6 +9,7 @@
       <form @submit.prevent="handleSubmit">
         <label for="phoneNumber" class="label">전화번호 입력</label>
         <p><img width="12" src="../assets/icon_alert.png" alt="주의" />전화번호 입력 시 개인정보 수집에 동의하는 것으로 간주됩니다.<br />개인정보는 리워드 지급에만 사용되며, 이벤트 종료 후 한 달 이내로 파기합니다.</p>
+        <p>(데모) 아무 번호나 입력해 주시면 됩니다!😉</p>
         <div>
           <input id="phoneNumber" class="btn-main" type="text" name="phoneNumber" placeholder="예) 01012345678" pattern="(01\d){1}\d{3,4}\d{4}" maxlength="11" required />
           <button type="submit" class="btn-main">확인</button>
