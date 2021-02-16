@@ -32,7 +32,8 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
+import { api_rewards, api_redeem } from '../demo-data';
 import Reward from '../components/Reward';
 import Modal from '../components/Modal';
 
@@ -55,13 +56,14 @@ export default {
     };
   },
   created: function() {
-    axios.post('https://zohabzoha.com/api/rewards', { phoneNumber: this.user.phoneNumber })
-    .then((response) => {
-      this.rewards = response.data.rewards;
-    })
-    .catch(() => {
-      this.catchError = true;
-    })
+    // axios.post('https://zohabzoha.com/api/rewards', { phoneNumber: this.user.phoneNumber })
+    // .then((response) => {
+    //   this.rewards = response.data.rewards;
+    // })
+    // .catch(() => {
+    //   this.catchError = true;
+    // })
+    this.rewards = api_rewards.response.data.rewards;
   },
   methods: {
     showRewardGuideModal: function() {
@@ -77,19 +79,21 @@ export default {
       this.modalType = 'beforeRedeem';
       this.isModalVisible = true;
     },
-    redeem: function(rewardType, phoneNumber=this.user.phoneNumber) {
-      axios.post('https://zohabzoha.com/api/redeem', {
-        rewardType,
-        phoneNumber,
-      })
-      .then((response) => {
-        this.rewards = response.data.rewards;
-        this.isModalVisible = false;
-      })
-      .catch(() => {
-        this.modalType = 'gotError';
-        this.isModalVisible = true;
-      });
+    redeem: function(/* rewardType, phoneNumber=this.user.phoneNumber */) {
+      // axios.post('https://zohabzoha.com/api/redeem', {
+      //   rewardType,
+      //   phoneNumber,
+      // })
+      // .then((response) => {
+      //   this.rewards = response.data.rewards;
+      //   this.isModalVisible = false;
+      // })
+      // .catch(() => {
+      //   this.modalType = 'gotError';
+      //   this.isModalVisible = true;
+      // });
+      this.rewards = api_redeem.response.data.rewards;
+      this.isModalVisible = false;
     },
   },
 }
