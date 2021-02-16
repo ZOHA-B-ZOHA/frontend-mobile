@@ -86,6 +86,8 @@ export default {
         //   this.modalQuery = { useButton: false };
         //   this.isModalVisible = true;
         // });
+        this.$emit('updateJustEarned', api_verify.response.data.justEarned);
+        this.$emit('getUpdatedAchievement', Number(api_verify.response.data.achievement));
         this.$emit('updateUserInfo', api_verify.response.data.purchaseCount, api_verify.response.data.purchaseQuantity);
         const purchaseCountNow = api_verify.response.data.purchaseCountNow;
         if (purchaseCountNow === 1) {
